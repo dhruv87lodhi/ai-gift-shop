@@ -4,11 +4,21 @@ import OccasionCard from "@/components/OccasionCard";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
 import Chatbot from "@/components/Chatbot";
-import { occasions, categories, products } from "@/data/mockData";
+import { occasions, categories } from "@/data/mockData";
 
-export default function Home() {
+export default async function Home() {
   const featuredOccasions = occasions.slice(0, 3);
-  const featuredProducts = products.slice(0, 3);
+  
+  let featuredProducts = [];
+  try {
+    const res = await fetch("http://127.0.0.1:8000/recommend?query=trending", { next: { revalidate: 60 } });
+    if (res.ok) {
+      const data = await res.json();
+      featuredProducts = data.recommendations.slice(0, 3);
+    }
+  } catch (err) {
+    console.error("Failed to fetch trending products:", err);
+  }
 
   return (
     <div className="flex flex-col min-h-screen">

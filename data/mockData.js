@@ -2,8 +2,8 @@ export const occasions = [
   { id: "anniversary", name: "Anniversary", image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&q=80" },
   { id: "wedding", name: "Wedding", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" },
   { id: "valentines", name: "Valentine's Day", image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&q=80" },
-  { id: "graduation", name: "Graduation", image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&q=80" },
-    { id: "birthday", name: "Birthday", image: "https://images.unsplash.com/photo-1530103862676-de8892795f94?w=500&q=80" },
+  { id: "graduation", name: "Graduation", image: "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80" },
+    { id: "birthday", name: "Birthday", image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80" },
 ];
 
 export const categories = [
@@ -62,7 +62,7 @@ export const products = [
     price: 120.00,
     category: "jewelry",
     occasions: ["anniversary", "birthday", "valentines"],
-    image: "https://images.unsplash.com/photo-1599643478514-4a484347a8cc?w=500&q=80",
+    image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80",
     description: "A beautiful sterling silver necklace that can be engraved with a custom message or initials.",
   },
   {
@@ -89,7 +89,7 @@ export const products = [
     price: 89.99,
     category: "gaming",
     occasions: ["birthday"],
-    image: "https://images.unsplash.com/photo-1527814050087-379381547996?w=500&q=80",
+    image: "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80",
     description: "Ultra-lightweight wireless gaming mouse with precision optical sensor.",
   },
   {

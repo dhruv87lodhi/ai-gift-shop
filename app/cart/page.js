@@ -43,7 +43,7 @@ export default function CartPage() {
             {cartItems.map((item) => (
               <div key={item.id} className="flex flex-col sm:flex-row gap-6 p-6 glass rounded-3xl border border-white/5 items-center transition-all hover:shadow-lg">
                 <div className="relative w-32 h-32 rounded-2xl overflow-hidden bg-[#111] flex-shrink-0">
-                  <Image src={item.image} alt={item.name} fill className="object-cover" />
+                  <Image src={item.image} alt={item.name} fill className="object-cover" onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.srcset = ""; }} />
                 </div>
                 <div className="flex-1 w-full">
                   <div className="flex justify-between items-start mb-2">

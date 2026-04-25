@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Heart } from "lucide-react";
@@ -11,6 +13,10 @@ export default function ProductCard({ product }) {
           alt={product.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80";
+            e.currentTarget.srcset = "";
+          }}
         />
         <button className="absolute top-3 right-3 p-2 bg-black/50 backdrop-blur-md rounded-full text-gray-300 hover:text-white hover:bg-[#caa161] transition-colors z-10">
           <Heart className="w-5 h-5" />
@@ -22,7 +28,7 @@ export default function ProductCard({ product }) {
             {product.category}
           </span>
           <span className="font-bold text-lg text-white">
-            ${product.price.toFixed(2)}
+            ${Number(product.price).toFixed(2)}
           </span>
         </div>
         <h3 className="text-lg font-bold text-white mb-2 line-clamp-1 group-hover:text-[#caa161] transition-colors">

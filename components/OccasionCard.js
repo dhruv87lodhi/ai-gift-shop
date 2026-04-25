@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -15,6 +17,7 @@ export default function OccasionCard({ occasion }) {
           alt={occasion.name}
           fill
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.srcset = ""; }}
         />
         {/* Subtle gradient overlay to merge with bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-transparent opacity-90" />

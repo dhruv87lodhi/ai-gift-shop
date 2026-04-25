@@ -19,13 +19,7 @@ export default function Chatbot() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   
-  // Track conversation state
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState({
-    recipient: "",
-    occasion: "",
-    interests: ""
-  });
+  // Conversation state is now handled by the backend
 
   const messagesEndRef = useRef(null);
 
@@ -37,12 +31,12 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const processInput = (text) => {
+  const processInput = async (text) => {
     if (!text.trim()) return;
 
     const userMsg = { id: Date.now(), type: "user", text };
     
-    // Remove suggestions from the last bot message so they don't persist
+    // Update local UI immediately with user message
     setMessages((prev) => {
       const newMsgs = [...prev];
       const lastMsg = newMsgs[newMsgs.length - 1];
@@ -55,56 +49,58 @@ export default function Chatbot() {
     setInputValue("");
     setIsTyping(true);
 
-    // AI Logic Flow
-    setTimeout(() => {
-      let botResponse = "";
-      let suggestions = null;
-      
-      if (step === 0) {
-        setAnswers(prev => ({ ...prev, recipient: text }));
-        botResponse = `Got it, finding something amazing for ${text}. What is the special occasion?`;
-        suggestions = ["Birthday", "Anniversary", "Wedding", "Just Because"];
-        setStep(1);
-      } else if (step === 1) {
-        setAnswers(prev => ({ ...prev, occasion: text }));
-        botResponse = "Perfect! Lastly, what are their main interests or hobbies?";
-        suggestions = ["Tech Gadgets", "Gaming", "Lifestyle & Home", "Experiences"];
-        setStep(2);
-      } else if (step === 2) {
-        setAnswers(prev => ({ ...prev, interests: text }));
-        botResponse = "Excellent! I'm analyzing our entire catalog to find the perfect matches...";
-        setStep(3);
-        
-        // Build URL and Redirect
-        setTimeout(() => {
-          const params = new URLSearchParams({
-            recipient: answers.recipient || "them",
-            occasion: answers.occasion || "special occasion",
-            interests: text // the final answer
-          });
-          setIsOpen(false);
-          router.push(`/ai?${params.toString()}`);
-          
-          // Reset chat state after redirect
-          setTimeout(() => {
-            setStep(0);
-            setAnswers({ recipient: "", occasion: "", interests: "" });
-            setMessages([{ 
-              id: Date.now(), 
-              type: "bot", 
-              text: "Hi again! Who are you shopping for this time?",
-              suggestions: ["Mom", "Partner", "Friend", "Colleague"] 
-            }]);
-          }, 1000);
-        }, 2000);
-      }
+    const startTime = Date.now();
 
+    try {
+      const response = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text }),
+      });
+
+      if (!response.ok) throw new Error("Failed to connect to AI service");
+
+      const data = await response.json();
+      
+      // Ensure a snappy but natural feel (500ms delay)
+      const elapsedTime = Date.now() - startTime;
+      const delay = Math.max(0, 500 - elapsedTime);
+      await new Promise(resolve => setTimeout(resolve, delay));
+
+      const botMsg = { 
+        id: Date.now() + 1, 
+        type: "bot", 
+        text: data.response,
+        suggestions: data.suggestions || null,
+        recommendations: data.recommendations || null
+      };
+
+      setMessages((prev) => [...prev, botMsg]);
+
+      // If recommendations are returned, redirect after a longer delay
+      if (data.finished && data.recommendations) {
+        setTimeout(() => {
+          setIsOpen(false);
+          const params = new URLSearchParams({
+            q: text,
+            isAI: "true"
+          });
+          router.push(`/ai?${params.toString()}`);
+        }, 2000); // Give user 2 seconds to see the "close options" in chat
+      }
+    } catch (error) {
+      console.error("Chatbot Error:", error);
       setMessages((prev) => [
-        ...prev,
-        { id: Date.now() + 1, type: "bot", text: botResponse, suggestions }
+        ...prev, 
+        { 
+          id: Date.now() + 1, 
+          type: "bot", 
+          text: "I'm having trouble connecting to my brain right now. 🧠 (Make sure the AI service is running on port 8000!)" 
+        }
       ]);
+    } finally {
       setIsTyping(false);
-    }, 1200);
+    }
   };
 
   const handleSend = (e) => {
@@ -197,6 +193,56 @@ export default function Chatbot() {
                       {msg.text}
                     </div>
 
+                    {/* Inline Recommendations (Close Options) */}
+                    {msg.recommendations && (
+                      <div className="space-y-4 w-full">
+                        <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 no-scrollbar scroll-smooth">
+                          {msg.recommendations.slice(0, 4).map((prod, pidx) => (
+                            <motion.div
+                              key={pidx}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: pidx * 0.1 }}
+                              className="flex-shrink-0 w-36 bg-[#1a1a1a] border border-white/10 rounded-xl p-2 hover:border-[#caa161]/50 transition-colors cursor-pointer group"
+                              onClick={() => router.push(`/product/${prod.id}`)}
+                            >
+                              <div className="aspect-square bg-zinc-800 rounded-lg mb-2 overflow-hidden flex items-center justify-center relative">
+                                 {prod.image ? (
+                                   <img 
+                                     src={prod.image} 
+                                     alt={prod.name} 
+                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                     onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.onerror = null; }}
+                                   />
+                                 ) : (
+                                   <Gift className="w-6 h-6 text-[#caa161] opacity-50" />
+                                 )}
+                                 <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-[#caa161] text-[10px] font-bold rounded text-white shadow-sm">
+                                   ${prod.price}
+                                 </div>
+                              </div>
+                              <h4 className="text-[11px] font-bold text-gray-200 line-clamp-1">{prod.name}</h4>
+                              <p className="text-[9px] text-gray-500 mt-0.5 line-clamp-1">{prod.category}</p>
+                            </motion.div>
+                          ))}
+                        </div>
+                        
+                        {/* VIEW ALL RESULTS BUTTON */}
+                        <motion.button
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          onClick={() => {
+                            const params = new URLSearchParams({ q: msg.text.split("SEARCH_QUERY:")[1] || "gifts", isAI: "true" });
+                            router.push(`/ai?${params.toString()}`);
+                          }}
+                          className="w-full py-2.5 bg-gradient-to-r from-[#caa161]/20 to-[#b08a50]/20 hover:from-[#caa161]/40 hover:to-[#b08a50]/40 text-[#caa161] border border-[#caa161]/30 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 group"
+                        >
+                          View All 100+ Results
+                          <Sparkles className="w-3 h-3 group-hover:rotate-12 transition-transform" />
+                        </motion.button>
+                      </div>
+                    )}
+
                     {/* Quick Suggestion Chips */}
                     {msg.suggestions && (
                       <div className="flex flex-wrap gap-2 mt-1">
@@ -207,7 +253,7 @@ export default function Chatbot() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: idx * 0.1 }}
                             onClick={() => handleSuggestionClick(suggestion)}
-                            disabled={step === 3 || isTyping}
+                            disabled={isTyping}
                             className="px-3 py-1.5 bg-[#1a1a1a] hover:bg-[#caa161]/20 text-gray-300 hover:text-[#caa161] rounded-full text-xs font-semibold border border-white/10 hover:border-[#caa161] transition-all"
                           >
                             {suggestion}
@@ -264,12 +310,12 @@ export default function Chatbot() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your answer..."
-                  disabled={step === 3 || isTyping}
+                  disabled={isTyping}
                   className="flex-1 bg-[#111] border border-white/10 focus:border-[#caa161] rounded-2xl px-5 py-3 text-[15px] focus:outline-none transition-all text-white disabled:opacity-50 shadow-inner"
                 />
                 <button
                   type="submit"
-                  disabled={!inputValue.trim() || isTyping || step === 3}
+                  disabled={!inputValue.trim() || isTyping}
                   className="p-3 bg-gradient-to-r from-[#caa161] to-[#b08a50] hover:from-[#b08a50] hover:to-[#9a7638] text-white rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shrink-0 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <Send className="w-5 h-5 -ml-0.5" />

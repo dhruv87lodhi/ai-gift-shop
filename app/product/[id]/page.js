@@ -2,24 +2,81 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Check, Truck, ShieldCheck, ShoppingCart } from "lucide-react";
-import { products } from "@/data/mockData";
+import { ArrowLeft, Check, Truck, ShieldCheck, ShoppingCart, Loader2 } from "lucide-react";
 import Chatbot from "@/components/Chatbot";
 import { useCart } from "@/context/CartContext";
-import { useState, use } from "react";
+import { useState, useEffect, use } from "react";
 
 export default function ProductPage({ params }) {
   const resolvedParams = use(params);
   const { id } = resolvedParams;
-  const product = products.find((p) => p.id === id) || products[0];
+  const [product, setProduct] = useState(null);
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
 
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const [productRes, similarRes] = await Promise.all([
+          fetch(`http://localhost:8000/product/${id}`),
+          fetch(`http://localhost:8000/product/${id}/similar`)
+        ]);
+
+        if (productRes.ok) {
+          const data = await productRes.json();
+          setProduct(data);
+        } else {
+          console.error("Failed to fetch product");
+        }
+
+        if (similarRes.ok) {
+          const similarData = await similarRes.json();
+          setSimilarProducts(similarData.similar || []);
+        }
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchProductData();
+  }, [id]);
+
   const handleAddToCart = () => {
-    addToCart(product);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    if (product) {
+      addToCart(product);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    }
   };
+
+  const handleAddSimilarToCart = (e, similarProduct) => {
+    e.preventDefault();
+    addToCart(similarProduct);
+    // Could add per-item state, but for quick add, toast is handled globally or via simple UI
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-[#caa161] animate-spin" />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
+        <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
+        <p className="text-gray-400 mb-8">We couldn't find the product you're looking for.</p>
+        <Link href="/" className="px-6 py-3 bg-[#caa161] text-white rounded-full font-bold">
+          Back to Home
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen px-6 py-12 max-w-7xl mx-auto">
@@ -27,7 +84,7 @@ export default function ProductPage({ params }) {
         <ArrowLeft className="w-4 h-4" /> Back to shopping
       </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
         {/* Product Image */}
         <div className="relative aspect-square w-full rounded-3xl overflow-hidden glass border border-white/5">
           <Image
@@ -35,6 +92,7 @@ export default function ProductPage({ params }) {
             alt={product.name}
             fill
             className="object-cover"
+            onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.srcset = ""; }}
           />
         </div>
 
@@ -47,7 +105,7 @@ export default function ProductPage({ params }) {
             {product.name}
           </h1>
           <p className="text-3xl font-bold text-white mb-6">
-            ${product.price.toFixed(2)}
+            ${Number(product.price).toFixed(2)}
           </p>
           <p className="text-lg text-gray-400 mb-8 leading-relaxed">
             {product.description}
@@ -90,6 +148,64 @@ export default function ProductPage({ params }) {
           </button>
         </div>
       </div>
+
+      {/* Similar Products Section */}
+      {similarProducts.length > 0 && (
+        <div className="mt-12 border-t border-white/10 pt-16 mb-16">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-8 w-1 bg-[#caa161] rounded-full"></div>
+            <h2 className="text-3xl font-bold text-white">You May Also Like</h2>
+          </div>
+          
+          <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar">
+            {similarProducts.map((simProd) => (
+              <div 
+                key={simProd.id} 
+                className="snap-start shrink-0 w-72 glass p-4 rounded-2xl border border-gray-200 dark:border-zinc-800 hover:border-[#caa161] transition-all group flex flex-col relative"
+              >
+                {/* Recommended Badge */}
+                <div className="absolute top-6 left-6 z-10 px-2 py-1 bg-[#caa161] text-white text-[10px] font-bold uppercase tracking-wider rounded-md shadow-lg">
+                  Recommended
+                </div>
+
+                <div className="aspect-square relative rounded-xl overflow-hidden mb-4 bg-gray-100 dark:bg-zinc-800">
+                  <img 
+                    src={simProd.image} 
+                    alt={simProd.name} 
+                    loading="lazy" 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.onerror = null; }}
+                  />
+                  <div className="absolute top-2 right-2 px-2 py-1 bg-black/60 backdrop-blur-md text-white text-xs font-bold rounded-lg">
+                    ${simProd.price}
+                  </div>
+                </div>
+                
+                <div className="flex-grow">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#caa161] mb-1 block">{simProd.category}</span>
+                  <h3 className="font-bold text-gray-900 dark:text-white truncate mb-2">{simProd.name}</h3>
+                </div>
+                
+                <div className="flex gap-2 mt-4">
+                  <Link 
+                    href={`/product/${simProd.id}`} 
+                    className="flex-1 py-2 bg-white/5 border border-white/10 text-white text-center text-xs font-bold rounded-xl hover:bg-[#caa161] hover:border-[#caa161] transition-colors flex items-center justify-center gap-2"
+                  >
+                    View Product
+                  </Link>
+                  <button 
+                    onClick={(e) => handleAddSimilarToCart(e, simProd)}
+                    className="p-2 bg-[#caa161]/20 text-[#caa161] rounded-xl hover:bg-[#caa161] hover:text-white transition-colors"
+                    title="Quick Add to Cart"
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <Chatbot />
     </div>

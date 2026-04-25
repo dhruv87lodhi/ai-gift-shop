@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
+import { ShortlistProvider } from "@/context/ShortlistContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,10 +27,12 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen flex flex-col bg-[#151515] text-white">
         <CartProvider>
-          <Navbar />
-          <main className="flex-grow pt-16">
-            {children}
-          </main>
+          <ShortlistProvider>
+            <Navbar />
+            <main className="flex-grow pt-16">
+              {children}
+            </main>
+          </ShortlistProvider>
         </CartProvider>
       </body>
     </html>
