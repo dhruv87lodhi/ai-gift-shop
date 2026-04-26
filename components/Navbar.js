@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import SidebarMenu from "./SidebarMenu";
@@ -11,8 +11,34 @@ export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
   const router = useRouter();
   const { cartCount } = useCart();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          if (currentScrollY < 50) {
+            setNavVisible(true);
+          } else if (currentScrollY > lastScrollY.current) {
+            setNavVisible(false);
+          } else {
+            setNavVisible(true);
+          }
+          lastScrollY.current = currentScrollY;
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -25,7 +51,14 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed w-full z-40 glass border-b border-white/10">
+      <nav
+        className="fixed w-full z-40 glass border-b border-white/10 transition-all duration-500 ease-in-out"
+        style={{
+          opacity: navVisible ? 1 : 0,
+          transform: navVisible ? "translateY(0)" : "translateY(-100%)",
+          pointerEvents: navVisible ? "auto" : "none",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-4">
             

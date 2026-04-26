@@ -52,24 +52,6 @@ export default async function Home() {
             </Link>
           </div>
 
-          {/* Search Bar */}
-          <form action="/search" className="max-w-2xl mx-auto relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg className="h-5 w-5 text-gray-400 group-focus-within:text-[#caa161] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              name="q"
-              placeholder="Search for gifts, categories, or occasions..."
-              className="w-full pl-12 pr-4 py-4 bg-[#111] border border-white/10 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#caa161] focus:border-transparent transition-all shadow-lg text-lg"
-              required
-            />
-            <button type="submit" className="absolute inset-y-2 right-2 px-6 bg-[#caa161] hover:bg-[#b08a50] text-white font-bold rounded-full transition-colors">
-              Search
-            </button>
-          </form>
         </div>
       </section>
 
