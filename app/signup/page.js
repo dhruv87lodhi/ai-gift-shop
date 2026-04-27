@@ -6,8 +6,12 @@ import Link from 'next/link';
 import { User, Mail, Lock, Phone, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+import { GoogleLogin } from '@react-oauth/google';
+import { useRouter } from 'next/navigation';
+
 export default function SignupPage() {
-  const { signup } = useAuth();
+  const { signup, refreshUser } = useAuth();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,6 +49,36 @@ export default function SignupPage() {
     setLoading(false);
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: credentialResponse.credential }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        await refreshUser();
+        router.push('/profile');
+      } else {
+        setError(data.error || 'Google Sign-in failed');
+      }
+    } catch (err) {
+      console.error('Google login error:', err);
+      setError('An error occurred during Google sign-in');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    setError('Google Sign-in was unsuccessful. Please try again.');
+  };
+
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center p-4 bg-gradient-to-br from-[#f5f5f0] via-white to-[#fafafa]">
       <motion.div 
@@ -63,13 +97,17 @@ export default function SignupPage() {
         </div>
 
         <div className="space-y-4">
-          <button
-            onClick={() => alert('Google Sign-in integration requires Google Client ID in .env.local')}
-            className="w-full py-3.5 px-4 border border-[#f0efe9] rounded-2xl flex items-center justify-center gap-3 hover:bg-[#fcfcfb] transition-all font-medium text-gray-700"
-          >
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
-            Continue with Google
-          </button>
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap
+              theme="outline"
+              size="large"
+              width="100%"
+              shape="pill"
+            />
+          </div>
 
           <div className="relative flex items-center gap-4 py-2">
             <div className="flex-grow border-t border-[#f0efe9]"></div>

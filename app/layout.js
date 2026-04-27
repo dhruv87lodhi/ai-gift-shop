@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,16 +29,18 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col bg-[#fafafa] text-gray-900">
-        <AuthProvider>
-          <WishlistProvider>
-            <CartProvider>
-              <Navbar />
-              <main className="flex-grow pt-16">
-                {children}
-              </main>
-            </CartProvider>
-          </WishlistProvider>
-        </AuthProvider>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+          <AuthProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <Navbar />
+                <main className="flex-grow pt-16">
+                  {children}
+                </main>
+              </CartProvider>
+            </WishlistProvider>
+          </AuthProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
