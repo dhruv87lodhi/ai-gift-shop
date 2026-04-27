@@ -1,0 +1,12 @@
+[
+  { "name": "Mother's Day", "date": "2026-05-10", "tags": ["mom", "mother", "jewelry", "flowers", "lifestyle", "meaningful"] },
+  { "name": "Buddha Purnima", "date": "2026-05-01", "tags": ["festival", "decor", "home", "peace", "plants"] },
+  { "name": "Father's Day", "date": "2026-06-21", "tags": ["dad", "father", "tech", "lifestyle", "men", "gadget"] },
+  { "name": "Raksha Bandhan", "date": "2026-08-28", "tags": ["festival", "brother", "jewelry", "rings", "personalized"] },
+  { "name": "Independence Day", "date": "2026-08-15", "tags": ["festival", "decor", "india", "celebration"] },
+  { "name": "Teacher's Day", "date": "2026-09-05", "tags": ["office", "personalized", "meaningful", "gratitude"] },
+  { "name": "Gandhi Jayanti", "date": "2026-10-02", "tags": ["india", "peace", "lifestyle"] },
+  { "name": "Dussehra", "date": "2026-10-20", "tags": ["festival", "celebration", "decor", "family"] },
+  { "name": "Diwali", "date": "2026-11-08", "tags": ["festival", "decor", "home", "family", "party", "gold", "celebration"] },
+  { "name": "Christmas", "date": "2026-12-25", "tags": ["festival", "gift", "party", "home", "kids", "celebration", "winter"] }
+]

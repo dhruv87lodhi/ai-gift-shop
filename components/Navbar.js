@@ -104,9 +104,9 @@ export default function Navbar() {
 
             {/* RIGHT: Actions */}
             <div className="hidden md:flex items-center space-x-2">
-              <button className="p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition relative" title="Reminders">
+              <Link href="/reminders" className="p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition relative" title="Reminders">
                 <Bell className="h-5 w-5" />
-              </button>
+              </Link>
               
               <Link href="/wishlist" className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-400/10 rounded-full transition relative" title="Wishlist">
                 <Heart className="h-5 w-5" />
@@ -176,9 +176,9 @@ export default function Navbar() {
               </form>
             </div>
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
-              <button className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] text-left transition-colors">
+              <Link href="/reminders" className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] text-left transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                 <Bell className="w-5 h-5" /> Reminders
-              </button>
+              </Link>
               <Link
                 href="/wishlist"
                 className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-red-400/10 hover:text-red-400 transition-colors"

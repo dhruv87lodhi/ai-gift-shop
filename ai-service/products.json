@@ -4,12 +4,7 @@
     "name": "Classic Red Rose Bouquet",
     "price": 499,
     "category": "Flowers",
-    "tags": [
-      "flowers",
-      "romantic",
-      "red",
-      "roses"
-    ],
+    "tags": ["flowers", "romantic", "red", "roses", "valentines", "anniversary", "birthday", "wife", "girlfriend", "partner", "couple", "love", "luxury"],
     "popularity": 95,
     "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
   },
@@ -18,12 +13,7 @@
     "name": "Belgium Chocolate Truffle Cake",
     "price": 850,
     "category": "Cakes",
-    "tags": [
-      "cake",
-      "chocolate",
-      "dessert",
-      "food"
-    ],
+    "tags": ["cake", "chocolate", "dessert", "food", "birthday", "anniversary", "celebration", "party", "family", "kids", "sweet", "gift"],
     "popularity": 98,
     "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=400"
   },
@@ -32,12 +22,7 @@
     "name": "Personalized LED Photo Frame",
     "price": 1200,
     "category": "Personalized",
-    "tags": [
-      "photo",
-      "frame",
-      "led",
-      "gift"
-    ],
+    "tags": ["photo", "frame", "led", "gift", "personalized", "custom", "memories", "mom", "dad", "parents", "anniversary", "wedding", "meaningful"],
     "popularity": 92,
     "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
   },
@@ -46,12 +31,7 @@
     "name": "Minimalist Silver Promise Ring",
     "price": 2500,
     "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "ring",
-      "silver",
-      "romance"
-    ],
+    "tags": ["jewelry", "ring", "silver", "romance", "valentines", "anniversary", "proposal", "wife", "girlfriend", "partner", "luxury", "minimalist"],
     "popularity": 88,
     "image": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=400"
   },
@@ -60,12 +40,7 @@
     "name": "Jade Plant in Ceramic Pot",
     "price": 350,
     "category": "Plants",
-    "tags": [
-      "plants",
-      "home",
-      "nature",
-      "green"
-    ],
+    "tags": ["plants", "home", "nature", "green", "lifestyle", "wellness", "office", "decor", "housewarming", "parents", "eco-friendly"],
     "popularity": 85,
     "image": "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=400"
   },
@@ -74,12 +49,7 @@
     "name": "Happy Birthday Balloon Bunch",
     "price": 550,
     "category": "Decor",
-    "tags": [
-      "balloons",
-      "birthday",
-      "party",
-      "decoration"
-    ],
+    "tags": ["balloons", "birthday", "party", "decoration", "celebration", "kids", "surprise", "friends", "fun", "colorful"],
     "popularity": 82,
     "image": "https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&q=80&w=400"
   },
@@ -88,12 +58,7 @@
     "name": "Gaming Mechanical Keyboard",
     "price": 2999,
     "category": "Tech",
-    "tags": [
-      "gaming",
-      "tech",
-      "pc",
-      "keyboard"
-    ],
+    "tags": ["gaming", "tech", "pc", "keyboard", "brother", "friend", "son", "rgb", "gadget", "birthday", "graduation", "gaming gear"],
     "popularity": 96,
     "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=400"
   },
@@ -102,12 +67,7 @@
     "name": "Customized Wooden Name Plaque",
     "price": 750,
     "category": "Personalized",
-    "tags": [
-      "wood",
-      "name",
-      "home",
-      "custom"
-    ],
+    "tags": ["wood", "name", "home", "custom", "personalized", "decor", "housewarming", "family", "office", "entryway", "handmade"],
     "popularity": 78,
     "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
   },
@@ -116,12 +76,7 @@
     "name": "Orchid Elegance Bouquet",
     "price": 1500,
     "category": "Flowers",
-    "tags": [
-      "flowers",
-      "orchid",
-      "luxury",
-      "purple"
-    ],
+    "tags": ["flowers", "orchid", "luxury", "purple", "mom", "mother", "mother's day", "premium", "elegant", "office", "gratitude"],
     "popularity": 89,
     "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
   },
@@ -130,12 +85,7 @@
     "name": "Red Velvet Heart Cake",
     "price": 950,
     "category": "Cakes",
-    "tags": [
-      "cake",
-      "red velvet",
-      "anniversary",
-      "heart"
-    ],
+    "tags": ["cake", "red velvet", "anniversary", "heart", "valentines", "romance", "wife", "girlfriend", "partner", "love", "sweet", "couple"],
     "popularity": 94,
     "image": "https://images.unsplash.com/photo-1616031037011-087000171abe?auto=format&fit=crop&q=80&w=400"
   },
@@ -144,12 +94,7 @@
     "name": "Wireless Noise Cancelling Pods",
     "price": 2800,
     "category": "Tech",
-    "tags": [
-      "tech",
-      "music",
-      "wireless",
-      "audio"
-    ],
+    "tags": ["tech", "music", "wireless", "audio", "travel", "gadget", "brother", "friend", "graduation", "birthday", "premium", "pods"],
     "popularity": 97,
     "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=400"
   },
@@ -158,12 +103,7 @@
     "name": "Engraved Couple Rings",
     "price": 2100,
     "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "rings",
-      "couple",
-      "engraved"
-    ],
+    "tags": ["jewelry", "rings", "couple", "engraved", "personalized", "anniversary", "wedding", "romance", "wife", "husband", "meaningful"],
     "popularity": 91,
     "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
   },
@@ -172,12 +112,7 @@
     "name": "Snake Plant (Air Purifying)",
     "price": 450,
     "category": "Plants",
-    "tags": [
-      "plants",
-      "indoor",
-      "air",
-      "green"
-    ],
+    "tags": ["plants", "indoor", "air", "green", "office", "home", "lifestyle", "wellness", "healthy", "dad", "parents", "minimalist"],
     "popularity": 86,
     "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
   },
@@ -186,12 +121,7 @@
     "name": "Golden Anniversary Balloon Set",
     "price": 650,
     "category": "Decor",
-    "tags": [
-      "balloons",
-      "anniversary",
-      "gold",
-      "decor"
-    ],
+    "tags": ["balloons", "anniversary", "gold", "decor", "celebration", "party", "parents", "50th", "25th", "grandparents", "luxury"],
     "popularity": 80,
     "image": "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=400"
   },
@@ -200,12 +130,7 @@
     "name": "Personalized Magic Mug",
     "price": 399,
     "category": "Personalized",
-    "tags": [
-      "mug",
-      "coffee",
-      "photo",
-      "gift"
-    ],
+    "tags": ["mug", "coffee", "photo", "gift", "personalized", "custom", "fun", "friend", "colleague", "birthday", "affordable"],
     "popularity": 84,
     "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400"
   },
@@ -886,12 +811,7 @@
     "name": "Set of 3 Abstract Prints",
     "price": 1400,
     "category": "Home Decor",
-    "tags": [
-      "art",
-      "wall",
-      "decor",
-      "home"
-    ],
+    "tags": ["art", "wall", "decor", "home", "housewarming", "parents", "office", "meaningful", "abstract", "modern", "living room"],
     "popularity": 84,
     "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
   },
@@ -900,12 +820,7 @@
     "name": "Men's Leather Travel Bag",
     "price": 2950,
     "category": "Fashion",
-    "tags": [
-      "fashion",
-      "leather",
-      "bag",
-      "travel"
-    ],
+    "tags": ["fashion", "leather", "bag", "travel", "men", "husband", "father", "dad", "luxury", "graduation", "birthday", "business"],
     "popularity": 92,
     "image": "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=400"
   },
@@ -914,12 +829,7 @@
     "name": "Gold Hoop Earrings",
     "price": 1200,
     "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "gold",
-      "earrings",
-      "women"
-    ],
+    "tags": ["jewelry", "gold", "earrings", "women", "wife", "girlfriend", "partner", "anniversary", "birthday", "classic", "elegant", "gold-plated"],
     "popularity": 90,
     "image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=400"
   },
@@ -928,12 +838,7 @@
     "name": "Men's Polarized Sunglasses",
     "price": 1800,
     "category": "Fashion",
-    "tags": [
-      "fashion",
-      "sunglasses",
-      "men",
-      "accessory"
-    ],
+    "tags": ["fashion", "sunglasses", "men", "accessory", "brother", "friend", "son", "travel", "outdoor", "summer", "birthday", "graduation"],
     "popularity": 88,
     "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
   },
@@ -942,12 +847,7 @@
     "name": "Women's Floral Scarf",
     "price": 450,
     "category": "Fashion",
-    "tags": [
-      "fashion",
-      "clothing",
-      "scarf",
-      "floral"
-    ],
+    "tags": ["fashion", "clothing", "scarf", "floral", "women", "grandma", "mom", "aunt", "spring", "colorful", "gift", "affordable"],
     "popularity": 82,
     "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
   },
@@ -956,12 +856,7 @@
     "name": "Bonsai Pine Tree",
     "price": 2100,
     "category": "Plants",
-    "tags": [
-      "plants",
-      "bonsai",
-      "nature",
-      "home"
-    ],
+    "tags": ["plants", "bonsai", "nature", "home", "office", "decor", "parents", "dad", "wellness", "meaningful", "zen", "lifestyle"],
     "popularity": 89,
     "image": "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&q=80&w=400"
   },
@@ -970,12 +865,7 @@
     "name": "Automatic Self-Watering Pot",
     "price": 750,
     "category": "Plants",
-    "tags": [
-      "plants",
-      "tech",
-      "home",
-      "garden"
-    ],
+    "tags": ["plants", "tech", "home", "garden", "gadget", "lifestyle", "parents", "housewarming", "office", "convenience"],
     "popularity": 85,
     "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=400"
   },
@@ -984,12 +874,7 @@
     "name": "Matte Finish Chess Set",
     "price": 1600,
     "category": "Games",
-    "tags": [
-      "games",
-      "chess",
-      "board",
-      "fun"
-    ],
+    "tags": ["games", "chess", "board", "fun", "brother", "friend", "son", "intellectual", "gift", "classic", "home", "educational"],
     "popularity": 87,
     "image": "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=400"
   },
@@ -998,12 +883,7 @@
     "name": "Retro Handheld Game Console",
     "price": 2400,
     "category": "Games",
-    "tags": [
-      "gaming",
-      "retro",
-      "portable",
-      "kids"
-    ],
+    "tags": ["gaming", "retro", "portable", "kids", "brother", "friend", "fun", "nostalgia", "birthday", "travel", "gift", "handheld"],
     "popularity": 91,
     "image": "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?auto=format&fit=crop&q=80&w=400"
   },
@@ -1012,12 +892,7 @@
     "name": "Tabletop Foosball Table",
     "price": 2800,
     "category": "Games",
-    "tags": [
-      "games",
-      "foosball",
-      "party",
-      "fun"
-    ],
+    "tags": ["games", "foosball", "party", "fun", "family", "kids", "brother", "home", "entertainment", "birthday", "competition"],
     "popularity": 89,
     "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=400"
   },
@@ -1026,12 +901,7 @@
     "name": "1000 Piece Jigsaw Puzzle",
     "price": 850,
     "category": "Games",
-    "tags": [
-      "games",
-      "puzzle",
-      "relax",
-      "hobby"
-    ],
+    "tags": ["games", "puzzle", "relax", "hobby", "family", "home", "staycation", "patience", "meaningful", "quiet", "gift"],
     "popularity": 84,
     "image": "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=400"
   },
@@ -1040,12 +910,7 @@
     "name": "Smart Fitness Jump Rope",
     "price": 1100,
     "category": "Tech",
-    "tags": [
-      "tech",
-      "fitness",
-      "exercise",
-      "sport"
-    ],
+    "tags": ["tech", "fitness", "exercise", "sport", "health", "workout", "gadget", "brother", "friend", "active", "modern"],
     "popularity": 86,
     "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400"
   },
@@ -1054,12 +919,7 @@
     "name": "Electric Milk Frother",
     "price": 499,
     "category": "Kitchen",
-    "tags": [
-      "kitchen",
-      "coffee",
-      "latte",
-      "home"
-    ],
+    "tags": ["kitchen", "coffee", "latte", "home", "lifestyle", "affordable", "gift", "practical", "convenience", "office"],
     "popularity": 88,
     "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
   },
