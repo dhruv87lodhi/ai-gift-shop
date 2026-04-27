@@ -61,10 +61,16 @@ export default function CheckoutPage() {
   // Pre-fill user data
   useEffect(() => {
     if (user) {
+      const defaultAddr = user.addresses?.find(a => a.isDefault) || user.addresses?.[0];
+      
       setForm(prev => ({
         ...prev,
         fullName: prev.fullName || user.name || "",
         phone: prev.phone || user.phone || "",
+        address1: prev.address1 || defaultAddr?.street || "",
+        city: prev.city || defaultAddr?.city || "",
+        state: prev.state || defaultAddr?.state || "",
+        pincode: prev.pincode || defaultAddr?.zipCode || "",
       }));
     }
   }, [user]);

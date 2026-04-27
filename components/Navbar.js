@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import SidebarMenu from "./SidebarMenu";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,6 +19,7 @@ export default function Navbar() {
   const router = useRouter();
   const { cartCount } = useCart();
   const { user } = useAuth();
+  const { wishlist } = useWishlist();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,8 +108,13 @@ export default function Navbar() {
                 <Bell className="h-5 w-5" />
               </button>
               
-              <Link href="/shortlisted" className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-400/10 rounded-full transition relative" title="Shortlisted">
+              <Link href="/wishlist" className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-400/10 rounded-full transition relative" title="Wishlist">
                 <Heart className="h-5 w-5" />
+                {wishlist.length > 0 && (
+                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-400 rounded-full border-2 border-white">
+                    {wishlist.length}
+                  </span>
+                )}
               </Link>
 
               <Link href="/cart" className="relative p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition" title="Cart">
@@ -173,11 +180,11 @@ export default function Navbar() {
                 <Bell className="w-5 h-5" /> Reminders
               </button>
               <Link
-                href="/shortlisted"
+                href="/wishlist"
                 className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-red-400/10 hover:text-red-400 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <Heart className="w-5 h-5" /> Shortlisted
+                <Heart className="w-5 h-5" /> Wishlist
               </Link>
               <Link
                 href={user ? "/profile" : "/login"}

@@ -6,12 +6,12 @@ import { Sparkles, ArrowLeft, Loader2, Gift, Heart } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Chatbot from "@/components/Chatbot";
-import { useShortlist } from "@/context/ShortlistContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 function AIResultsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { isShortlisted, toggleShortlist } = useShortlist();
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [topMatches, setTopMatches] = useState([]);
   const [closeMatches, setCloseMatches] = useState([]);
@@ -125,10 +125,10 @@ function AIResultsContent() {
                 onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.onerror = null; }}
               />
               <button 
-                onClick={(e) => { e.preventDefault(); toggleShortlist(item); }}
+                onClick={(e) => { e.preventDefault(); toggleWishlist(item); }}
                 className="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-md rounded-full hover:bg-black/60 transition-colors z-10"
               >
-                <Heart className={`w-5 h-5 transition-colors ${isShortlisted(item.id) ? "fill-red-500 text-red-500" : "text-white"}`} />
+                <Heart className={`w-5 h-5 transition-colors ${isInWishlist(item.id) ? "fill-red-500 text-red-500" : "text-white"}`} />
               </button>
             </div>
             {/* Details */}
@@ -181,7 +181,7 @@ function AIResultsContent() {
                   onClick={(e) => { e.preventDefault(); toggleShortlist(item); }}
                   className="absolute top-2 right-2 p-1.5 bg-black/40 backdrop-blur-md rounded-full hover:bg-black/60 transition-colors z-10"
                 >
-                  <Heart className={`w-4 h-4 transition-colors ${isShortlisted(item.id) ? "fill-red-500 text-red-500" : "text-white"}`} />
+                  <Heart className={`w-4 h-4 transition-colors ${isInWishlist(item.id) ? "fill-red-500 text-red-500" : "text-white"}`} />
                 </button>
               </div>
               <h3 className="font-bold text-gray-900 truncate">{item.name}</h3>

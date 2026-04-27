@@ -2,7 +2,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
-import { ShortlistProvider } from "@/context/ShortlistContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({
@@ -29,14 +29,14 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen flex flex-col bg-[#fafafa] text-gray-900">
         <AuthProvider>
-          <CartProvider>
-            <ShortlistProvider>
+          <WishlistProvider>
+            <CartProvider>
               <Navbar />
               <main className="flex-grow pt-16">
                 {children}
               </main>
-            </ShortlistProvider>
-          </CartProvider>
+            </CartProvider>
+          </WishlistProvider>
         </AuthProvider>
       </body>
     </html>

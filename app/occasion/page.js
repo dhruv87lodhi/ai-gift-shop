@@ -6,10 +6,10 @@ export default function OccasionPage() {
   return (
     <div className="min-h-screen px-6 py-20 max-w-7xl mx-auto">
       <div className="text-center mb-16 animate-[fade-in-up_0.5s_ease-out]">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900">
           Shop by Occasion
         </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Make every moment special. Find the perfect gift for upcoming events and celebrations.
         </p>
       </div>

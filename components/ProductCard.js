@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useWishlist } from "@/context/WishlistContext";
 import { Heart } from "lucide-react";
 
 export default function ProductCard({ product }) {
+  const { toggleWishlist, isInWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product.id);
+
   return (
     <div className="group relative glass rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#caa161]/10 border border-gray-200">
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
@@ -18,8 +22,15 @@ export default function ProductCard({ product }) {
             e.currentTarget.srcset = "";
           }}
         />
-        <button className="absolute top-3 right-3 p-2 bg-white/70 backdrop-blur-md rounded-full text-gray-400 hover:text-[#caa161] hover:bg-white transition-colors z-10">
-          <Heart className="w-5 h-5" />
+        <button 
+          onClick={() => toggleWishlist(product)}
+          className={`absolute top-3 right-3 p-2 backdrop-blur-md rounded-full transition-all z-10 ${
+            isWishlisted 
+            ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' 
+            : 'bg-white/70 text-gray-400 hover:text-[#caa161] hover:bg-white'
+          }`}
+        >
+          <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
         </button>
       </div>
       <div className="p-5">
