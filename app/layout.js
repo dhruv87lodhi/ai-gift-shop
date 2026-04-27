@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-[#151515] text-white">
+      <body className="min-h-screen flex flex-col bg-[#fafafa] text-gray-900">
         <CartProvider>
           <ShortlistProvider>
             <Navbar />

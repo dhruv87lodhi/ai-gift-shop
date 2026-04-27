@@ -69,8 +69,8 @@ export default function ProductPage({ params }) {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
-        <p className="text-gray-400 mb-8">We couldn't find the product you're looking for.</p>
+        <h1 className="text-4xl font-bold mb-4 text-gray-900">Product Not Found</h1>
+        <p className="text-gray-500 mb-8">We couldn't find the product you're looking for.</p>
         <Link href="/" className="px-6 py-3 bg-[#caa161] text-white rounded-full font-bold">
           Back to Home
         </Link>
@@ -80,13 +80,13 @@ export default function ProductPage({ params }) {
 
   return (
     <div className="min-h-screen px-6 py-12 max-w-7xl mx-auto">
-      <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#caa161] mb-8 transition-colors">
+      <Link href="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#caa161] mb-8 transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to shopping
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
         {/* Product Image */}
-        <div className="relative aspect-square w-full rounded-3xl overflow-hidden glass border border-white/5">
+        <div className="relative aspect-square w-full rounded-3xl overflow-hidden glass border border-gray-200">
           <Image
             src={product.image}
             alt={product.name}
@@ -98,34 +98,34 @@ export default function ProductPage({ params }) {
 
         {/* Product Details */}
         <div className="flex flex-col justify-center">
-          <div className="mb-2 inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#caa161]/20 text-[#caa161] w-max">
+          <div className="mb-2 inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#caa161]/15 text-[#9a7638] w-max">
             {product.category}
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
             {product.name}
           </h1>
-          <p className="text-3xl font-bold text-white mb-6">
-            ${Number(product.price).toFixed(2)}
+          <p className="text-3xl font-bold text-gray-900 mb-6">
+            ₹{Number(product.price).toLocaleString('en-IN')}
           </p>
-          <p className="text-lg text-gray-400 mb-8 leading-relaxed">
+          <p className="text-lg text-gray-500 mb-8 leading-relaxed">
             {product.description}
           </p>
 
           <div className="space-y-4 mb-8">
-            <div className="flex items-center gap-3 text-gray-300">
-              <div className="p-1 rounded-full bg-green-900/30 text-green-400">
+            <div className="flex items-center gap-3 text-gray-600">
+              <div className="p-1 rounded-full bg-green-100 text-green-600">
                 <Check className="w-4 h-4" />
               </div>
               <span>In stock and ready to ship</span>
             </div>
-            <div className="flex items-center gap-3 text-gray-300">
-              <div className="p-1 rounded-full bg-blue-900/30 text-blue-400">
+            <div className="flex items-center gap-3 text-gray-600">
+              <div className="p-1 rounded-full bg-blue-100 text-blue-600">
                 <Truck className="w-4 h-4" />
               </div>
               <span>Free shipping on orders over $50</span>
             </div>
-            <div className="flex items-center gap-3 text-gray-300">
-              <div className="p-1 rounded-full bg-orange-900/30 text-orange-400">
+            <div className="flex items-center gap-3 text-gray-600">
+              <div className="p-1 rounded-full bg-orange-100 text-orange-600">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <span>1-year premium warranty included</span>
@@ -151,24 +151,24 @@ export default function ProductPage({ params }) {
 
       {/* Similar Products Section */}
       {similarProducts.length > 0 && (
-        <div className="mt-12 border-t border-white/10 pt-16 mb-16">
+        <div className="mt-12 border-t border-gray-200 pt-16 mb-16">
           <div className="flex items-center gap-3 mb-8">
             <div className="h-8 w-1 bg-[#caa161] rounded-full"></div>
-            <h2 className="text-3xl font-bold text-white">You May Also Like</h2>
+            <h2 className="text-3xl font-bold text-gray-900">You May Also Like</h2>
           </div>
           
           <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar">
             {similarProducts.map((simProd) => (
               <div 
                 key={simProd.id} 
-                className="snap-start shrink-0 w-72 glass p-4 rounded-2xl border border-gray-200 dark:border-zinc-800 hover:border-[#caa161] transition-all group flex flex-col relative"
+                className="snap-start shrink-0 w-72 glass p-4 rounded-2xl border border-gray-200 hover:border-[#caa161] transition-all group flex flex-col relative"
               >
                 {/* Recommended Badge */}
                 <div className="absolute top-6 left-6 z-10 px-2 py-1 bg-[#caa161] text-white text-[10px] font-bold uppercase tracking-wider rounded-md shadow-lg">
                   Recommended
                 </div>
 
-                <div className="aspect-square relative rounded-xl overflow-hidden mb-4 bg-gray-100 dark:bg-zinc-800">
+                <div className="aspect-square relative rounded-xl overflow-hidden mb-4 bg-gray-100">
                   <img 
                     src={simProd.image} 
                     alt={simProd.name} 
@@ -176,26 +176,26 @@ export default function ProductPage({ params }) {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                     onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.onerror = null; }}
                   />
-                  <div className="absolute top-2 right-2 px-2 py-1 bg-black/60 backdrop-blur-md text-white text-xs font-bold rounded-lg">
-                    ${simProd.price}
+                  <div className="absolute top-2 right-2 px-2 py-1 bg-white/80 backdrop-blur-md text-gray-900 text-xs font-bold rounded-lg">
+                    ₹{simProd.price}
                   </div>
                 </div>
                 
                 <div className="flex-grow">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#caa161] mb-1 block">{simProd.category}</span>
-                  <h3 className="font-bold text-gray-900 dark:text-white truncate mb-2">{simProd.name}</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#9a7638] mb-1 block">{simProd.category}</span>
+                  <h3 className="font-bold text-gray-900 truncate mb-2">{simProd.name}</h3>
                 </div>
                 
                 <div className="flex gap-2 mt-4">
                   <Link 
                     href={`/product/${simProd.id}`} 
-                    className="flex-1 py-2 bg-white/5 border border-white/10 text-white text-center text-xs font-bold rounded-xl hover:bg-[#caa161] hover:border-[#caa161] transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 py-2 bg-gray-100 border border-gray-200 text-gray-900 text-center text-xs font-bold rounded-xl hover:bg-[#caa161] hover:border-[#caa161] hover:text-white transition-colors flex items-center justify-center gap-2"
                   >
                     View Product
                   </Link>
                   <button 
                     onClick={(e) => handleAddSimilarToCart(e, simProd)}
-                    className="p-2 bg-[#caa161]/20 text-[#caa161] rounded-xl hover:bg-[#caa161] hover:text-white transition-colors"
+                    className="p-2 bg-[#caa161]/15 text-[#caa161] rounded-xl hover:bg-[#caa161] hover:text-white transition-colors"
                     title="Quick Add to Cart"
                   >
                     <ShoppingCart className="w-4 h-4" />

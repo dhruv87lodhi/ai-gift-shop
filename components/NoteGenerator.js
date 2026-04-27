@@ -44,27 +44,27 @@ export default function NoteGenerator() {
   const getThemeStyles = () => {
     switch (cardTheme) {
       case "midnight_dark":
-        return "bg-black text-gray-300 border border-white/10 font-sans";
+        return "bg-gray-900 text-gray-300 border border-gray-700 font-sans";
       case "minimalist_white":
-        return "bg-white text-black border border-gray-200 font-sans";
+        return "bg-white text-gray-900 border border-gray-200 font-sans";
       case "elegant_gold":
       default:
-        return "bg-[#151515] text-[#caa161] border border-[#caa161]/50 font-serif";
+        return "bg-[#faf8f5] text-[#9a7638] border border-[#caa161]/30 font-serif";
     }
   };
 
   return (
-    <div className="glass p-6 md:p-8 rounded-3xl relative overflow-hidden border border-white/5">
+    <div className="glass p-6 md:p-8 rounded-3xl relative overflow-hidden border border-gray-200">
       {/* Decorative background blur */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#caa161] rounded-full mix-blend-screen filter blur-[100px] opacity-10 -z-10" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#caa161] rounded-full mix-blend-multiply filter blur-[100px] opacity-5 -z-10" />
       
       <div className="flex items-center gap-3 mb-8">
         <div className="p-3 bg-gradient-to-r from-[#caa161] to-[#b08a50] rounded-xl text-white shadow-lg shadow-[#caa161]/20">
           <Sparkles className="w-6 h-6" />
         </div>
         <div>
-          <h3 className="text-2xl font-bold text-white">AI Note Generator</h3>
-          <p className="text-sm text-gray-400">Craft a beautiful, personalized message to go with your gift.</p>
+          <h3 className="text-2xl font-bold text-gray-900">AI Note Generator</h3>
+          <p className="text-sm text-gray-500">Craft a beautiful, personalized message to go with your gift.</p>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function NoteGenerator() {
         <form onSubmit={generateNote} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-600 mb-1">
                 Who is this for?
               </label>
               <input
@@ -81,11 +81,11 @@ export default function NoteGenerator() {
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
                 placeholder="e.g. Mom, Sarah, John"
-                className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#caa161] focus:border-transparent outline-none text-white transition-all"
+                className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#caa161] focus:border-transparent outline-none text-gray-900 transition-all"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-600 mb-1">
                 What's the occasion?
               </label>
               <input
@@ -94,13 +94,13 @@ export default function NoteGenerator() {
                 value={occasion}
                 onChange={(e) => setOccasion(e.target.value)}
                 placeholder="e.g. Birthday, Anniversary"
-                className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#caa161] focus:border-transparent outline-none text-white transition-all"
+                className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#caa161] focus:border-transparent outline-none text-gray-900 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Writing Tone
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -111,8 +111,8 @@ export default function NoteGenerator() {
                   onClick={() => setTone(t)}
                   className={`px-3 py-2.5 rounded-xl text-sm font-medium capitalize transition-all ${
                     tone === t
-                      ? 'bg-[#caa161]/20 text-[#caa161] border border-[#caa161]'
-                      : 'bg-[#111] text-gray-400 border border-white/5 hover:bg-white/5 hover:text-white'
+                      ? 'bg-[#caa161]/15 text-[#9a7638] border border-[#caa161]'
+                      : 'bg-gray-100 text-gray-500 border border-gray-200 hover:bg-gray-200 hover:text-gray-700'
                   }`}
                 >
                   {t}
@@ -122,7 +122,7 @@ export default function NoteGenerator() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Card Theme (Visual Preview)
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -133,8 +133,8 @@ export default function NoteGenerator() {
                   onClick={() => setCardTheme(t)}
                   className={`px-3 py-2.5 rounded-xl text-xs font-medium capitalize transition-all ${
                     cardTheme === t
-                      ? 'bg-[#caa161]/20 text-[#caa161] border border-[#caa161]'
-                      : 'bg-[#111] text-gray-400 border border-white/5 hover:bg-white/5 hover:text-white'
+                      ? 'bg-[#caa161]/15 text-[#9a7638] border border-[#caa161]'
+                      : 'bg-gray-100 text-gray-500 border border-gray-200 hover:bg-gray-200 hover:text-gray-700'
                   }`}
                 >
                   {t.replace('_', ' ')}
@@ -161,7 +161,7 @@ export default function NoteGenerator() {
           </button>
         </form>
 
-        <div className="bg-[#111] rounded-2xl border border-white/5 p-6 flex flex-col min-h-[350px]">
+        <div className="bg-gray-50 rounded-2xl border border-gray-200 p-6 flex flex-col min-h-[350px]">
           <div className="flex items-center justify-between mb-6">
             <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
               Note Card Preview
@@ -169,7 +169,7 @@ export default function NoteGenerator() {
             {generatedNote && (
               <button
                 onClick={copyToClipboard}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#222] hover:bg-[#333] text-gray-300 rounded-lg transition-colors text-xs font-medium border border-white/5"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-gray-100 text-gray-500 rounded-lg transition-colors text-xs font-medium border border-gray-200"
               >
                 {copied ? (
                   <><CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Copied!</>
@@ -214,7 +214,7 @@ export default function NoteGenerator() {
                   animate={{ opacity: 1 }}
                   className="absolute inset-0 flex items-center justify-center text-center px-8"
                 >
-                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                  <div className="flex flex-col items-center gap-4 text-gray-400">
                     <Sparkles className="w-8 h-8 opacity-20" />
                     <p className="text-sm">
                       Fill out the details and hit generate to create a beautifully personalized gift note.

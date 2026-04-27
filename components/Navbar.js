@@ -52,7 +52,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed w-full z-40 glass border-b border-white/10 transition-all duration-500 ease-in-out"
+        className="fixed w-full z-40 glass border-b border-gray-200 transition-all duration-500 ease-in-out"
         style={{
           opacity: navVisible ? 1 : 0,
           transform: navVisible ? "translateY(0)" : "translateY(-100%)",
@@ -66,7 +66,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center gap-3">
               <button 
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 -ml-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition focus:outline-none"
+                className="p-2 -ml-2 text-gray-500 hover:text-gray-900 hover:bg-black/5 rounded-lg transition focus:outline-none"
                 aria-label="Open Menu"
               >
                 <Menu className="w-6 h-6" />
@@ -76,7 +76,7 @@ export default function Navbar() {
                 <div className="bg-[#caa161] p-1.5 sm:p-2 rounded-xl text-white shadow-lg shadow-[#caa161]/20 group-hover:scale-105 transition-transform">
                   <Gift className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white hidden sm:block group-hover:text-[#caa161] transition-colors">
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-gray-900 hidden sm:block group-hover:text-[#caa161] transition-colors">
                   AuraGifts
                 </span>
               </Link>
@@ -93,25 +93,25 @@ export default function Navbar() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search gifts, categories, or occasions..."
-                  className="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#caa161]/50 focus:border-transparent transition-all focus:bg-white/10"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-full py-2 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#caa161]/50 focus:border-transparent transition-all focus:bg-white"
                 />
               </form>
             </div>
 
             {/* RIGHT: Actions */}
             <div className="hidden md:flex items-center space-x-2">
-              <button className="p-2 text-gray-300 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition relative" title="Reminders">
+              <button className="p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition relative" title="Reminders">
                 <Bell className="h-5 w-5" />
               </button>
               
-              <Link href="/shortlisted" className="p-2 text-gray-300 hover:text-red-400 hover:bg-red-400/10 rounded-full transition relative" title="Shortlisted">
+              <Link href="/shortlisted" className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-400/10 rounded-full transition relative" title="Shortlisted">
                 <Heart className="h-5 w-5" />
               </Link>
 
-              <Link href="/cart" className="relative p-2 text-gray-300 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition" title="Cart">
+              <Link href="/cart" className="relative p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition" title="Cart">
                 <ShoppingBag className="h-5 w-5" />
                 {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-[#b08a50] rounded-full border-2 border-[#151515]">
+                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-[#b08a50] rounded-full border-2 border-white">
                     {cartCount}
                   </span>
                 )}
@@ -119,7 +119,7 @@ export default function Navbar() {
               
               <Link
                 href="/profile"
-                className="ml-2 bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:bg-[#caa161] hover:text-white transition-colors flex items-center gap-2 shadow-lg hover:shadow-[#caa161]/20"
+                className="ml-2 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-[#caa161] hover:text-white transition-colors flex items-center gap-2 shadow-lg hover:shadow-[#caa161]/20"
               >
                 <User className="w-4 h-4" />
                 <span className="hidden lg:inline">Profile</span>
@@ -130,13 +130,13 @@ export default function Navbar() {
             <div className="flex md:hidden items-center gap-1">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none"
+                className="p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-black/5 focus:outline-none"
                 aria-label="Toggle Mobile Menu"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Search className="w-5 h-5" />}
               </button>
               
-              <Link href="/cart" className="relative p-2 text-gray-300 hover:text-[#caa161] transition">
+              <Link href="/cart" className="relative p-2 text-gray-500 hover:text-[#caa161] transition">
                 <ShoppingBag className="h-5 w-5" />
                 {cartCount > 0 && (
                   <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-[#b08a50] rounded-full">
@@ -150,7 +150,7 @@ export default function Navbar() {
 
         {/* Mobile Dropdown (Search + Quick Actions) */}
         {isMobileMenuOpen && (
-          <div className="md:hidden glass border-t border-white/10 absolute w-full pb-4 shadow-xl">
+          <div className="md:hidden glass border-t border-gray-200 absolute w-full pb-4 shadow-xl">
             <div className="px-4 pt-4 pb-2">
               <form onSubmit={handleSearch} className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -161,25 +161,25 @@ export default function Navbar() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search gifts..."
-                  className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-10 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#caa161]/50 focus:bg-white/10"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-full py-3 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#caa161]/50 focus:bg-white"
                   autoFocus
                 />
               </form>
             </div>
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
-              <button className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/10 hover:text-[#caa161] text-left transition-colors">
+              <button className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] text-left transition-colors">
                 <Bell className="w-5 h-5" /> Reminders
               </button>
               <Link
                 href="/shortlisted"
-                className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-red-400/10 hover:text-red-400 transition-colors"
+                className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-red-400/10 hover:text-red-400 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Heart className="w-5 h-5" /> Shortlisted
               </Link>
               <Link
                 href="/profile"
-                className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/10 hover:text-[#caa161] transition-colors"
+                className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <User className="w-5 h-5" /> Profile

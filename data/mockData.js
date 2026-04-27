@@ -23,7 +23,7 @@ export const products = [
   {
     id: "p1",
     name: "Smart Watch Series X",
-    price: 299.99,
+    price: 24999,
     category: "tech",
     occasions: ["birthday", "graduation"],
     image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&q=80",
@@ -32,7 +32,7 @@ export const products = [
   {
     id: "p2",
     name: "Aromatherapy Diffuser",
-    price: 45.00,
+    price: 3499,
     category: "lifestyle",
     occasions: ["birthday", "anniversary", "wedding"],
     image: "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=500&q=80",
@@ -41,7 +41,7 @@ export const products = [
   {
     id: "p3",
     name: "Personalized Star Map",
-    price: 65.00,
+    price: 4999,
     category: "personalized",
     occasions: ["anniversary", "wedding", "valentines"],
     image: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=500&q=80",
@@ -50,7 +50,7 @@ export const products = [
   {
     id: "p4",
     name: "Noise Cancelling Headphones",
-    price: 199.99,
+    price: 15999,
     category: "tech",
     occasions: ["birthday", "graduation"],
     image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&q=80",
@@ -59,7 +59,7 @@ export const products = [
   {
     id: "p5",
     name: "Engraved Silver Necklace",
-    price: 120.00,
+    price: 9499,
     category: "jewelry",
     occasions: ["anniversary", "birthday", "valentines"],
     image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80",
@@ -68,7 +68,7 @@ export const products = [
   {
     id: "p6",
     name: "Gourmet Coffee Subscription",
-    price: 85.00,
+    price: 6999,
     category: "experiences",
     occasions: ["birthday", "graduation"],
     image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=500&q=80",
@@ -77,7 +77,7 @@ export const products = [
   {
     id: "p7",
     name: "Pro Mechanical Keyboard",
-    price: 149.99,
+    price: 11999,
     category: "gaming",
     occasions: ["birthday", "graduation"],
     image: "https://images.unsplash.com/photo-1595225476474-87563907a212?w=500&q=80",
@@ -86,7 +86,7 @@ export const products = [
   {
     id: "p8",
     name: "Wireless Gaming Mouse",
-    price: 89.99,
+    price: 6999,
     category: "gaming",
     occasions: ["birthday"],
     image: "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80",
@@ -95,7 +95,7 @@ export const products = [
   {
     id: "p9",
     name: "VR Headset System",
-    price: 399.00,
+    price: 32999,
     category: "gaming",
     occasions: ["birthday", "graduation", "anniversary"],
     image: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500&q=80",

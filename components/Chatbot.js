@@ -125,7 +125,7 @@ export default function Chatbot() {
           <div className="absolute inset-0 bg-[#caa161] rounded-full animate-ping opacity-20"></div>
         )}
         <motion.button
-          className="relative p-4 rounded-full bg-gradient-to-tr from-[#caa161] via-[#b08a50] to-[#9a7638] text-white shadow-[0_0_20px_rgba(202,161,97,0.5)] flex items-center justify-center overflow-hidden group"
+          className="relative p-4 rounded-full bg-gradient-to-tr from-[#caa161] via-[#b08a50] to-[#9a7638] text-white shadow-[0_0_20px_rgba(202,161,97,0.3)] flex items-center justify-center overflow-hidden group"
           onClick={() => setIsOpen(true)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
@@ -143,7 +143,7 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] sm:w-[400px] h-[550px] max-h-[80vh] glass bg-[#151515]/95 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] flex flex-col z-50 border border-[#caa161]/20 overflow-hidden"
+            className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] sm:w-[400px] h-[550px] max-h-[80vh] bg-white rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex flex-col z-50 border border-gray-200 overflow-hidden"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-5 bg-gradient-to-r from-[#caa161] via-[#b08a50] to-[#9a7638] text-white shadow-md z-10">
@@ -168,7 +168,7 @@ export default function Chatbot() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-6 scroll-smooth bg-[#111]/50">
+            <div className="flex-1 overflow-y-auto p-5 space-y-6 scroll-smooth bg-gray-50">
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}
@@ -177,7 +177,7 @@ export default function Chatbot() {
                   className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.type === "bot" && (
-                    <div className="w-8 h-8 rounded-full bg-[#caa161]/20 border border-[#caa161]/50 flex items-center justify-center shrink-0 shadow-sm mt-1">
+                    <div className="w-8 h-8 rounded-full bg-[#caa161]/10 border border-[#caa161]/30 flex items-center justify-center shrink-0 shadow-sm mt-1">
                       <Sparkles className="w-4 h-4 text-[#caa161]" />
                     </div>
                   )}
@@ -187,7 +187,7 @@ export default function Chatbot() {
                       className={`p-3.5 rounded-2xl text-[15px] leading-relaxed shadow-sm ${
                         msg.type === "user"
                           ? "bg-gradient-to-br from-[#caa161] to-[#b08a50] text-white rounded-tr-sm"
-                          : "bg-[#1a1a1a] text-gray-200 rounded-tl-sm border border-white/5"
+                          : "bg-white text-gray-700 rounded-tl-sm border border-gray-200"
                       }`}
                     >
                       {msg.text}
@@ -203,10 +203,10 @@ export default function Chatbot() {
                               initial={{ opacity: 0, x: 20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: pidx * 0.1 }}
-                              className="flex-shrink-0 w-36 bg-[#1a1a1a] border border-white/10 rounded-xl p-2 hover:border-[#caa161]/50 transition-colors cursor-pointer group"
+                              className="flex-shrink-0 w-36 bg-white border border-gray-200 rounded-xl p-2 hover:border-[#caa161]/50 transition-colors cursor-pointer group"
                               onClick={() => router.push(`/product/${prod.id}`)}
                             >
-                              <div className="aspect-square bg-zinc-800 rounded-lg mb-2 overflow-hidden flex items-center justify-center relative">
+                              <div className="aspect-square bg-gray-100 rounded-lg mb-2 overflow-hidden flex items-center justify-center relative">
                                  {prod.image ? (
                                    <img 
                                      src={prod.image} 
@@ -218,11 +218,11 @@ export default function Chatbot() {
                                    <Gift className="w-6 h-6 text-[#caa161] opacity-50" />
                                  )}
                                  <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-[#caa161] text-[10px] font-bold rounded text-white shadow-sm">
-                                   ${prod.price}
+                                   ₹{prod.price}
                                  </div>
                               </div>
-                              <h4 className="text-[11px] font-bold text-gray-200 line-clamp-1">{prod.name}</h4>
-                              <p className="text-[9px] text-gray-500 mt-0.5 line-clamp-1">{prod.category}</p>
+                              <h4 className="text-[11px] font-bold text-gray-800 line-clamp-1">{prod.name}</h4>
+                              <p className="text-[9px] text-gray-400 mt-0.5 line-clamp-1">{prod.category}</p>
                             </motion.div>
                           ))}
                         </div>
@@ -235,7 +235,7 @@ export default function Chatbot() {
                             const params = new URLSearchParams({ q: msg.text.split("SEARCH_QUERY:")[1] || "gifts", isAI: "true" });
                             router.push(`/ai?${params.toString()}`);
                           }}
-                          className="w-full py-2.5 bg-gradient-to-r from-[#caa161]/20 to-[#b08a50]/20 hover:from-[#caa161]/40 hover:to-[#b08a50]/40 text-[#caa161] border border-[#caa161]/30 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 group"
+                          className="w-full py-2.5 bg-[#caa161]/10 hover:bg-[#caa161]/20 text-[#9a7638] border border-[#caa161]/30 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 group"
                         >
                           View All 100+ Results
                           <Sparkles className="w-3 h-3 group-hover:rotate-12 transition-transform" />
@@ -254,7 +254,7 @@ export default function Chatbot() {
                             transition={{ delay: idx * 0.1 }}
                             onClick={() => handleSuggestionClick(suggestion)}
                             disabled={isTyping}
-                            className="px-3 py-1.5 bg-[#1a1a1a] hover:bg-[#caa161]/20 text-gray-300 hover:text-[#caa161] rounded-full text-xs font-semibold border border-white/10 hover:border-[#caa161] transition-all"
+                            className="px-3 py-1.5 bg-white hover:bg-[#caa161]/10 text-gray-600 hover:text-[#9a7638] rounded-full text-xs font-semibold border border-gray-200 hover:border-[#caa161] transition-all"
                           >
                             {suggestion}
                           </motion.button>
@@ -264,8 +264,8 @@ export default function Chatbot() {
                   </div>
 
                   {msg.type === "user" && (
-                    <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center shrink-0 shadow-sm mt-1 border border-zinc-600">
-                      <User className="w-4 h-4 text-gray-300" />
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center shrink-0 shadow-sm mt-1 border border-gray-200">
+                      <User className="w-4 h-4 text-gray-500" />
                     </div>
                   )}
                 </motion.div>
@@ -277,10 +277,10 @@ export default function Chatbot() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex gap-3 justify-start"
                 >
-                  <div className="w-8 h-8 rounded-full bg-[#caa161]/20 border border-[#caa161]/50 flex items-center justify-center shrink-0 mt-1">
+                  <div className="w-8 h-8 rounded-full bg-[#caa161]/10 border border-[#caa161]/30 flex items-center justify-center shrink-0 mt-1">
                     <Sparkles className="w-4 h-4 text-[#caa161]" />
                   </div>
-                  <div className="p-4 rounded-2xl bg-[#1a1a1a] rounded-tl-sm border border-white/5 shadow-sm flex gap-1.5 items-center">
+                  <div className="p-4 rounded-2xl bg-white rounded-tl-sm border border-gray-200 shadow-sm flex gap-1.5 items-center">
                     <motion.div 
                       className="w-2 h-2 bg-[#caa161] rounded-full" 
                       animate={{ y: [0, -6, 0] }} 
@@ -303,7 +303,7 @@ export default function Chatbot() {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-[#151515]/90 backdrop-blur-xl border-t border-white/10 relative z-10">
+            <div className="p-4 bg-white border-t border-gray-200 relative z-10">
               <form onSubmit={handleSend} className="flex gap-2">
                 <input
                   type="text"
@@ -311,7 +311,7 @@ export default function Chatbot() {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your answer..."
                   disabled={isTyping}
-                  className="flex-1 bg-[#111] border border-white/10 focus:border-[#caa161] rounded-2xl px-5 py-3 text-[15px] focus:outline-none transition-all text-white disabled:opacity-50 shadow-inner"
+                  className="flex-1 bg-gray-100 border border-gray-200 focus:border-[#caa161] rounded-2xl px-5 py-3 text-[15px] focus:outline-none transition-all text-gray-900 disabled:opacity-50"
                 />
                 <button
                   type="submit"

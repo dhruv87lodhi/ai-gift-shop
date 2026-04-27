@@ -21,7 +21,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
   const sections = [
     {
       title: "Gift Finder",
-      icon: <Search className="w-5 h-5 text-[#caa161]" />,
+      icon: <Search className="w-5 h-5 text-[#9a7638]" />,
       items: [
         { label: "Birthday Gifts", query: "Birthday" },
         { label: "Personalized Gifts", query: "Personalized" },
@@ -35,7 +35,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
     },
     {
       title: "By Category",
-      icon: <Monitor className="w-5 h-5 text-[#caa161]" />,
+      icon: <Monitor className="w-5 h-5 text-[#9a7638]" />,
       items: [
         { label: "Tech", query: "Tech", icon: <Monitor className="w-4 h-4" /> },
         { label: "Fashion", query: "Fashion", icon: <Shirt className="w-4 h-4" /> },
@@ -47,7 +47,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
     },
     {
       title: "By Occasion",
-      icon: <Cake className="w-5 h-5 text-[#caa161]" />,
+      icon: <Cake className="w-5 h-5 text-[#9a7638]" />,
       items: [
         { label: "Birthday", query: "Birthday" },
         { label: "Anniversary", query: "Anniversary" },
@@ -58,7 +58,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
     },
     {
       title: "By Festivals",
-      icon: <PartyPopper className="w-5 h-5 text-[#caa161]" />,
+      icon: <PartyPopper className="w-5 h-5 text-[#9a7638]" />,
       items: [
         { label: "Diwali", query: "Diwali" },
         { label: "Christmas", query: "Christmas" },
@@ -68,7 +68,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
     },
     {
       title: "By Special Days",
-      icon: <CalendarHeart className="w-5 h-5 text-[#caa161]" />,
+      icon: <CalendarHeart className="w-5 h-5 text-[#9a7638]" />,
       items: [
         { label: "Mother's Day", query: "Mother's Day" },
         { label: "Father's Day", query: "Father's Day" },
@@ -78,7 +78,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
     },
     {
       title: "Featured Collections",
-      icon: <Sparkles className="w-5 h-5 text-[#caa161]" />,
+      icon: <Sparkles className="w-5 h-5 text-[#9a7638]" />,
       items: [
         { label: "Trending Gifts", query: "Trending", icon: <Flame className="w-4 h-4 text-orange-500" /> },
         { label: "Best Sellers", query: "Best Seller", icon: <Star className="w-4 h-4 text-yellow-500" /> },
@@ -99,7 +99,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[60]"
           />
 
           {/* Sidebar Drawer */}
@@ -108,19 +108,19 @@ export default function SidebarMenu({ isOpen, onClose }) {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 h-full w-[85vw] sm:w-80 bg-[#151515] border-r border-white/10 z-[70] flex flex-col shadow-2xl"
+            className="fixed top-0 left-0 h-full w-[85vw] sm:w-80 bg-white border-r border-gray-200 z-[70] flex flex-col shadow-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-white/10 shrink-0">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 shrink-0">
               <div className="flex items-center gap-2">
                 <div className="bg-[#caa161] p-1.5 rounded-lg text-white">
                   <Gift className="h-5 w-5" />
                 </div>
-                <span className="font-bold text-lg text-white">Aura Menu</span>
+                <span className="font-bold text-lg text-gray-900">Aura Menu</span>
               </div>
               <button 
                 onClick={onClose}
-                className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors"
+                className="p-2 text-gray-400 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -139,7 +139,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
                       <button
                         key={itemIdx}
                         onClick={() => handleNavigation(item.query)}
-                        className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors text-left"
+                        className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors text-left"
                       >
                         {item.icon && <span className="opacity-70">{item.icon}</span>}
                         {item.label}
@@ -151,8 +151,8 @@ export default function SidebarMenu({ isOpen, onClose }) {
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t border-white/10 shrink-0 bg-black/20">
-              <p className="text-xs text-center text-gray-500">
+            <div className="p-4 border-t border-gray-200 shrink-0 bg-gray-50">
+              <p className="text-xs text-center text-gray-400">
                 AuraGifts AI © 2026
               </p>
             </div>

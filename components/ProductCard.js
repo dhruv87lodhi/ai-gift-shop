@@ -6,8 +6,8 @@ import { Heart } from "lucide-react";
 
 export default function ProductCard({ product }) {
   return (
-    <div className="group relative glass rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#caa161]/20">
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#111]">
+    <div className="group relative glass rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#caa161]/10 border border-gray-200">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
         <Image
           src={product.image}
           alt={product.name}
@@ -18,28 +18,28 @@ export default function ProductCard({ product }) {
             e.currentTarget.srcset = "";
           }}
         />
-        <button className="absolute top-3 right-3 p-2 bg-black/50 backdrop-blur-md rounded-full text-gray-300 hover:text-white hover:bg-[#caa161] transition-colors z-10">
+        <button className="absolute top-3 right-3 p-2 bg-white/70 backdrop-blur-md rounded-full text-gray-400 hover:text-[#caa161] hover:bg-white transition-colors z-10">
           <Heart className="w-5 h-5" />
         </button>
       </div>
       <div className="p-5">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#caa161]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#9a7638]">
             {product.category}
           </span>
-          <span className="font-bold text-lg text-white">
-            ${Number(product.price).toFixed(2)}
+          <span className="font-bold text-lg text-gray-900">
+            ₹{Number(product.price).toLocaleString('en-IN')}
           </span>
         </div>
-        <h3 className="text-lg font-bold text-white mb-2 line-clamp-1 group-hover:text-[#caa161] transition-colors">
+        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-[#9a7638] transition-colors">
           {product.name}
         </h3>
-        <p className="text-sm text-gray-400 line-clamp-2 mb-4">
+        <p className="text-sm text-gray-500 line-clamp-2 mb-4">
           {product.description}
         </p>
         <Link
           href={`/product/${product.id}`}
-          className="block w-full py-2.5 px-4 bg-white text-black text-center font-bold rounded-xl hover:bg-[#caa161] hover:text-white transition-colors"
+          className="block w-full py-2.5 px-4 bg-gray-900 text-white text-center font-bold rounded-xl hover:bg-[#caa161] hover:text-white transition-colors"
         >
           View Gift
         </Link>

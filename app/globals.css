@@ -41,13 +41,6 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09090b;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -55,21 +48,16 @@ body {
   overflow-x: hidden;
 }
 
-/* Glassmorphism utilities */
+/* Glassmorphism utilities - Light mode */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark .glass {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .text-gradient {
-  background: linear-gradient(to right, #caa161, #caa161, #ffffff);
+  background: linear-gradient(to right, #9a7638, #caa161, #9a7638);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

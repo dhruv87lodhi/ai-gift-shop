@@ -24,22 +24,22 @@ export default async function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative px-6 py-24 md:py-32 overflow-hidden flex items-center justify-center min-h-[80vh]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1a1a] to-[#111111] -z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f5f0] to-[#fafafa] -z-10" />
         
         {/* Animated Background Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#caa161] rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-float" />
-        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-[#b08a50] rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-float" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#caa161] rounded-full mix-blend-multiply filter blur-[100px] opacity-10 animate-float" />
+        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-[#b08a50] rounded-full mix-blend-multiply filter blur-[100px] opacity-10 animate-float" style={{ animationDelay: '1s' }} />
 
         <div className="max-w-4xl mx-auto text-center z-10 animate-[fade-in-up_0.8s_ease-out]">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 text-sm font-medium text-[#caa161]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 text-sm font-medium text-[#9a7638]">
             <Sparkles className="w-4 h-4" />
             <span>AI-Powered Gift Recommendations</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 text-white">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 text-gray-900">
             Find the Perfect Gift, <br className="hidden md:block" />
             <span className="text-gradient">Every Time.</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-500 mb-10 max-w-2xl mx-auto">
             Let our intelligent AI analyze your needs and suggest the most thoughtful presents for your loved ones.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
@@ -47,7 +47,7 @@ export default async function Home() {
               <Sparkles className="w-5 h-5" />
               Try AI Gift Finder
             </button>
-            <Link href="/category" className="w-full sm:w-auto px-8 py-4 glass text-white rounded-full font-bold text-lg hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+            <Link href="/category" className="w-full sm:w-auto px-8 py-4 glass text-gray-900 rounded-full font-bold text-lg hover:bg-black/5 transition-colors flex items-center justify-center gap-2">
               Browse Categories
             </Link>
           </div>
@@ -58,7 +58,7 @@ export default async function Home() {
       {/* Featured Occasions */}
       <section className="py-20 px-6 max-w-7xl mx-auto w-full">
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Shop by Occasion
           </h2>
           <Link href="/occasion" className="flex items-center gap-2 text-[#caa161] font-semibold hover:gap-3 transition-all">
@@ -73,13 +73,13 @@ export default async function Home() {
       </section>
 
       {/* Categories Grid */}
-      <section className="py-20 px-6 bg-[#1a1a1a]">
+      <section className="py-20 px-6 bg-[#f0efe9]">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Explore Categories
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-500 max-w-2xl mx-auto">
               From tech gadgets to personalized experiences, we have curated the best gifts across all categories.
             </p>
           </div>
@@ -94,7 +94,7 @@ export default async function Home() {
       {/* Trending Gifts */}
       <section className="py-20 px-6 max-w-7xl mx-auto w-full">
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Trending Gifts
           </h2>
         </div>
