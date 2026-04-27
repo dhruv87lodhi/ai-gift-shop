@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, MapPin, Truck, Shield, CreditCard, Loader2, CheckCircle2, Package } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 
 // Metro pincode prefixes for faster delivery
 const METRO_PREFIXES = ["11", "40", "50", "60", "56", "70", "38", "30", "22", "41"];
@@ -38,6 +39,7 @@ function getDeliveryEstimate(pincode) {
 export default function CheckoutPage() {
   const router = useRouter();
   const { cartItems, cartTotal } = useCart();
+  const { user, loading } = useAuth();
   
   const [form, setForm] = useState({
     fullName: "",
@@ -48,6 +50,24 @@ export default function CheckoutPage() {
     state: "",
     pincode: "",
   });
+
+  // Handle Auth Redirect
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login?redirect=/checkout");
+    }
+  }, [user, loading, router]);
+
+  // Pre-fill user data
+  useEffect(() => {
+    if (user) {
+      setForm(prev => ({
+        ...prev,
+        fullName: prev.fullName || user.name || "",
+        phone: prev.phone || user.phone || "",
+      }));
+    }
+  }, [user]);
   
   const [deliveryEstimate, setDeliveryEstimate] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -157,8 +177,25 @@ export default function CheckoutPage() {
         name: "AuraGifts",
         description: `Order of ${cartItems.length} item(s)`,
         order_id: order.id,
-        handler: function (response) {
-          // Payment successful — redirect to success page
+        handler: async function (response) {
+          // 4. Record order in database
+          try {
+            await fetch("/api/orders", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderId: response.razorpay_order_id,
+                paymentId: response.razorpay_payment_id,
+                total: Math.round(finalTotal),
+                items: cartItems,
+                shippingAddress: `${form.address1}${form.address2 ? ', ' + form.address2 : ''}, ${form.city}, ${form.state} - ${form.pincode}`,
+              }),
+            });
+          } catch (err) {
+            console.error("Failed to record order:", err);
+          }
+
+          // 5. Redirect to success page
           const params = new URLSearchParams({
             payment_id: response.razorpay_payment_id,
             order_id: response.razorpay_order_id,

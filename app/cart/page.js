@@ -8,10 +8,10 @@ import NoteGenerator from "@/components/NoteGenerator";
 import Chatbot from "@/components/Chatbot";
 
 export default function CartPage() {
-  const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
-  const tax = cartTotal * 0.08;
-  const shipping = cartTotal > 499 ? 0 : 49;
-  const finalTotal = cartTotal + tax + shipping;
+  const { cartItems = [], updateQuantity, removeFromCart, cartTotal = 0 } = useCart();
+  const tax = (cartTotal || 0) * 0.08;
+  const shipping = (cartTotal || 0) > 499 ? 0 : 49;
+  const finalTotal = (cartTotal || 0) + tax + shipping;
 
   return (
     <div className="min-h-screen px-6 py-12 max-w-7xl mx-auto flex flex-col">

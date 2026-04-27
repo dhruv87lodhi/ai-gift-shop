@@ -5,6 +5,7 @@ import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell } from "lucide-re
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import SidebarMenu from "./SidebarMenu";
 
 export default function Navbar() {
@@ -16,6 +17,7 @@ export default function Navbar() {
   const ticking = useRef(false);
   const router = useRouter();
   const { cartCount } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,11 +120,11 @@ export default function Navbar() {
               </Link>
               
               <Link
-                href="/profile"
+                href={user ? "/profile" : "/login"}
                 className="ml-2 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-[#caa161] hover:text-white transition-colors flex items-center gap-2 shadow-lg hover:shadow-[#caa161]/20"
               >
                 <User className="w-4 h-4" />
-                <span className="hidden lg:inline">Profile</span>
+                <span className="hidden lg:inline">{user ? "Profile" : "Login"}</span>
               </Link>
             </div>
 
@@ -178,11 +180,11 @@ export default function Navbar() {
                 <Heart className="w-5 h-5" /> Shortlisted
               </Link>
               <Link
-                href="/profile"
+                href={user ? "/profile" : "/login"}
                 className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <User className="w-5 h-5" /> Profile
+                <User className="w-5 h-5" /> {user ? "Profile" : "Login"}
               </Link>
             </div>
           </div>
