@@ -16,13 +16,14 @@ import {
   Plus,
   Lock,
   ShoppingBag,
+  Clock,
+  CheckCircle2,
   ExternalLink,
   ShieldCheck,
   CreditCard,
   Target,
   Sparkles,
-  Clock,
-  CheckCircle2
+  Wallet
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
@@ -40,12 +41,13 @@ export default function ProfilePage() {
   if (!user) return null;
 
   const tabs = [
-    { id: 'personal', label: 'Identity', icon: UserIcon },
-    { id: 'orders', label: 'Purchase History', icon: Package },
+    { id: 'orders', label: 'Orders', icon: Package },
     { id: 'wishlist', label: 'Treasures', icon: Heart },
-    { id: 'addresses', label: 'Locations', icon: MapPin },
-    { id: 'reminders', label: 'Celebrations', icon: Bell },
-    { id: 'settings', label: 'Preferences', icon: Settings },
+    { id: 'cart', label: 'Cart', icon: ShoppingBag, href: '/cart' },
+    { id: 'addresses', label: 'Address', icon: MapPin },
+    { id: 'personal', label: 'Account Details', icon: UserIcon },
+    { id: 'reminders', label: 'Gift Reminders', icon: Bell },
+    { id: 'logout', label: 'Log Out', icon: LogOut, action: logout },
   ];
 
   const renderContent = () => {
@@ -68,85 +70,91 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7] relative overflow-hidden pb-20">
-      {/* Dynamic Background Orbs */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#caa161]/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#b08a50]/10 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 pt-12">
-        {/* Glass Profile Header */}
-        <div className="glass rounded-[2.5rem] p-8 md:p-12 mb-10 border border-white/50 shadow-2xl shadow-[#caa161]/5 flex flex-col md:flex-row items-center gap-10">
-          <div className="relative">
-            <div className="w-28 h-28 rounded-[2rem] bg-gradient-to-tr from-[#caa161] to-[#b08a50] flex items-center justify-center text-white text-4xl font-black shadow-xl border-4 border-white">
-              {user.name[0]}
-            </div>
-            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full animate-ping" />
-            </div>
-          </div>
+    <div className="min-h-screen bg-[#f8f9fa] pt-12 pb-24 font-sans">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
           
-          <div className="flex-1 text-center md:text-left">
-            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-2">
-              <h1 className="text-4xl font-black text-gray-900 tracking-tight">{user.name}</h1>
-              <span className="inline-flex px-3 py-1 bg-[#caa161]/10 text-[#9a7638] text-[10px] font-black uppercase tracking-widest rounded-full border border-[#caa161]/20">
-                Verified Profile
-              </span>
+          {/* Left Sidebar: Profile Card */}
+          <aside className="w-full lg:w-[320px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden shrink-0">
+            <div className="p-10 flex flex-col items-center text-center border-b border-gray-50">
+              <div className="w-32 h-32 rounded-full bg-[#fcfcfc] mb-6 overflow-hidden border-4 border-white shadow-lg relative">
+                <img 
+                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=caa161&color=fff&size=128&bold=true`} 
+                  alt={user.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900">{user.name}</h2>
+              <p className="text-gray-400 text-sm mt-1 truncate w-full px-4">{user.email}</p>
             </div>
-            <p className="text-gray-500 font-medium">{user.email}</p>
-          </div>
 
-          <div className="flex gap-4">
-            <Link href="/cart" className="flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-2xl font-bold transition-all shadow-lg shadow-black/5 hover:shadow-black/10 hover:-translate-y-0.5">
-              <ShoppingBag className="w-4 h-4 text-[#caa161]" /> Cart
-            </Link>
-            <button onClick={logout} className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-500 rounded-2xl font-bold transition-all hover:bg-red-100">
-              <LogOut className="w-4 h-4" /> Exit
-            </button>
-          </div>
-        </div>
+            <nav className="p-4 space-y-1">
+              {tabs.map((tab) => {
+                if (tab.href) return (
+                  <Link
+                    key={tab.id}
+                    href={tab.href}
+                    className="w-full flex items-center gap-4 px-6 py-4 rounded-xl text-gray-500 hover:bg-gray-50 transition-all font-semibold text-sm"
+                  >
+                    <tab.icon className="w-5 h-5 opacity-70" />
+                    {tab.label}
+                  </Link>
+                );
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Vertical Sidebar - Artisan Style */}
-          <aside className="lg:col-span-3">
-            <div className="glass rounded-[2.5rem] p-4 border border-white/50 shadow-xl shadow-black/5 sticky top-28">
-              <nav className="space-y-2">
-                {tabs.map((tab) => (
+                return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 relative group ${
+                    onClick={() => tab.action ? tab.action() : setActiveTab(tab.id)}
+                    className={`w-full flex items-center gap-4 px-6 py-4 rounded-xl transition-all font-semibold text-sm ${
                       activeTab === tab.id 
-                      ? 'bg-gray-900 text-white shadow-xl shadow-black/20 translate-x-2' 
-                      : 'text-gray-400 hover:text-gray-900 hover:bg-white/50'
+                      ? 'bg-red-50/50 text-[#caa161]' 
+                      : 'text-gray-500 hover:bg-gray-50'
                     }`}
                   >
-                    <div className={`p-2 rounded-xl transition-colors ${activeTab === tab.id ? 'bg-[#caa161]/20' : 'bg-gray-50 group-hover:bg-white'}`}>
-                      <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-[#caa161]' : 'text-gray-400'}`} />
-                    </div>
-                    <span className="font-bold text-sm tracking-tight">{tab.label}</span>
-                    {activeTab === tab.id && (
-                      <motion.div layoutId="sidebar-pill" className="ml-auto">
-                        <ChevronRight className="w-4 h-4 text-[#caa161]" />
-                      </motion.div>
-                    )}
+                    <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-[#caa161]' : 'opacity-70'}`} />
+                    {tab.label}
                   </button>
-                ))}
-              </nav>
-            </div>
+                );
+              })}
+            </nav>
           </aside>
 
-          {/* Content Area - Premium Cards */}
-          <main className="lg:col-span-9">
-            <div className="bg-white/60 backdrop-blur-md rounded-[3rem] p-10 md:p-14 border border-white shadow-2xl shadow-[#caa161]/5 min-h-[600px]">
+          {/* Right Content Area */}
+          <main className="flex-1 space-y-8">
+            {/* Top Cards Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-[#fcfcfc] rounded-3xl p-10 border border-gray-100 flex items-center justify-between group hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all cursor-pointer overflow-hidden relative">
+                <div className="relative z-10">
+                  <h3 className="text-3xl font-black text-gray-900 mb-2">Order <br/>Tracking</h3>
+                  <p className="text-gray-400 text-sm font-medium">See your order history.</p>
+                </div>
+                <div className="w-32 h-32 relative z-10 translate-x-4">
+                   <Package className="w-full h-full text-gray-100 group-hover:text-[#caa161]/10 transition-colors" />
+                   <img src="https://cdn-icons-png.flaticon.com/512/2038/2038767.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
+
+              <div className="bg-[#fcfcfc] rounded-3xl p-10 border border-gray-100 flex items-center justify-between group hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all cursor-pointer overflow-hidden relative">
+                <div className="relative z-10">
+                  <h3 className="text-3xl font-black text-gray-900 mb-2">Billing <br/>Address</h3>
+                  <p className="text-gray-400 text-sm font-medium">Set your billing address.</p>
+                </div>
+                <div className="w-32 h-32 relative z-10 translate-x-4">
+                   <MapPin className="w-full h-full text-gray-100 group-hover:text-[#caa161]/10 transition-colors" />
+                   <img src="https://cdn-icons-png.flaticon.com/512/1239/1239525.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
+            </div>
+
+            {/* Dynamic Content Card */}
+            <div className="bg-white rounded-3xl p-10 md:p-14 border border-gray-100 shadow-sm min-h-[500px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
                 >
                   {renderContent()}
                 </motion.div>
@@ -192,81 +200,84 @@ function PersonalInfo({ user }) {
 
   return (
     <div>
-      <div className="flex justify-between items-start mb-12">
-        <div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tight">Identity</h2>
-          <p className="text-gray-400 font-medium mt-1">Manage your account presence.</p>
-        </div>
-        {!isEditing && (
-          <button 
-            onClick={() => setIsEditing(true)}
-            className="w-14 h-14 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-[#caa161] hover:bg-gray-900 hover:text-white transition-all shadow-sm"
-          >
-            <Edit2 className="w-5 h-5" />
-          </button>
-        )}
+      <div className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Details</h2>
+        <div className="h-1 w-12 bg-[#caa161] rounded-full" />
       </div>
 
-      {isEditing ? (
-        <form onSubmit={handleSubmit} className="max-w-xl space-y-8">
-          <div className="grid grid-cols-1 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-gray-900">First Name</label>
+            <input
+              type="text"
+              className="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#caa161]/20 focus:border-[#caa161] outline-none transition-all font-medium text-gray-600"
+              value={user.name.split(' ')[0]}
+              readOnly={!isEditing}
+              onChange={(e) => isEditing && setFormData({ ...formData, name: `${e.target.value} ${user.name.split(' ')[1] || ''}` })}
+            />
+          </div>
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-gray-900">Last Name</label>
+            <input
+              type="text"
+              className="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#caa161]/20 focus:border-[#caa161] outline-none transition-all font-medium text-gray-600"
+              value={user.name.split(' ').slice(1).join(' ')}
+              readOnly={!isEditing}
+            />
+          </div>
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-gray-900">Email Address</label>
+            <input
+              type="email"
+              className="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl font-medium text-gray-400 cursor-not-allowed"
+              value={user.email}
+              readOnly
+            />
+          </div>
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-gray-900">Password</label>
             <div className="relative">
-              <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 absolute left-6 top-4 z-10">Legal Name</label>
               <input
-                type="text"
-                className="w-full pl-6 pr-6 pt-10 pb-4 bg-white border border-gray-100 rounded-3xl focus:ring-4 focus:ring-[#caa161]/10 focus:border-[#caa161] outline-none transition-all font-bold text-gray-900 shadow-sm"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
+                type="password"
+                className="w-full px-6 py-4 bg-white border border-gray-200 rounded-xl font-medium text-gray-400 cursor-not-allowed"
+                value="********"
+                readOnly
               />
-            </div>
-            <div className="relative">
-              <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 absolute left-6 top-4 z-10">Mobile Line</label>
-              <input
-                type="tel"
-                className="w-full pl-6 pr-6 pt-10 pb-4 bg-white border border-gray-100 rounded-3xl focus:ring-4 focus:ring-[#caa161]/10 focus:border-[#caa161] outline-none transition-all font-bold text-gray-900 shadow-sm"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              />
+              <Lock className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
             </div>
           </div>
-          <div className="flex gap-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex-1 bg-gray-900 text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-black/20 disabled:opacity-50"
-            >
-              {loading ? 'Processing...' : 'Synchronize'}
-            </button>
+        </div>
+
+        <div className="flex gap-4">
+          {!isEditing ? (
             <button
               type="button"
-              onClick={() => setIsEditing(false)}
-              className="px-10 py-5 bg-gray-100 text-gray-400 rounded-[2rem] font-bold hover:bg-gray-200 transition-all"
+              onClick={() => setIsEditing(true)}
+              className="px-10 py-4 bg-[#caa161] text-white rounded-xl font-bold text-sm hover:bg-[#b08a50] transition-all"
             >
-              Cancel
+              Edit Profile
             </button>
-          </div>
-        </form>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <InfoCard label="Account Owner" value={user.name} icon={UserIcon} />
-          <InfoCard label="Communication Channel" value={user.email} icon={ShieldCheck} />
-          <InfoCard label="Contact Line" value={user.phone || 'Not linked'} icon={Target} />
-          <InfoCard label="Journey Since" value={new Date(user.createdAt).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })} icon={Clock} />
+          ) : (
+            <>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-10 py-4 bg-[#caa161] text-white rounded-xl font-bold text-sm hover:bg-[#b08a50] transition-all disabled:opacity-50"
+              >
+                {loading ? 'Saving...' : 'Update Details'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsEditing(false)}
+                className="px-10 py-4 bg-gray-100 text-gray-500 rounded-xl font-bold text-sm hover:bg-gray-200 transition-all"
+              >
+                Cancel
+              </button>
+            </>
+          )}
         </div>
-      )}
-    </div>
-  );
-}
-
-function InfoCard({ label, value, icon: Icon }) {
-  return (
-    <div className="p-8 bg-[#fafafa] border border-gray-50 rounded-[2.5rem] group hover:bg-white hover:shadow-xl hover:border-[#caa161]/20 transition-all duration-500">
-      <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#caa161] mb-6 shadow-sm border border-gray-50 group-hover:bg-[#caa161] group-hover:text-white transition-all">
-        <Icon className="w-5 h-5" />
-      </div>
-      <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">{label}</p>
-      <p className="text-xl font-bold text-gray-900">{value}</p>
+      </form>
     </div>
   );
 }
@@ -274,59 +285,43 @@ function InfoCard({ label, value, icon: Icon }) {
 function Orders({ orders }) {
   return (
     <div>
-      <div className="flex justify-between items-start mb-12">
-        <div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tight">History</h2>
-          <p className="text-gray-400 font-medium mt-1">Timeline of your acquisitions.</p>
-        </div>
-        <div className="w-14 h-14 bg-[#fafafa] rounded-2xl flex items-center justify-center text-gray-400">
-          <Clock className="w-6 h-6" />
-        </div>
+      <div className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Order History</h2>
+        <div className="h-1 w-12 bg-[#caa161] rounded-full" />
       </div>
-
       {!orders || orders.length === 0 ? (
-        <div className="text-center py-20 bg-[#fafafa] rounded-[3rem] border-2 border-dashed border-gray-100 flex flex-col items-center">
-          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm">
-            <Package className="w-8 h-8 text-gray-100" />
-          </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">History is Empty</h3>
-          <Link href="/" className="text-[#caa161] font-bold text-sm hover:underline">Start Shopping</Link>
+        <div className="text-center py-20 bg-[#fafafa] rounded-2xl border border-dashed border-gray-200">
+          <Package className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+          <p className="text-gray-500 font-bold">No orders found</p>
+          <Link href="/" className="text-[#caa161] font-bold text-sm hover:underline mt-2 inline-block">Start Shopping</Link>
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {orders.map((order, idx) => (
-            <div key={idx} className="group p-8 bg-[#fafafa] rounded-[2.5rem] border border-gray-50 hover:bg-white hover:shadow-2xl transition-all duration-500 flex flex-col md:flex-row gap-8 items-center">
-              <div className="flex-1 w-full">
-                <div className="flex justify-between items-start mb-6">
+            <div key={idx} className="p-6 bg-[#fafafa] rounded-2xl border border-gray-100 flex flex-col md:flex-row gap-6 items-center">
+              <div className="flex-1 w-full text-left">
+                <div className="flex justify-between items-start mb-4">
                   <div>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Order Identifier</p>
-                    <p className="font-mono text-xs font-bold text-gray-900 bg-white px-3 py-1 rounded-lg border border-gray-100 inline-block">#{order.orderId?.slice(-8) || 'AURA-'+idx}</p>
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Order ID</p>
+                    <p className="font-bold text-gray-900">{order.orderId || 'AURA-'+idx}</p>
                   </div>
                   <div className="text-right">
-                    <span className="px-4 py-1.5 bg-green-50 text-green-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-green-100">
-                      {order.status}
-                    </span>
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</p>
+                    <p className="text-green-500 font-bold text-sm">{order.status}</p>
                   </div>
                 </div>
-                
                 <div className="flex items-center gap-4">
                   <div className="flex -space-x-3">
                     {order.items?.map((item, i) => (
-                      <div key={i} className="w-12 h-12 rounded-2xl border-2 border-white bg-white overflow-hidden shadow-md group-hover:rotate-6 transition-transform">
+                      <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-white overflow-hidden shadow-sm">
                         <img src={item.image} alt="" className="w-full h-full object-cover" />
                       </div>
                     ))}
                   </div>
-                  <div className="ml-4">
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Value</p>
-                    <p className="text-2xl font-black text-gray-900">₹{order.total?.toLocaleString()}</p>
-                  </div>
-                  <p className="text-xs font-bold text-gray-300 ml-auto">{new Date(order.date).toLocaleDateString()}</p>
+                  <p className="text-sm font-bold text-gray-900 ml-2">₹{order.total?.toLocaleString()}</p>
+                  <p className="text-xs text-gray-400 ml-auto">{new Date(order.date).toLocaleDateString()}</p>
                 </div>
               </div>
-              <button className="px-8 py-3 bg-gray-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#caa161] transition-all shadow-xl shadow-black/10">
-                Details
-              </button>
             </div>
           )).reverse()}
         </div>
@@ -338,36 +333,27 @@ function Orders({ orders }) {
 function Wishlist({ wishlist }) {
   return (
     <div>
-      <div className="flex justify-between items-start mb-12">
-        <div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tight">Treasures</h2>
-          <p className="text-gray-400 font-medium mt-1">Your curated selection.</p>
-        </div>
-        <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-red-400">
-          <Heart className="w-6 h-6 fill-current" />
-        </div>
+      <div className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">My Treasures</h2>
+        <div className="h-1 w-12 bg-[#caa161] rounded-full" />
       </div>
-
       {!wishlist || wishlist.length === 0 ? (
-        <div className="text-center py-20 bg-[#fafafa] rounded-[3rem] border-2 border-dashed border-gray-100">
-          <Heart className="w-10 h-10 text-gray-100 mx-auto mb-4" />
-          <p className="text-gray-400 font-bold">The vault is empty.</p>
+        <div className="text-center py-20 bg-[#fafafa] rounded-2xl border border-dashed border-gray-200">
+          <Heart className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+          <p className="text-gray-500 font-bold">Your wishlist is empty</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {wishlist.map((item, idx) => (
-            <div key={idx} className="group bg-[#fafafa] p-6 rounded-[2.5rem] border border-gray-50 hover:bg-white hover:shadow-2xl transition-all duration-500">
-              <div className="aspect-square rounded-[2rem] overflow-hidden mb-6 relative">
-                <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <button className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur rounded-xl flex items-center justify-center text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Heart className="w-4 h-4 fill-current" />
-                </button>
+            <div key={idx} className="bg-[#fafafa] p-4 rounded-2xl border border-gray-100 flex gap-4 items-center">
+              <img src={item.image} alt="" className="w-16 h-16 rounded-xl object-cover" />
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 text-sm">{item.name}</h4>
+                <p className="text-[#caa161] font-black text-sm">₹{item.price}</p>
               </div>
-              <h4 className="font-black text-gray-900 mb-1">{item.name}</h4>
-              <div className="flex justify-between items-center mt-4">
-                <p className="text-lg font-black text-[#9a7638]">₹{item.price}</p>
-                <button className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-900">Remove</button>
-              </div>
+              <button className="text-red-400 p-2 hover:bg-white rounded-lg transition-colors">
+                <Heart className="w-4 h-4 fill-current" />
+              </button>
             </div>
           ))}
         </div>
@@ -379,34 +365,30 @@ function Wishlist({ wishlist }) {
 function Addresses({ addresses }) {
   return (
     <div>
-      <div className="flex justify-between items-start mb-12">
+      <div className="flex justify-between items-center mb-10">
         <div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tight">Locations</h2>
-          <p className="text-gray-400 font-medium mt-1">Delivery endpoints.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Saved Addresses</h2>
+          <div className="h-1 w-12 bg-[#caa161] rounded-full" />
         </div>
-        <button className="w-14 h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center hover:scale-110 transition-all shadow-xl shadow-black/20">
-          <Plus className="w-6 h-6" />
+        <button className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-xl hover:bg-[#caa161] transition-all">
+          <Plus className="w-4 h-4" /> Add New
         </button>
       </div>
-
       {!addresses || addresses.length === 0 ? (
-        <div className="text-center py-20 bg-[#fafafa] rounded-[3rem] border-2 border-dashed border-gray-100">
-          <MapPin className="w-10 h-10 text-gray-100 mx-auto mb-4" />
-          <p className="text-gray-400 font-bold">No coordinates found.</p>
+        <div className="text-center py-20 bg-[#fafafa] rounded-2xl border border-dashed border-gray-200">
+          <MapPin className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+          <p className="text-gray-500 font-bold">No addresses saved yet</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {addresses.map((addr, i) => (
-            <div key={i} className="p-10 bg-[#fafafa] rounded-[2.5rem] border border-gray-50 hover:bg-white hover:shadow-2xl transition-all duration-500 relative group">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#caa161] mb-8 shadow-sm border border-gray-50">
-                <MapPin className="w-5 h-5" />
-              </div>
-              {addr.isDefault && <span className="absolute top-10 right-10 text-[8px] font-black uppercase tracking-widest bg-[#caa161]/10 text-[#9a7638] px-3 py-1 rounded-full">Primary</span>}
-              <h4 className="text-2xl font-black text-gray-900 mb-2">{addr.name}</h4>
-              <p className="text-gray-500 font-medium leading-relaxed">{addr.street}, {addr.city}<br />{addr.state} - {addr.zipCode}</p>
-              <div className="mt-8 flex gap-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button className="text-[10px] font-black uppercase tracking-widest text-[#caa161] hover:underline">Edit</button>
-                <button className="text-[10px] font-black uppercase tracking-widest text-red-400 hover:underline">Remove</button>
+            <div key={i} className="p-6 bg-[#fafafa] rounded-2xl border border-gray-100 relative">
+              {addr.isDefault && <span className="absolute top-4 right-4 text-[8px] font-black uppercase tracking-widest bg-[#caa161]/10 text-[#9a7638] px-2 py-1 rounded-md">Default</span>}
+              <h4 className="font-bold text-gray-900 mb-1">{addr.name}</h4>
+              <p className="text-xs text-gray-500 mb-4">{addr.street}, {addr.city}, {addr.state} - {addr.zipCode}</p>
+              <div className="flex gap-4">
+                <button className="text-[10px] font-bold text-[#caa161] hover:underline">Edit</button>
+                <button className="text-[10px] font-bold text-red-400 hover:underline">Remove</button>
               </div>
             </div>
           ))}
@@ -419,29 +401,16 @@ function Addresses({ addresses }) {
 function Reminders({ reminders }) {
   return (
     <div>
-      <div className="flex justify-between items-start mb-12">
-        <div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tight">Celebrations</h2>
-          <p className="text-gray-400 font-medium mt-1">Smart event tracking.</p>
-        </div>
-        <button className="px-8 py-3 bg-[#caa161]/10 text-[#9a7638] rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#caa161]/20 transition-all flex items-center gap-2">
-          <Bell className="w-4 h-4" /> Add Event
-        </button>
+      <div className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Gift Reminders</h2>
+        <div className="h-1 w-12 bg-[#caa161] rounded-full" />
       </div>
-      
-      <div className="p-12 bg-gray-900 rounded-[3rem] text-white relative overflow-hidden mb-12 shadow-2xl shadow-black/20">
-        <div className="relative z-10">
-          <div className="w-16 h-16 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center mb-8">
-            <Sparkles className="w-8 h-8 text-[#caa161]" />
-          </div>
-          <h3 className="text-2xl font-black mb-4 tracking-tight">AI Smart Calendar</h3>
-          <p className="text-white/60 font-medium max-w-sm leading-relaxed">Let AI track your most precious moments and suggest the perfect gift.</p>
-        </div>
-        <div className="absolute right-0 bottom-0 w-64 h-64 bg-[#caa161] opacity-10 rounded-full blur-[100px] -mr-32 -mb-32" />
+      <div className="p-8 bg-gray-900 rounded-[2rem] text-white mb-8">
+        <h3 className="text-lg font-bold mb-2">The Aura Smart Calendar</h3>
+        <p className="text-white/60 text-sm">Add your special dates and let our AI suggest the perfect gift 7 days in advance.</p>
       </div>
-
-      <div className="h-[200px] flex items-center justify-center bg-[#fafafa] rounded-[2.5rem] border border-gray-100">
-        <p className="text-sm font-black text-gray-300 uppercase tracking-[0.2em]">No Events Recorded</p>
+      <div className="text-center py-12 bg-[#fafafa] rounded-3xl border border-gray-100">
+        <p className="text-gray-400 text-sm font-medium italic">No upcoming celebrations recorded.</p>
       </div>
     </div>
   );
@@ -450,53 +419,28 @@ function Reminders({ reminders }) {
 function SettingsSection({ logout }) {
   return (
     <div>
-      <div className="flex justify-between items-start mb-12">
-        <div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tight">Preferences</h2>
-          <p className="text-gray-400 font-medium mt-1">Calibrate your account.</p>
-        </div>
-        <div className="w-14 h-14 bg-[#fafafa] rounded-2xl flex items-center justify-center text-gray-400">
-          <Settings className="w-6 h-6" />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <SettingCard title="Security" desc="Passwords and 2FA" icon={Lock} />
-        <SettingCard title="Notifications" desc="Email and mobile alerts" icon={Bell} />
-        <SettingCard title="Payment Suite" desc="Cards and billing" icon={CreditCard} />
-        <div 
-          onClick={logout}
-          className="p-10 bg-red-50 border border-red-100 rounded-[2.5rem] group cursor-pointer hover:bg-red-500 transition-all duration-500 md:col-span-2"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform shadow-sm">
-                <LogOut className="w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="text-lg font-black text-gray-900 group-hover:text-white transition-colors">Terminate Session</h4>
-                <p className="text-sm font-medium text-red-400 group-hover:text-red-100 transition-colors">Sign out securely</p>
-              </div>
-            </div>
-            <ChevronRight className="w-6 h-6 text-red-200 group-hover:text-white transition-all" />
-          </div>
-        </div>
+      <h2 className="text-2xl font-black text-gray-900 mb-10">Settings</h2>
+      <div className="space-y-4">
+        <SettingItem label="Security" desc="Password and 2-step verification" icon={Lock} />
+        <SettingItem label="Notifications" desc="Email and SMS preferences" icon={Bell} />
       </div>
     </div>
   );
 }
 
-function SettingCard({ title, desc, icon: Icon }) {
+function SettingItem({ label, desc, icon: Icon }) {
   return (
-    <div className="p-10 bg-[#fafafa] border border-gray-50 rounded-[2.5rem] hover:bg-white hover:shadow-2xl hover:border-[#caa161]/20 transition-all cursor-pointer group">
-      <div className="flex justify-between items-start mb-8">
-        <div className="w-14 h-14 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-[#caa161] group-hover:bg-[#caa161] group-hover:text-white transition-all shadow-sm">
-          <Icon className="w-6 h-6" />
+    <div className="p-6 bg-[#fafafa] border border-gray-100 rounded-2xl flex items-center justify-between hover:bg-white hover:shadow-md hover:border-[#caa161]/20 transition-all cursor-pointer group">
+      <div className="flex items-center gap-4">
+        <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-[#caa161] group-hover:bg-[#caa161] group-hover:text-white transition-all">
+          <Icon className="w-5 h-5" />
         </div>
-        <ChevronRight className="w-5 h-5 text-gray-100 group-hover:text-[#caa161] transition-all" />
+        <div>
+          <p className="font-bold text-gray-900">{label}</p>
+          <p className="text-xs text-gray-400">{desc}</p>
+        </div>
       </div>
-      <h4 className="text-xl font-black text-gray-900 mb-1">{title}</h4>
-      <p className="text-sm font-medium text-gray-400">{desc}</p>
+      <ChevronRight className="w-5 h-5 text-gray-200 group-hover:text-[#caa161] transition-all" />
     </div>
   );
 }
