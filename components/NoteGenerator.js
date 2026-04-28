@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Sparkles, Copy, CheckCircle2, Save } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
@@ -16,12 +16,7 @@ export default function NoteGenerator() {
   const [copied, setCopied] = useState(false);
   const [isSaved, setIsSaved] = useState(!!savedNote);
 
-  // Auto-switch theme based on tone if user hasn't manually picked one
-  useEffect(() => {
-    if (tone === "heartfelt") setCardTheme("vibrant_rose");
-    else if (tone === "funny") setCardTheme("minimalist_white");
-    else setCardTheme("elegant_gold");
-  }, [tone]);
+  const isInitialMount = useRef(true);
 
   const generateNote = async (e) => {
     if (e) e.preventDefault();
@@ -40,7 +35,7 @@ export default function NoteGenerator() {
           recipient,
           occasion,
           tone,
-          variationId: Math.random() // Ensure no caching
+          variationId: Date.now() + Math.random() // Ensure no caching and fresh responses
         }),
       });
 
@@ -57,6 +52,52 @@ export default function NoteGenerator() {
       setIsGenerating(false);
     }
   };
+
+  const generateNoteAuto = async () => {
+    if (!recipient || !occasion) return;
+
+    setIsGenerating(true);
+    setGeneratedNote("");
+    setIsSaved(false);
+    setCopied(false);
+
+    try {
+      const response = await fetch("/api/ai/generate-note", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          recipient,
+          occasion,
+          tone,
+          variationId: Date.now() + Math.random() // Slight randomness to avoid repeated responses
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success && data.text) {
+        setGeneratedNote(data.text);
+      } else {
+        setGeneratedNote(getFallbackNote());
+      }
+    } catch (error) {
+      setGeneratedNote(getFallbackNote());
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  useEffect(() => {
+    // Only trigger when tone changes AFTER the first note has been generated
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    if (generatedNote && recipient && occasion) {
+      generateNoteAuto();
+    }
+  }, [tone]);
 
   const getFallbackNote = () => {
     const notes = {
