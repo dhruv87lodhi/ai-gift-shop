@@ -8,6 +8,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [giftNote, setGiftNote] = useState(null);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -18,9 +19,24 @@ export function CartProvider({ children }) {
       const saved = localStorage.getItem("cart");
       if (saved) {
         try {
-          setCartItems(JSON.parse(saved));
+          const parsed = JSON.parse(saved);
+          // Normalize IDs to strings
+          const normalized = parsed.map(item => ({
+            ...item,
+            id: String(item.id)
+          }));
+          setCartItems(normalized);
         } catch (e) {
           console.error("Failed to parse cart data", e);
+        }
+      }
+
+      const savedNote = localStorage.getItem("giftNote");
+      if (savedNote) {
+        try {
+          setGiftNote(JSON.parse(savedNote));
+        } catch (e) {
+          console.error("Failed to parse gift note data", e);
         }
       }
       
@@ -31,13 +47,27 @@ export function CartProvider({ children }) {
           if (data.cart && data.cart.length > 0) {
             // Merge local cart with DB cart
             setCartItems(prev => {
-              const combined = [...data.cart];
-              prev.forEach(localItem => {
-                const existing = combined.find(dbItem => dbItem.id === localItem.id);
+              // Normalize and deduplicate DB cart items
+              const normalizedDbCart = data.cart.reduce((acc, item) => {
+                const id = String(item.id);
+                const existing = acc.find(i => i.id === id);
                 if (existing) {
-                  existing.quantity = Math.max(existing.quantity, localItem.quantity);
+                  existing.quantity = Math.max(existing.quantity, item.quantity);
+                  return acc;
+                }
+                return [...acc, { ...item, id }];
+              }, []);
+              
+              const combined = [...normalizedDbCart];
+              
+              prev.forEach(localItem => {
+                const localId = String(localItem.id);
+                const existingIndex = combined.findIndex(dbItem => String(dbItem.id) === localId);
+                
+                if (existingIndex !== -1) {
+                  combined[existingIndex].quantity = Math.max(combined[existingIndex].quantity, localItem.quantity);
                 } else {
-                  combined.push(localItem);
+                  combined.push({ ...localItem, id: localId });
                 }
               });
               return combined;
@@ -47,62 +77,80 @@ export function CartProvider({ children }) {
     } else {
       // If no user, clear the cart state and local storage
       setCartItems([]);
+      setGiftNote(null);
       localStorage.removeItem("cart");
+      localStorage.removeItem("giftNote");
     }
   }, [user]);
 
   // Save to local storage and sync with backend
   useEffect(() => {
-    if (user && cartItems.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-      
-      // Throttled sync to backend
-      const timer = setTimeout(() => {
-        fetch("/api/cart", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ cart: cartItems }),
-        });
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (!user) {
-      localStorage.removeItem("cart");
+    if (user) {
+      if (cartItems.length > 0) {
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        
+        // Throttled sync to backend
+        const timer = setTimeout(() => {
+          fetch("/api/cart", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart: cartItems }),
+          });
+        }, 1000);
+        return () => clearTimeout(timer);
+      } else {
+        localStorage.removeItem("cart");
+      }
     }
   }, [cartItems, user]);
+
+  useEffect(() => {
+    if (user) {
+      if (giftNote) {
+        localStorage.setItem("giftNote", JSON.stringify(giftNote));
+      } else {
+        localStorage.removeItem("giftNote");
+      }
+    }
+  }, [giftNote, user]);
 
   const addToCart = (product, quantity = 1) => {
     if (!user) {
       router.push("/login?redirect=current");
       return;
     }
+    const productId = String(product.id);
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => String(item.id) === productId);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id
+          String(item.id) === productId
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prev, { ...product, quantity }];
+      return [...prev, { ...product, id: productId, quantity }];
     });
   };
 
   const removeFromCart = (productId) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== productId));
+    const id = String(productId);
+    setCartItems((prev) => prev.filter((item) => String(item.id) !== id));
   };
 
   const updateQuantity = (productId, quantity) => {
     if (quantity < 1) return;
+    const id = String(productId);
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
+        String(item.id) === id ? { ...item, quantity } : item
       )
     );
   };
 
   const clearCart = () => {
     setCartItems([]);
+    setGiftNote(null);
   };
 
   const cartTotal = cartItems.reduce(
@@ -116,6 +164,8 @@ export function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         cartItems,
+        giftNote,
+        setGiftNote,
         addToCart,
         removeFromCart,
         updateQuantity,

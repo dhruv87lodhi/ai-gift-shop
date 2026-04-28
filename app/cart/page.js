@@ -8,7 +8,7 @@ import NoteGenerator from "@/components/NoteGenerator";
 import Chatbot from "@/components/Chatbot";
 
 export default function CartPage() {
-  const { cartItems = [], updateQuantity, removeFromCart, cartTotal = 0 } = useCart();
+  const { cartItems = [], updateQuantity, removeFromCart, cartTotal = 0, giftNote, setGiftNote } = useCart();
   const tax = (cartTotal || 0) * 0.08;
   const shipping = (cartTotal || 0) > 499 ? 0 : 49;
   const finalTotal = (cartTotal || 0) + tax + shipping;
@@ -115,6 +115,23 @@ export default function CartPage() {
                     {shipping === 0 ? <span className="text-[#9a7638]">Free</span> : `₹${shipping}`}
                   </span>
                 </div>
+                {giftNote && (
+                  <div className="bg-[#caa161]/10 border border-[#caa161]/20 rounded-xl p-3 mt-4 flex items-center gap-3">
+                    <div className="w-10 h-10 bg-[#caa161] rounded-lg flex items-center justify-center text-white shrink-0">
+                      🎁
+                    </div>
+                    <div className="text-xs">
+                      <p className="text-[#9a7638] font-bold">Gift Note Attached</p>
+                      <p className="text-gray-500 line-clamp-1 italic">"{giftNote.message}"</p>
+                    </div>
+                    <button 
+                      onClick={() => setGiftNote(null)}
+                      className="ml-auto text-gray-400 hover:text-red-500"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
                 {shipping > 0 && (
                   <p className="text-xs text-gray-400 italic">Free shipping on orders above ₹499</p>
                 )}

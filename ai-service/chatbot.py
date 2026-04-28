@@ -1,115 +1,144 @@
 import requests
 import json
+import os
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+# Load environment variables
+load_dotenv()
 
 class AuraChat:
     def __init__(self):
-        self.api_url = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-        self.headers = {"Authorization": "Bearer hf_placeholder_key"} 
+        # Configuration
+        self.google_key = os.getenv("GOOGLE_API_KEY")
+        self.openrouter_key = os.getenv("OPENROUTER_API_KEY")
+        self.model_name = "gemini-2.0-flash"
+        
+        # Configure Gemini
+        if self.google_key:
+            try:
+                genai.configure(api_key=self.google_key)
+                self.gemini_model = genai.GenerativeModel(self.model_name)
+                print(f"DEBUG: Gemini initialized with {self.model_name}")
+            except Exception as e:
+                print(f"DEBUG: Gemini init failed: {e}")
+                self.gemini_model = None
+        else:
+            self.gemini_model = None
+
+        self.api_url = "https://openrouter.ai/api/v1/chat/completions"
+        self.openrouter_model = "mistralai/mistral-7b-instruct:free"
         
         self.system_prompt = (
-            "You are Aura, the AI Gift Finder. Be extremely conversational and warm. "
-            "Task: Find out Recipient, Occasion, Budget, and Interests. "
-            "When ready, say: 'SEARCH_QUERY: [budget] [interests]'."
+            "You are Aura, the AI Gift Finder for AuraGifts. Be extremely conversational, warm, and helpful. "
+            "Your goal is to find the perfect gift by asking about: Recipient, Occasion, Budget, and Interests. "
+            "Rules:\n"
+            "1. If you have enough info to suggest gifts, end your message with 'SEARCH_QUERY: [budget] [interests]'.\n"
+            "2. Keep responses concise and engaging.\n"
+            "3. Use temperature for variety.\n"
+            "4. Start by introducing yourself as Aura."
         )
         self.history = []
         self.step_counter = 0
         self.user_data = {}
 
-        # High-Quality Fallback Steps with Matching Suggestions
+        # Fallback sequence for when API fails
         self.steps = [
-            {
-                "key": "recipient",
-                "q": "A gift for {0}! How exciting. Who are they to you? (e.g. Mom, Friend)",
-                "s": ["Mom", "Partner", "Friend", "Boss"]
-            },
-            {
-                "key": "occasion",
-                "q": "I love that! And what is the special occasion for {0}?",
-                "s": ["Birthday", "Wedding", "Anniversary", "Just Because"]
-            },
-            {
-                "key": "budget",
-                "q": "Got it. What kind of budget are we looking at for this {0}?",
-                "s": ["Under 500", "Under 1000", "Under 5000", "No limit"]
-            },
-            {
-                "key": "interests",
-                "q": "Perfect. Lastly, what are some of their hobbies or interests?",
-                "s": ["Tech", "Gaming", "Fashion", "Home Decor"]
-            }
+            {"key": "recipient", "q": "A gift for {0}! How exciting. Who are they to you? (e.g. Mom, Friend)", "s": ["Mom", "Partner", "Friend", "Boss"]},
+            {"key": "occasion", "q": "I love that! And what is the special occasion for {0}?", "s": ["Birthday", "Wedding", "Anniversary", "Just Because"]},
+            {"key": "budget", "q": "Got it. What kind of budget are we looking at for this {0}?", "s": ["Under 500", "Under 1000", "Under 5000", "No limit"]},
+            {"key": "interests", "q": "Perfect. Lastly, what are some of their hobbies or interests?", "s": ["Tech", "Gaming", "Fashion", "Home Decor"]}
         ]
 
     def get_response(self, user_message):
-        if "reset" in user_message.lower() or "start over" in user_message.lower():
+        # Handle resets
+        if any(word in user_message.lower() for word in ["reset", "start over", "clear"]):
             self.history = []
             self.step_counter = 0
             self.user_data = {}
-            return "No problem! I'm ready to find that perfect gift. Who are we shopping for?", ["Mom", "Partner", "Friend"]
-
-        # NEW: Advanced Intent Detection (UX Improvement)
-        user_lower = user_message.lower()
-        has_budget = any(k in user_lower for k in ["under", "below", "budget", "max", "price"])
-        has_product = any(k in user_lower for k in ["cake", "flower", "ring", "tech", "gaming", "plant", "watch", "gift", "something"])
-        is_first_message = len(self.history) <= 1 # history starts empty, so first msg makes it len 1
-        
-        if is_first_message and (has_budget or has_product):
-            # If user provides a complex request immediately, jump to results
-            self.step_counter = 0 
-            final_msg = f"Got it! I'm searching for the perfect matches based on your request. SEARCH_QUERY: {user_message}"
-            return final_msg, None
+            return "No problem! Let's start fresh. Who are we shopping for today?", ["Mom", "Partner", "Friend"]
 
         self.history.append({"role": "user", "content": user_message})
 
-        # Try AI API
-        try:
-            prompt = f"<s>[INST] {self.system_prompt}\n"
-            for msg in self.history[-6:]:
-                prompt += f"{msg['role']}: {msg['content']}\n"
-            prompt += "assistant: [/INST]"
-
-            response = requests.post(self.api_url, headers=self.headers, json={"inputs": prompt}, timeout=5)
-            if response.status_code == 200:
-                bot_text = response.json()[0]['generated_text'].split("[/INST]")[-1].strip()
-                self.history.append({"role": "assistant", "content": bot_text})
+        # --- OPTION 1: Gemini (Primary) ---
+        if self.gemini_model:
+            try:
+                # Format history for Gemini
+                chat = self.gemini_model.start_chat(history=[])
+                # We can't easily pass the whole history to start_chat without specific formatting,
+                # so we'll just use a single prompt with context for now.
+                context = "\n".join([f"{m['role']}: {m['content']}" for m in self.history[-6:]])
+                prompt = f"{self.system_prompt}\n\nRecent Conversation:\n{context}\n\nAura:"
                 
-                # Dynamic Suggestions based on keywords in AI response
-                suggestions = ["Tech", "Gaming", "Home", "Fashion"]
-                if any(k in bot_text.lower() for k in ["budget", "price", "how much"]):
-                    suggestions = ["Under 500", "Under 1000", "Under 5000"]
-                elif any(k in bot_text.lower() for k in ["occasion", "event", "why"]):
-                    suggestions = ["Birthday", "Anniversary", "Wedding"]
-                elif any(k in bot_text.lower() for k in ["who", "shopping for"]):
-                    suggestions = ["Mom", "Partner", "Friend"]
-                
-                return bot_text, suggestions
-        except:
-            pass
+                response = self.gemini_model.generate_content(prompt)
+                if response.text:
+                    bot_text = response.text.strip()
+                    print(f"DEBUG: Gemini Response: {bot_text}")
+                    self.history.append({"role": "assistant", "content": bot_text})
+                    return bot_text, self._get_dynamic_suggestions(bot_text)
+            except Exception as e:
+                print(f"DEBUG: Gemini Error: {e}")
 
-        # Smart Fallback (Guaranteed to be correct)
-        # 1. Update user data for the step we just answered
+        # --- OPTION 2: OpenRouter (Secondary) ---
+        if self.openrouter_key and "placeholder" not in self.openrouter_key:
+            try:
+                headers = {
+                    "Authorization": f"Bearer {self.openrouter_key}",
+                    "Content-Type": "application/json"
+                }
+                payload = {
+                    "model": self.openrouter_model,
+                    "messages": [
+                        {"role": "system", "content": self.system_prompt},
+                        *self.history[-8:]
+                    ],
+                    "temperature": 0.8
+                }
+                response = requests.post(self.api_url, headers=headers, json=payload, timeout=8)
+                if response.status_code == 200:
+                    data = response.json()
+                    bot_text = data['choices'][0]['message']['content'].strip()
+                    print(f"DEBUG: OpenRouter Response: {bot_text}")
+                    self.history.append({"role": "assistant", "content": bot_text})
+                    return bot_text, self._get_dynamic_suggestions(bot_text)
+            except Exception as e:
+                print(f"DEBUG: OpenRouter Error: {e}")
+
+        # --- OPTION 3: Fallback Logic ---
+        return self._get_fallback_response(user_message)
+
+    def _get_dynamic_suggestions(self, text):
+        text = text.lower()
+        if any(k in text for k in ["budget", "price", "how much"]):
+            return ["Under 500", "Under 1000", "Under 5000", "No limit"]
+        if any(k in text for k in ["occasion", "event", "celebrating"]):
+            return ["Birthday", "Wedding", "Anniversary", "Just Because"]
+        if any(k in text for k in ["who", "shopping for"]):
+            return ["Mom", "Partner", "Friend", "Sister"]
+        if any(k in text for k in ["interest", "hobby", "like"]):
+            return ["Tech", "Gaming", "Fashion", "Home Decor", "Art"]
+        return ["Surprise me", "Gift ideas", "Chat more"]
+
+    def _get_fallback_response(self, user_message):
+        # Smart Fallback sequence
         if self.step_counter < len(self.steps):
             key = self.steps[self.step_counter]["key"]
             self.user_data[key] = user_message
             self.step_counter += 1
 
-        # 2. Get next question
         if self.step_counter < len(self.steps):
             step = self.steps[self.step_counter]
-            # Clean up the previous answer for a more natural echo
-            echo_text = user_message
-            if len(echo_text) > 20: # If too long, just use the last word or a generic term
-                echo_text = echo_text.split()[-1] if len(echo_text.split()) > 0 else "that"
-            
+            echo_text = user_message.split()[-1] if user_message else "that"
             question = step["q"].format(echo_text)
             self.history.append({"role": "assistant", "content": question})
             return question, step["s"]
         
-        # 3. Final Search
+        # Final Search Trigger
         interests = self.user_data.get("interests", user_message)
-        budget = self.user_data.get("budget", "")
+        budget = self.user_data.get("budget", "moderate")
         self.step_counter = 0 # reset
-        final_msg = f"Excellent! I've found some perfect matches for you. SEARCH_QUERY: {budget} {interests}"
+        final_msg = f"I've got it! Searching for the best matches for you. SEARCH_QUERY: {budget} {interests}"
         return final_msg, None
 
-# Create a singleton instance
+# Create instance
 aura = AuraChat()
