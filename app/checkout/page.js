@@ -38,7 +38,7 @@ function getDeliveryEstimate(pincode) {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cartItems, cartTotal, giftNote } = useCart();
+  const { cartItems, cartTotal } = useCart();
   const { user, loading } = useAuth();
   
   const [form, setForm] = useState({
@@ -194,7 +194,6 @@ export default function CheckoutPage() {
                 paymentId: response.razorpay_payment_id,
                 total: Math.round(finalTotal),
                 items: cartItems,
-                giftNote: giftNote, // Attach the note to the database record
                 shippingAddress: `${form.address1}${form.address2 ? ', ' + form.address2 : ''}, ${form.city}, ${form.state} - ${form.pincode}`,
               }),
             });
@@ -447,22 +446,6 @@ export default function CheckoutPage() {
                 </div>
               ))}
             </div>
-
-            {/* Gift Note Attached Preview */}
-            {giftNote && (
-              <div className="bg-[#caa161]/10 border border-[#caa161]/20 rounded-xl p-4 mb-6">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 bg-[#caa161] rounded-lg flex items-center justify-center text-white text-xs">
-                    🎁
-                  </div>
-                  <p className="text-[#9a7638] font-bold text-xs uppercase tracking-widest">Gift Note Attached</p>
-                </div>
-                <div className="p-3 bg-white/50 rounded-lg border border-[#caa161]/10">
-                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight mb-1">To: {giftNote.recipient}</p>
-                  <p className="text-xs text-gray-600 italic line-clamp-2">"{giftNote.message}"</p>
-                </div>
-              </div>
-            )}
 
             <div className="border-t border-gray-200 pt-4 space-y-3 mb-6 text-sm text-gray-500">
               <div className="flex justify-between">

@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed w-full z-40 glass border-b border-gray-200 transition-all duration-500 ease-in-out"
+        className="fixed w-full z-50 glass border-b border-gray-100 transition-all duration-500 ease-in-out"
         style={{
           opacity: navVisible ? 1 : 0,
           transform: navVisible ? "translateY(0)" : "translateY(-100%)",
@@ -64,63 +64,72 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-4">
+          <div className="flex items-center justify-between h-20 gap-4">
             
             {/* LEFT: Menu Button + Logo */}
             <div className="flex-shrink-0 flex items-center gap-3">
               <button 
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 -ml-2 text-gray-500 hover:text-gray-900 hover:bg-black/5 rounded-lg transition focus:outline-none"
+                className="p-2 -ml-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
                 aria-label="Open Menu"
               >
                 <Menu className="w-6 h-6" />
               </button>
               
               <Link href="/" className="flex items-center gap-2 group">
-                <div className="bg-[#caa161] p-1.5 sm:p-2 rounded-xl text-white shadow-lg shadow-[#caa161]/20 group-hover:scale-105 transition-transform">
-                  <Gift className="h-5 w-5 sm:h-6 sm:w-6" />
+                <div className="bg-primary p-2 rounded-xl text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
+                  <Gift className="h-6 w-6" />
                 </div>
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-gray-900 hidden sm:block group-hover:text-[#caa161] transition-colors">
-                  AuraGifts
-                </span>
+                <div className="flex flex-col -gap-1 hidden sm:flex">
+                  <span className="font-black text-2xl tracking-tighter text-charcoal group-hover:text-primary transition-colors leading-none">
+                    Giftora
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-secondary ml-0.5 leading-none mt-1">
+                    AI Gift Shop
+                  </span>
+                </div>
               </Link>
             </div>
 
-            {/* MIDDLE: Search Bar */}
+            {/* MIDDLE: Search Bar (Desktop) */}
             <div className="flex-1 max-w-2xl px-4 hidden md:block">
               <form onSubmit={handleSearch} className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-4 w-4 text-gray-400 group-focus-within:text-[#caa161] transition-colors" />
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search gifts, categories, or occasions..."
-                  className="w-full bg-gray-100 border border-gray-200 rounded-full py-2 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#caa161]/50 focus:border-transparent transition-all focus:bg-white"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary/30 focus:bg-white transition-all shadow-sm"
                 />
               </form>
             </div>
 
             {/* RIGHT: Actions */}
-            <div className="hidden md:flex items-center space-x-2">
-              <Link href="/reminders" className="p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition relative" title="Reminders">
+            <div className="flex items-center space-x-1 sm:space-x-2">
+              <button className="md:hidden p-2 text-gray-500 hover:text-primary" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <Search className="h-5 w-5" />
+              </button>
+
+              <Link href="/reminders" className="p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition relative" title="Reminders">
                 <Bell className="h-5 w-5" />
               </Link>
-              
-              <Link href="/wishlist" className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-400/10 rounded-full transition relative" title="Wishlist">
-                <Heart className="h-5 w-5" />
+
+              <Link href="/wishlist" className="p-2 text-gray-500 hover:text-secondary hover:bg-secondary/5 rounded-full transition relative" title="Wishlist">
+                <Heart className={`h-5 w-5 ${wishlist.length > 0 ? 'fill-secondary text-secondary' : ''}`} />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-400 rounded-full border-2 border-white">
+                  <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 text-[9px] font-bold text-white bg-secondary rounded-full border border-white">
                     {wishlist.length}
                   </span>
                 )}
               </Link>
 
-              <Link href="/cart" className="relative p-2 text-gray-500 hover:text-[#caa161] hover:bg-[#caa161]/10 rounded-full transition" title="Cart">
+              <Link href="/cart" className="relative p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition" title="Cart">
                 <ShoppingBag className="h-5 w-5" />
                 {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-[#b08a50] rounded-full border-2 border-white">
+                  <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 text-[9px] font-bold text-white bg-primary rounded-full border border-white">
                     {cartCount}
                   </span>
                 )}
@@ -128,72 +137,31 @@ export default function Navbar() {
               
               <Link
                 href={user ? "/profile" : "/login"}
-                className="ml-2 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-[#caa161] hover:text-white transition-colors flex items-center gap-2 shadow-lg hover:shadow-[#caa161]/20"
+                className="ml-1 bg-charcoal text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-primary transition-all shadow-lg hover:shadow-primary/20 flex items-center gap-2"
               >
                 <User className="w-4 h-4" />
                 <span className="hidden lg:inline">{user ? "Profile" : "Login"}</span>
               </Link>
             </div>
-
-            {/* Mobile Action menu buttons */}
-            <div className="flex md:hidden items-center gap-1">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-black/5 focus:outline-none"
-                aria-label="Toggle Mobile Menu"
-              >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Search className="w-5 h-5" />}
-              </button>
-              
-              <Link href="/cart" className="relative p-2 text-gray-500 hover:text-[#caa161] transition">
-                <ShoppingBag className="h-5 w-5" />
-                {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-[#b08a50] rounded-full">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            </div>
           </div>
         </div>
 
-        {/* Mobile Dropdown (Search + Quick Actions) */}
+        {/* Mobile Search Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden glass border-t border-gray-200 absolute w-full pb-4 shadow-xl">
-            <div className="px-4 pt-4 pb-2">
-              <form onSubmit={handleSearch} className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-4 w-4 text-gray-400 group-focus-within:text-[#caa161]" />
-                </div>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search gifts..."
-                  className="w-full bg-gray-100 border border-gray-200 rounded-full py-3 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#caa161]/50 focus:bg-white"
-                  autoFocus
-                />
-              </form>
-            </div>
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
-              <Link href="/reminders" className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] text-left transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
-                <Bell className="w-5 h-5" /> Reminders
-              </Link>
-              <Link
-                href="/wishlist"
-                className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-red-400/10 hover:text-red-400 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Heart className="w-5 h-5" /> Wishlist
-              </Link>
-              <Link
-                href={user ? "/profile" : "/login"}
-                className="flex items-center gap-3 px-3 py-3 rounded-xl text-base font-medium text-gray-500 hover:bg-black/5 hover:text-[#caa161] transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <User className="w-5 h-5" /> {user ? "Profile" : "Login"}
-              </Link>
-            </div>
+          <div className="md:hidden glass border-t border-gray-100 absolute w-full p-4 animate-fade-in">
+            <form onSubmit={handleSearch} className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search gifts..."
+                className="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-4 focus:ring-primary/10"
+                autoFocus
+              />
+            </form>
           </div>
         )}
       </nav>
@@ -203,4 +171,3 @@ export default function Navbar() {
     </>
   );
 }
-

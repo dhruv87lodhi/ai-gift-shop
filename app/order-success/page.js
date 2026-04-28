@@ -9,7 +9,7 @@ import { useCart } from "@/context/CartContext";
 
 function OrderSuccessContent() {
   const searchParams = useSearchParams();
-  const { clearCart, giftNote } = useCart();
+  const { clearCart } = useCart();
 
   const paymentId = searchParams.get("payment_id") || "";
   const orderId = searchParams.get("order_id") || "";
@@ -123,38 +123,6 @@ function OrderSuccessContent() {
                 <p className="text-xs text-gray-400 mt-1">You'll receive tracking updates via SMS</p>
               </div>
             </div>
-
-            {/* Gift Note Section */}
-            {giftNote && (
-              <>
-                <div className="border-t border-gray-200"></div>
-                <div className="flex items-start gap-4">
-                  <div className="p-2.5 bg-rose-100 rounded-xl text-rose-600 shrink-0">
-                    <Gift className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-2">Gift Note Attached</h3>
-                    <div className="bg-gradient-to-br from-[#faf8f5] to-white p-5 rounded-2xl border border-[#caa161]/20 relative overflow-hidden group">
-                      {/* Suble Card Pattern */}
-                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]" />
-                      <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-4">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-[#9a7638] opacity-60">To: {giftNote.recipient}</p>
-                          <span className="text-xs">✨</span>
-                        </div>
-                        <p className="text-sm text-gray-700 italic leading-relaxed">
-                          "{giftNote.message}"
-                        </p>
-                        <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
-                           <span className="text-[8px] font-black uppercase tracking-tighter text-gray-400">Theme: {giftNote.theme?.replace('_', ' ')}</span>
-                           <span className="text-[10px] font-bold text-[#caa161]">AuraGifts Premium Card</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
           </div>
         </motion.div>
 

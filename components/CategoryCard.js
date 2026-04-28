@@ -1,32 +1,29 @@
 import Link from "next/link";
+import Image from "next/image";
 import * as LucideIcons from "lucide-react";
 
 export default function CategoryCard({ category }) {
-  // Dynamically render icon based on category.icon string
   const IconComponent = LucideIcons[category.icon] || LucideIcons.Gift;
 
   return (
     <Link
       href={`/category/${category.id}`}
-      className="group relative flex flex-col justify-between p-6 h-48 rounded-[2rem] glass border border-gray-200 overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-[#caa161]/10 hover:-translate-y-2 hover:border-[#caa161]/50"
+      className="group flex flex-col items-center bg-[#fff8f8] p-3 rounded-[2.5rem] transition-all duration-500 hover:shadow-xl hover:shadow-primary/10"
     >
-      {/* Giant Watermark Icon */}
-      <div className="absolute -right-6 -top-6 text-gray-100 transition-all duration-500 group-hover:text-[#caa161]/10 group-hover:scale-110 group-hover:-rotate-12 z-0">
-        <IconComponent className="w-40 h-40" strokeWidth={1} />
+      <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-4 border border-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-md group-hover:-translate-y-1 group-hover:border-primary/20 bg-white flex items-center justify-center">
+        {category.image ? (
+          <Image 
+            src={category.image} 
+            alt={category.name} 
+            fill 
+            className="object-cover transition-transform duration-700 group-hover:scale-110" 
+          />
+        ) : (
+          <IconComponent className="w-12 h-12 text-gray-300 group-hover:text-primary transition-colors duration-500" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
-
-      {/* Top Left Small Icon with background */}
-      <div className="relative z-10 w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400 transition-colors duration-500 group-hover:bg-gradient-to-br group-hover:from-[#caa161] group-hover:to-[#b08a50] group-hover:text-white shadow-sm">
-        <IconComponent className="w-6 h-6" />
-      </div>
-
-      {/* Title */}
-      <div className="relative z-10 mt-auto">
-        <h3 className="font-extrabold text-xl text-gray-900 tracking-tight transition-colors duration-300 group-hover:text-[#9a7638]">
-          {category.name}
-        </h3>
-        <div className="w-0 h-1 bg-gradient-to-r from-[#caa161] to-[#b08a50] mt-2 rounded-full transition-all duration-500 group-hover:w-12" />
-      </div>
+      <span className="font-bold text-charcoal group-hover:text-primary transition-colors text-center pb-2 px-2">{category.name}</span>
     </Link>
   );
 }
