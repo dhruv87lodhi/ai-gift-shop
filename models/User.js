@@ -44,6 +44,10 @@ const UserSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  giftNote: {
+    type: Object,
+    default: null,
+  },
   orders: [{
     orderId: String,
     date: { type: Date, default: Date.now },

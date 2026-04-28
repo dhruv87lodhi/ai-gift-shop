@@ -11,15 +11,20 @@ export async function POST(req) {
     }
 
     await dbConnect();
-    const { cart } = await req.json();
+    const { cart, giftNote } = await req.json();
+
+    const updateData = { cart };
+    if (giftNote !== undefined) {
+      updateData.giftNote = giftNote;
+    }
 
     const user = await User.findByIdAndUpdate(
       payload.userId,
-      { cart },
+      updateData,
       { new: true }
     );
 
-    return NextResponse.json({ message: 'Cart synced', cart: user.cart });
+    return NextResponse.json({ message: 'Cart synced', cart: user.cart, giftNote: user.giftNote });
   } catch (error) {
     console.error('Cart sync error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -34,9 +39,9 @@ export async function GET() {
     }
 
     await dbConnect();
-    const user = await User.findById(payload.userId).select('cart');
+    const user = await User.findById(payload.userId).select('cart giftNote');
 
-    return NextResponse.json({ cart: user.cart });
+    return NextResponse.json({ cart: user.cart, giftNote: user.giftNote });
   } catch (error) {
     console.error('Cart fetch error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

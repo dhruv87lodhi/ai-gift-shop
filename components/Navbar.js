@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell } from "lucide-react";
+import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, Trash2, ChevronRight, Sparkles, Clock, CalendarDays } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import SidebarMenu from "./SidebarMenu";
 import { useWishlist } from "@/context/WishlistContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,7 +20,19 @@ export default function Navbar() {
   const router = useRouter();
   const { cartCount } = useCart();
   const { user } = useAuth();
-  const { wishlist } = useWishlist();
+  const { wishlist, toggleWishlist } = useWishlist();
+
+  // Process reminders for dropdown
+  const upcomingReminders = (user?.giftReminders || [])
+    .map(r => {
+      const date = new Date(r.date);
+      const diff = date - new Date();
+      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      return { ...r, daysLeft: days };
+    })
+    .filter(r => r.daysLeft >= 0)
+    .sort((a, b) => a.daysLeft - b.daysLeft)
+    .slice(0, 3);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +56,15 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobileMenuOpen]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -113,11 +135,24 @@ export default function Navbar() {
                 <Search className="h-5 w-5" />
               </button>
 
-              <Link href="/reminders" className="p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition relative" title="Reminders">
+              {/* Reminders Link */}
+              <Link 
+                href="/reminders"
+                className="p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition relative" 
+                title="Reminders"
+              >
                 <Bell className="h-5 w-5" />
+                {upcomingReminders.length > 0 && (
+                  <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-primary rounded-full border-2 border-white animate-pulse" />
+                )}
               </Link>
 
-              <Link href="/wishlist" className="p-2 text-gray-500 hover:text-secondary hover:bg-secondary/5 rounded-full transition relative" title="Wishlist">
+              {/* Wishlist Link */}
+              <Link 
+                href="/wishlist"
+                className="p-2 text-gray-500 hover:text-secondary hover:bg-secondary/5 rounded-full transition relative" 
+                title="Wishlist"
+              >
                 <Heart className={`h-5 w-5 ${wishlist.length > 0 ? 'fill-secondary text-secondary' : ''}`} />
                 {wishlist.length > 0 && (
                   <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 text-[9px] font-bold text-white bg-secondary rounded-full border border-white">

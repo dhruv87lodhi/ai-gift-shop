@@ -6,19 +6,33 @@ import { useRouter, usePathname } from "next/navigation";
 import { 
   X, Gift, Cake, Search, 
   Monitor, Shirt, Home, Gamepad2, Wrench, Diamond,
-  CalendarHeart, PartyPopper, HeartHandshake, Flame, TrendingUp, Star, Tag, Sparkles
+  CalendarHeart, PartyPopper, HeartHandshake, Flame, TrendingUp, Star, Tag, Sparkles,
+  Bell, Heart, User
 } from "lucide-react";
 
 export default function SidebarMenu({ isOpen, onClose }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleNavigation = (query) => {
-    router.push(`/ai?q=${encodeURIComponent(query)}`);
+  const handleNavigation = (item) => {
+    if (item.href) {
+      router.push(item.href);
+    } else {
+      router.push(`/ai?q=${encodeURIComponent(item.query)}`);
+    }
     onClose();
   };
 
   const sections = [
+    {
+      title: "My Aura",
+      icon: <User className="w-5 h-5 text-primary" />,
+      items: [
+        { label: "My Vault (Wishlist)", href: "/wishlist", icon: <Heart className="w-4 h-4" /> },
+        { label: "Gift Reminders", href: "/reminders", icon: <Bell className="w-4 h-4" /> },
+        { label: "My Profile", href: "/profile", icon: <User className="w-4 h-4" /> },
+      ]
+    },
     {
       title: "Gift Finder",
       icon: <Search className="w-5 h-5 text-[#9a7638]" />,
@@ -138,7 +152,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
                     {section.items.map((item, itemIdx) => (
                       <button
                         key={itemIdx}
-                        onClick={() => handleNavigation(item.query)}
+                        onClick={() => handleNavigation(item)}
                         className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors text-left"
                       >
                         {item.icon && <span className="opacity-70">{item.icon}</span>}

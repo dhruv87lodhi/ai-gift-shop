@@ -198,7 +198,7 @@ export default async function Home() {
       </section>
 
       {/* Popular Picks */}
-      <section className="py-24 px-6 max-w-7xl mx-auto w-full">
+      <section id="popular-picks" className="py-24 px-6 max-w-7xl mx-auto w-full">
         <div className="text-center mb-16 relative">
           <h2 className="text-4xl md:text-5xl font-black text-charcoal mb-4">Popular Picks</h2>
           <div className="flex items-center justify-center gap-4 text-primary">

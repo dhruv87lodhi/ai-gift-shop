@@ -388,10 +388,10 @@ export default function NoteGenerator() {
                             </button>
                             <button
                               onClick={handleSave}
-                              className={`flex items-center gap-3 px-8 py-4 rounded-2xl transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 ${themeStyles.buttonPrimary} font-black text-xs uppercase tracking-widest`}
+                              className={`flex items-center gap-3 px-8 py-4 rounded-2xl transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 ${isSaved ? 'bg-green-500 text-white' : themeStyles.buttonPrimary} font-black text-xs uppercase tracking-widest`}
                             >
                               {isSaved ? (
-                                <><CheckCircle2 className="w-5 h-5" /> Saved to Cart</>
+                                <><CheckCircle2 className="w-5 h-5" /> Message Attached</>
                               ) : (
                                 <><Save className="w-5 h-5" /> Save to Cart</>
                               )}

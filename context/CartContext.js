@@ -44,6 +44,9 @@ export function CartProvider({ children }) {
       fetch("/api/cart")
         .then(res => res.json())
         .then(data => {
+          if (data.giftNote) {
+            setGiftNote(data.giftNote);
+          }
           if (data.cart && data.cart.length > 0) {
             // Merge local cart with DB cart
             setCartItems(prev => {
@@ -86,33 +89,33 @@ export function CartProvider({ children }) {
   // Save to local storage and sync with backend
   useEffect(() => {
     if (user) {
+      // Local Storage
       if (cartItems.length > 0) {
         localStorage.setItem("cart", JSON.stringify(cartItems));
-        
-        // Throttled sync to backend
-        const timer = setTimeout(() => {
-          fetch("/api/cart", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ cart: cartItems }),
-          });
-        }, 1000);
-        return () => clearTimeout(timer);
       } else {
         localStorage.removeItem("cart");
       }
-    }
-  }, [cartItems, user]);
 
-  useEffect(() => {
-    if (user) {
       if (giftNote) {
         localStorage.setItem("giftNote", JSON.stringify(giftNote));
       } else {
         localStorage.removeItem("giftNote");
       }
+      
+      // Throttled sync to backend
+      const timer = setTimeout(() => {
+        fetch("/api/cart", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            cart: cartItems, 
+            giftNote: giftNote 
+          }),
+        });
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-  }, [giftNote, user]);
+  }, [cartItems, giftNote, user]);
 
   const addToCart = (product, quantity = 1) => {
     if (!user) {
