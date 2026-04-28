@@ -31,6 +31,12 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  useEffect(() => {
+    const handleToggle = () => setIsOpen(true);
+    window.addEventListener("toggle-chatbot", handleToggle);
+    return () => window.removeEventListener("toggle-chatbot", handleToggle);
+  }, []);
+
   const processInput = async (text) => {
     if (!text.trim()) return;
 

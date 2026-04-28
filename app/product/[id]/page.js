@@ -17,6 +17,7 @@ export default function ProductPage({ params }) {
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchProductData = async () => {
       try {
         const [productRes, similarRes] = await Promise.all([

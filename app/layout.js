@@ -1,6 +1,7 @@
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Chatbot from "@/components/Chatbot";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { AuthProvider } from "@/context/AuthContext";
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
                 <main className="flex-grow pt-16">
                   {children}
                 </main>
+                <Chatbot />
               </CartProvider>
             </WishlistProvider>
           </AuthProvider>

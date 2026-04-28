@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Sparkles, ArrowRight, Gift, User, ShieldCheck, Truck, RotateCcw, Headphones, Star, Heart } from "lucide-react";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
-import Chatbot from "@/components/Chatbot";
 import { categories, occasions } from "@/data/mockData";
 import OccasionCard from "@/components/OccasionCard";
 import Image from "next/image";
+import HeroButtons from "@/components/HeroButtons";
 
 export default async function Home() {
   let featuredProducts = [];
@@ -60,15 +60,7 @@ export default async function Home() {
               Let our AI find the most thoughtful gifts tailored just for your loved ones.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <button className="w-full sm:w-auto px-10 py-5 bg-primary text-white rounded-full font-bold text-lg hover:bg-primary-hover transition-all transform hover:scale-105 shadow-xl shadow-primary/25 flex items-center justify-center gap-3 group">
-                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                Find My Gift
-              </button>
-              <Link href="/products" className="w-full sm:w-auto px-10 py-5 border-2 border-primary/20 text-primary rounded-full font-bold text-lg hover:bg-primary/5 transition-colors flex items-center justify-center">
-                Shop Now
-              </Link>
-            </div>
+            <HeroButtons />
           </div>
 
           <div className="relative animate-fade-in lg:block hidden">
@@ -129,7 +121,7 @@ export default async function Home() {
       </section>
 
       {/* Shop By Category */}
-      <section className="py-24 px-6 bg-white">
+      <section id="categories" className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 relative">
             <h2 className="text-4xl md:text-5xl font-black text-charcoal mb-4">Shop By Category</h2>
@@ -303,9 +295,6 @@ export default async function Home() {
           ))}
         </div>
       </section>
-
-      {/* Chatbot Component (Floating) */}
-      <Chatbot />
     </div>
   );
 }
