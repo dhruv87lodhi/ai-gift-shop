@@ -17,11 +17,13 @@ export default function NoteGenerator() {
   const [isSaved, setIsSaved] = useState(!!savedNote);
 
   const isInitialMount = useRef(true);
+  const variationCount = useRef(0); // Tracks how many times user has regenerated
 
   const generateNote = async (e) => {
     if (e) e.preventDefault();
     if (!recipient || !occasion) return;
 
+    variationCount.current = 0; // Reset counter on fresh generation
     setIsGenerating(true);
     setGeneratedNote("");
     setIsSaved(false);
@@ -35,7 +37,7 @@ export default function NoteGenerator() {
           recipient,
           occasion,
           tone,
-          variationId: Date.now() + Math.random() // Ensure no caching and fresh responses
+          variationSeed: 0, // First generation always uses style variant 0
         }),
       });
 
@@ -56,6 +58,10 @@ export default function NoteGenerator() {
   const generateNoteAuto = async () => {
     if (!recipient || !occasion) return;
 
+    variationCount.current += 1;
+    const currentVariation = variationCount.current;
+    const previousNoteSnapshot = generatedNote; // Capture before clearing
+
     setIsGenerating(true);
     setGeneratedNote("");
     setIsSaved(false);
@@ -69,7 +75,8 @@ export default function NoteGenerator() {
           recipient,
           occasion,
           tone,
-          variationId: Date.now() + Math.random() // Slight randomness to avoid repeated responses
+          variationSeed: currentVariation, // Cycles through style variants
+          previousNote: previousNoteSnapshot, // Tell AI what NOT to repeat
         }),
       });
 
@@ -86,7 +93,49 @@ export default function NoteGenerator() {
       setIsGenerating(false);
     }
   };
+   
+  const regenerateNote = async () => {
+    if (!recipient || !occasion) return;
 
+    variationCount.current += 1;
+    const currentVariation = variationCount.current;
+    const previousNoteSnapshot = generatedNote; // Capture before clearing
+
+    setIsGenerating(true);
+    setGeneratedNote("");
+    setIsSaved(false);
+    setCopied(false);
+
+    try {
+      const response = await fetch("/api/ai/generate-note", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          recipient,
+          occasion,
+          tone,
+          variationSeed: currentVariation, // Cycles through 5 style variants
+          previousNote: previousNoteSnapshot, // Tell AI what NOT to repeat
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      const data = await response.json();
+
+      if (data.success && data.text) {
+        setGeneratedNote(data.text);
+      } else {
+        setGeneratedNote(getFallbackNote());
+      }
+    } catch (err) {
+      console.error(err);
+      setGeneratedNote(getFallbackNote());
+    } finally {
+      setIsGenerating(false);
+    }
+  };
   useEffect(() => {
     // Only trigger when tone changes AFTER the first note has been generated
     if (isInitialMount.current) {
@@ -94,7 +143,7 @@ export default function NoteGenerator() {
       return;
     }
 
-    if (generatedNote && recipient && occasion) {
+    if (generatedNote && recipient && occasion && !isGenerating) {
       generateNoteAuto();
     }
   }, [tone]);
@@ -208,7 +257,7 @@ export default function NoteGenerator() {
               <Sparkles className="w-8 h-8 text-[#caa161]" />
             </div>
             <h3 className="text-4xl font-black text-gray-900 tracking-tighter uppercase">
-              Giftora <span className="text-[#caa161]">Notes</span>
+              Aura <span className="text-[#caa161]">Notes</span>
             </h3>
           </div>
           <p className="text-gray-500 font-medium max-w-sm">
@@ -298,7 +347,7 @@ export default function NoteGenerator() {
           </div>
 
           <button
-            onClick={generateNote}
+            onClick={regenerateNote}
             disabled={isGenerating || !recipient || !occasion}
             className="w-full py-6 bg-gray-900 hover:bg-black text-white rounded-[1.5rem] font-black text-xl tracking-tighter transition-all disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center gap-4 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] active:scale-[0.98] group"
           >
@@ -340,7 +389,7 @@ export default function NoteGenerator() {
                       </div>
                     </div>
                     <p className="text-xl font-black text-[#caa161] animate-pulse uppercase tracking-[0.3em]">
-                      Giftora is Thinking
+                      Aura is Thinking
                     </p>
                   </motion.div>
                 ) : generatedNote ? (
@@ -375,7 +424,7 @@ export default function NoteGenerator() {
                         <div className="mt-12 flex items-end justify-between border-t border-current/10 pt-8">
                           <div>
                             <div className="text-[9px] font-black uppercase tracking-[0.2em] opacity-30 mb-1">Generated by</div>
-                            <div className="text-sm font-black tracking-tighter uppercase">Giftora AI</div>
+                            <div className="text-sm font-black tracking-tighter uppercase">AuraGifts AI</div>
                           </div>
                           
                           <div className="flex gap-3">
@@ -388,10 +437,10 @@ export default function NoteGenerator() {
                             </button>
                             <button
                               onClick={handleSave}
-                              className={`flex items-center gap-3 px-8 py-4 rounded-2xl transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 ${isSaved ? 'bg-green-500 text-white' : themeStyles.buttonPrimary} font-black text-xs uppercase tracking-widest`}
+                              className={`flex items-center gap-3 px-8 py-4 rounded-2xl transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 ${themeStyles.buttonPrimary} font-black text-xs uppercase tracking-widest`}
                             >
                               {isSaved ? (
-                                <><CheckCircle2 className="w-5 h-5" /> Message Attached</>
+                                <><CheckCircle2 className="w-5 h-5" /> Saved to Cart</>
                               ) : (
                                 <><Save className="w-5 h-5" /> Save to Cart</>
                               )}

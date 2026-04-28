@@ -2,7 +2,8 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 # Load environment variables
 load_dotenv()
@@ -17,14 +18,13 @@ class GiftoraChat:
         # Configure Gemini
         if self.google_key:
             try:
-                genai.configure(api_key=self.google_key)
-                self.gemini_model = genai.GenerativeModel(self.model_name)
+                self.gemini_client = genai.Client(api_key=self.google_key)
                 print(f"DEBUG: Gemini initialized with {self.model_name}")
             except Exception as e:
                 print(f"DEBUG: Gemini init failed: {e}")
-                self.gemini_model = None
+                self.gemini_client = None
         else:
-            self.gemini_model = None
+            self.gemini_client = None
 
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
         self.openrouter_model = "mistralai/mistral-7b-instruct:free"
@@ -61,16 +61,15 @@ class GiftoraChat:
         self.history.append({"role": "user", "content": user_message})
 
         # --- OPTION 1: Gemini (Primary) ---
-        if self.gemini_model:
+        if self.gemini_client:
             try:
-                # Format history for Gemini
-                chat = self.gemini_model.start_chat(history=[])
-                # We can't easily pass the whole history to start_chat without specific formatting,
-                # so we'll just use a single prompt with context for now.
                 context = "\n".join([f"{m['role']}: {m['content']}" for m in self.history[-6:]])
                 prompt = f"{self.system_prompt}\n\nRecent Conversation:\n{context}\n\nGiftora:"
-                
-                response = self.gemini_model.generate_content(prompt)
+
+                response = self.gemini_client.models.generate_content(
+                    model=self.model_name,
+                    contents=prompt
+                )
                 if response.text:
                     bot_text = response.text.strip()
                     print(f"DEBUG: Gemini Response: {bot_text}")

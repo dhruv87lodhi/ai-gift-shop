@@ -11,7 +11,8 @@ export default function ProductCard({ product }) {
 
   // Mock rating if not present
   const rating = product.rating || 4.5;
-  const reviews = product.reviews || Math.floor(Math.random() * 200) + 50;
+  // Use a deterministic "random" number based on ID to avoid hydration mismatch
+  const reviews = product.reviews || (30 + (product.id % 170));
 
   return (
     <div className="group flex flex-col bg-white rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 border border-gray-100">
