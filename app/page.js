@@ -268,8 +268,8 @@ export default async function Home() {
         </div>
         
         <div className="mt-16 text-center">
-          <Link href="/products" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all">
-            View All Collections <ArrowRight className="w-6 h-6" />
+          <Link href="/ai?q=trending" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
+            View Trending Gifts <ArrowRight className="w-6 h-6 group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
