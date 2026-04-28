@@ -1,8 +1,8 @@
 export const occasions = [
-  { id: "anniversary", name: "Anniversary", image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&q=80" },
+  { id: "anniversary", name: "Anniversary", image: "https://i.pinimg.com/736x/0c/62/c4/0c62c4bfb96ea94674a534c70a3fe751.jpg" },
   { id: "wedding", name: "Wedding", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" },
-  { id: "valentines", name: "Valentine's Day", image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&q=80" },
-  { id: "graduation", name: "Graduation", image: "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80" },
+  { id: "valentines", name: "Valentine's Day", image: "https://i.pinimg.com/1200x/28/15/cd/2815cd905ad3a960dc620ff7559293c2.jpg" },
+  { id: "graduation", name: "Graduation", image: "https://i.pinimg.com/1200x/b1/e1/20/b1e120551fb959c7c484fc0dd6c23f30.jpg" },
     { id: "birthday", name: "Birthday", image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80" },
 ];
 

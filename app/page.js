@@ -27,12 +27,12 @@ export default async function Home() {
   ];
 
   const categoryList = [
-    { id: 1, name: "Personalized Gifts", image: "/cat_personalized.png" },
-    { id: 2, name: "For Her", image: "/cat_for_her.png" },
-    { id: 3, name: "For Him", image: "/cat_for_him.png" },
-    { id: 4, name: "Home & Living", image: "/cat_for_her.png" }, // Reusing for now
-    { id: 5, name: "Chocolates", image: "/cat_personalized.png" }, // Reusing for now
-    { id: 6, name: "Cards & More", image: "/cat_for_him.png" }, // Reusing for now
+    { id: 1, name: "Personalized Gifts", image: "https://i.pinimg.com/1200x/09/6f/2d/096f2dcd7b01d25fa9f5a29238c68866.jpg" },
+    { id: 2, name: "For Her", image: "https://i.pinimg.com/1200x/3f/fe/7a/3ffe7a27a3188bcb246d77cb309cbb80.jpg" },
+    { id: 3, name: "For Him", image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=800" },
+    { id: 4, name: "Home & Living", image: "https://i.pinimg.com/1200x/de/73/55/de73557edef04e75ce259e748dddd024.jpg" },
+    { id: 5, name: "Chocolates", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?q=80&w=800" },
+    { id: 6, name: "Cards & More", image: "https://i.pinimg.com/1200x/8e/4e/62/8e4e62568cc900bb0e06a030f10728bc.jpg" },
   ];
 
   return (

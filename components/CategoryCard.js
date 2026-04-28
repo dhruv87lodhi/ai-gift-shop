@@ -7,7 +7,7 @@ export default function CategoryCard({ category }) {
 
   return (
     <Link
-      href={`/category/${category.id}`}
+      href={`/category?q=${encodeURIComponent(category.name)}`}
       className="group flex flex-col items-center bg-[#fff8f8] p-3 rounded-[2.5rem] transition-all duration-500 hover:shadow-xl hover:shadow-primary/10"
     >
       <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-4 border border-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-md group-hover:-translate-y-1 group-hover:border-primary/20 bg-white flex items-center justify-center">
