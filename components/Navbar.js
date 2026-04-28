@@ -116,15 +116,15 @@ export default function Navbar() {
             {/* MIDDLE: Search Bar (Desktop) */}
             <div className="flex-1 max-w-2xl px-4 hidden md:block">
               <form onSubmit={handleSearch} className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors" />
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-gray-300 group-focus-within:text-primary transition-colors" />
                 </div>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search gifts, categories, or occasions..."
-                  className="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary/30 focus:bg-white transition-all shadow-sm"
+                  className="w-full bg-white/60 backdrop-blur-md border-2 border-primary/10 rounded-[1.5rem] py-3.5 pl-14 pr-6 text-sm text-charcoal placeholder-gray-400 focus:outline-none focus:ring-8 focus:ring-primary/10 focus:border-primary/30 focus:bg-white transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                 />
               </form>
             </div>
@@ -183,17 +183,17 @@ export default function Navbar() {
 
         {/* Mobile Search Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden glass border-t border-gray-100 absolute w-full p-4 animate-fade-in">
+          <div className="md:hidden glass border-t border-gray-100 absolute w-full p-6 animate-fade-in-up">
             <form onSubmit={handleSearch} className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-gray-300" />
               </div>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search gifts..."
-                className="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-4 focus:ring-primary/10"
+                className="w-full bg-white border-2 border-primary/20 rounded-2xl py-4 pl-14 pr-6 text-base text-charcoal focus:outline-none focus:ring-8 focus:ring-primary/10 transition-all shadow-lg"
                 autoFocus
               />
             </form>

@@ -67,7 +67,7 @@ function AIResultsContent() {
         </motion.div>
         
         <h2 className="mt-8 text-2xl font-bold text-gray-900 mb-2">
-          Aura is finding the best matches...
+          Giftora is finding the best matches...
         </h2>
         <p className="text-gray-500 max-w-md text-center">
           Searching through 100+ unique gifts for you.

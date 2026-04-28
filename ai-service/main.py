@@ -3,9 +3,9 @@ from pydantic import BaseModel
 from typing import List, Optional, Any
 from fastapi.middleware.cors import CORSMiddleware
 from recommender import engine
-from chatbot import aura
+from chatbot import giftora
 
-app = FastAPI(title="AuraGifts AI Service")
+app = FastAPI(title="Giftora AI Service")
 
 # Enable CORS for the Next.js frontend
 app.add_middleware(
@@ -27,12 +27,12 @@ class ChatResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"status": "AuraGifts AI Service is Online"}
+    return {"status": "Giftora AI Service is Online"}
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(msg: ChatMessage):
     try:
-        response_text, suggestions = aura.get_response(msg.message)
+        response_text, suggestions = giftora.get_response(msg.message)
         
         # Check for the trigger word in the LLM response
         is_finished = "SEARCH_QUERY:" in response_text

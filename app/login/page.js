@@ -77,7 +77,7 @@ export default function LoginPage() {
           <h1 className="text-3xl font-extrabold text-gray-900">
             Welcome Back
           </h1>
-          <p className="text-gray-500 mt-2">Log in to your AuraGifts account</p>
+          <p className="text-gray-500 mt-2">Log in to your Giftora account</p>
         </div>
 
         <div className="space-y-4">

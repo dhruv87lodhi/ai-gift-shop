@@ -7,7 +7,7 @@ import google.generativeai as genai
 # Load environment variables
 load_dotenv()
 
-class AuraChat:
+class GiftoraChat:
     def __init__(self):
         # Configuration
         self.google_key = os.getenv("GOOGLE_API_KEY")
@@ -30,13 +30,13 @@ class AuraChat:
         self.openrouter_model = "mistralai/mistral-7b-instruct:free"
         
         self.system_prompt = (
-            "You are Aura, the AI Gift Finder for AuraGifts. Be extremely conversational, warm, and helpful. "
+            "You are Giftora, the AI Gift Finder for the Giftora platform. Be extremely conversational, warm, and helpful. "
             "Your goal is to find the perfect gift by asking about: Recipient, Occasion, Budget, and Interests. "
             "Rules:\n"
             "1. If you have enough info to suggest gifts, end your message with 'SEARCH_QUERY: [budget] [interests]'.\n"
             "2. Keep responses concise and engaging.\n"
             "3. Use temperature for variety.\n"
-            "4. Start by introducing yourself as Aura."
+            "4. Start by introducing yourself as Giftora."
         )
         self.history = []
         self.step_counter = 0
@@ -68,7 +68,7 @@ class AuraChat:
                 # We can't easily pass the whole history to start_chat without specific formatting,
                 # so we'll just use a single prompt with context for now.
                 context = "\n".join([f"{m['role']}: {m['content']}" for m in self.history[-6:]])
-                prompt = f"{self.system_prompt}\n\nRecent Conversation:\n{context}\n\nAura:"
+                prompt = f"{self.system_prompt}\n\nRecent Conversation:\n{context}\n\nGiftora:"
                 
                 response = self.gemini_model.generate_content(prompt)
                 if response.text:
@@ -141,4 +141,4 @@ class AuraChat:
         return final_msg, None
 
 # Create instance
-aura = AuraChat()
+giftora = GiftoraChat()

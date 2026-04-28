@@ -3,7 +3,8 @@ import { Sparkles, ArrowRight, Gift, User, ShieldCheck, Truck, RotateCcw, Headph
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
 import Chatbot from "@/components/Chatbot";
-import { categories } from "@/data/mockData";
+import { categories, occasions } from "@/data/mockData";
+import OccasionCard from "@/components/OccasionCard";
 import Image from "next/image";
 
 export default async function Home() {
@@ -150,57 +151,111 @@ export default async function Home() {
               </Link>
             ))}
           </div>
+          
+          {/* View All Link (Standardized) */}
+          <div className="mt-16 text-center">
+            <Link href="/category" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
+              View All Categories <ArrowRight className="w-6 h-6 group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* AI Gift Finder Promo */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto rounded-[3rem] overflow-hidden bg-[#f3f0ff] relative shadow-2xl border border-white">
-          {/* Background shapes */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200/50 rounded-full blur-3xl -mr-20 -mt-20" />
-          
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center p-8 md:p-16">
-            <div className="flex justify-center md:justify-start">
-              <div className="relative w-64 h-64 md:w-80 md:h-80 animate-float">
-                <Image src="/robot.png" alt="AI Robot" fill className="object-contain" />
-              </div>
+      {/* Shop By Occasion */}
+      <section className="py-24 px-6 bg-soft-ivory relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -mr-48 -mt-48" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16 relative">
+            <h2 className="text-4xl md:text-5xl font-black text-charcoal mb-4">Shop By Occasion</h2>
+            <div className="flex items-center justify-center gap-4 text-primary">
+              <div className="h-px w-12 bg-primary/30" />
+              <Sparkles className="w-5 h-5" />
+              <div className="h-px w-12 bg-primary/30" />
             </div>
-            
-            <div className="space-y-8">
-              <div>
-                <p className="text-primary font-black uppercase tracking-widest text-sm mb-3">AI Gift Finder</p>
-                <h2 className="text-4xl md:text-5xl font-black text-charcoal">Not Sure What to Gift?</h2>
-                <p className="text-gray-600 mt-4 text-lg">Let our AI help you find the perfect gift in seconds!</p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            {occasions.map((occasion) => (
+              <OccasionCard key={occasion.id} occasion={occasion} />
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link href="/occasion" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
+              View All Occasions <ArrowRight className="w-6 h-6 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Festival Banner Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto rounded-[3.5rem] overflow-hidden bg-charcoal relative shadow-2xl group">
+          {/* Animated Background Elements */}
+          <div className="absolute top-0 right-0 w-full h-full opacity-30">
+            <div className="absolute top-10 right-20 w-32 h-32 bg-primary rounded-full blur-[80px] animate-pulse" />
+            <div className="absolute bottom-10 left-20 w-48 h-48 bg-secondary rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
+          </div>
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center">
+            {/* Image side with overlay */}
+            <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] relative overflow-hidden">
+              <Image 
+                src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&q=80&w=800" 
+                alt="Festive Celebrations" 
+                fill 
+                className="object-cover transition-transform duration-1000 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/40 to-transparent lg:block hidden" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent lg:hidden block" />
+            </div>
+
+            {/* Content side */}
+            <div className="w-full lg:w-1/2 p-10 lg:p-20 space-y-8 text-left">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest">
+                <Sparkles className="w-4 h-4" />
+                Seasonal Highlights
               </div>
               
-              <div className="space-y-3">
-                {["Who is the gift for?", "What's the occasion?", "What's your budget?"].map((text, i) => (
-                  <div key={i} className="flex justify-end">
-                    <div className="bg-white px-6 py-3 rounded-2xl rounded-tr-none shadow-sm text-charcoal font-bold text-sm md:text-base border border-gray-100 animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
-                      {text}
+              <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tighter">
+                Celebrate the <br/>
+                <span className="text-primary italic">Festival</span> of Giving
+              </h2>
+              
+              <p className="text-gray-400 text-lg max-w-md font-medium leading-relaxed">
+                Discover our curated collection of festive treasures designed to bring light and joy to your loved ones this season.
+              </p>
+              
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Link href="/products?q=festival" className="px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg hover:bg-white hover:text-charcoal transition-all shadow-xl shadow-primary/20 flex items-center gap-3 group">
+                  Explore Collection
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </Link>
+                <div className="flex -space-x-3 items-center">
+                  {[
+                    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
+                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
+                    "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100",
+                    "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100"
+                  ].map((url, i) => (
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-charcoal overflow-hidden bg-gray-800 relative">
+                      <Image src={url} alt="User" fill className="object-cover" />
                     </div>
-                  </div>
-                ))}
-                <div className="flex justify-start">
-                  <div className="bg-primary text-white px-6 py-3 rounded-2xl rounded-tl-none shadow-lg font-bold text-sm md:text-base animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-                    Here are the perfect gifts for you! 🎁
-                  </div>
+                  ))}
+                  <span className="ml-4 text-gray-400 text-xs font-bold uppercase tracking-wider">Join 10k+ Gifters</span>
                 </div>
               </div>
-              
-              <button className="w-full bg-primary hover:bg-primary-hover text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-3 group">
-                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                Find My Perfect Gift
-              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Popular Picks */}
-      <section id="popular-picks" className="py-24 px-6 max-w-7xl mx-auto w-full">
+      {/* Trending Gifts */}
+      <section id="trending-gifts" className="py-24 px-6 max-w-7xl mx-auto w-full">
         <div className="text-center mb-16 relative">
-          <h2 className="text-4xl md:text-5xl font-black text-charcoal mb-4">Popular Picks</h2>
+          <h2 className="text-4xl md:text-5xl font-black text-charcoal mb-4">Trending Gifts</h2>
           <div className="flex items-center justify-center gap-4 text-primary">
             <div className="h-px w-12 bg-primary/30" />
             <Gift className="w-5 h-5" />

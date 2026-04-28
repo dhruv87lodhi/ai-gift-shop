@@ -161,7 +161,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           amount: Math.round(finalTotal),
           currency: "INR",
-          receipt: `aura_${Date.now()}`,
+          receipt: `giftora_${Date.now()}`,
         }),
       });
 
@@ -180,7 +180,7 @@ export default function CheckoutPage() {
         key: "rzp_test_SiDxFKWZ89b1iB",
         amount: order.amount,
         currency: order.currency,
-        name: "AuraGifts",
+        name: "Giftora",
         description: `Order of ${cartItems.length} item(s)`,
         order_id: order.id,
         handler: async function (response) {

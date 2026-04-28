@@ -12,7 +12,7 @@ export default function Chatbot() {
     { 
       id: 1, 
       type: "bot", 
-      text: "Hi there! 👋 I'm Aura, your personal AI Gift Assistant. Who are you shopping for today?",
+      text: "Hi there! 👋 I'm Giftora, your personal AI Gift Assistant. Who are you shopping for today?",
       suggestions: ["Mom", "Partner", "Friend", "Colleague"]
     }
   ]);
@@ -143,7 +143,7 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] sm:w-[400px] h-[550px] max-h-[80vh] bg-white rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] flex flex-col z-50 border border-gray-200 overflow-hidden"
+            className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] sm:w-[420px] h-[600px] max-h-[85vh] bg-ivory rounded-[2.5rem] shadow-[0_40px_100px_-12px_rgba(0,0,0,0.2)] flex flex-col z-50 border border-white/60 overflow-hidden backdrop-blur-xl"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-5 bg-gradient-to-r from-[#caa161] via-[#b08a50] to-[#9a7638] text-white shadow-md z-10">
@@ -152,7 +152,7 @@ export default function Chatbot() {
                   <Bot className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg leading-tight tracking-wide">Aura AI</h3>
+                  <h3 className="font-bold text-lg leading-tight tracking-wide">Giftora AI</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                     <p className="text-xs text-white/90 font-medium">Online & ready to help</p>
@@ -168,26 +168,29 @@ export default function Chatbot() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-6 scroll-smooth bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-6 space-y-8 scroll-smooth no-scrollbar relative">
+              {/* Artistic Background Circle */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex gap-4 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.type === "bot" && (
-                    <div className="w-8 h-8 rounded-full bg-[#caa161]/10 border border-[#caa161]/30 flex items-center justify-center shrink-0 shadow-sm mt-1">
-                      <Sparkles className="w-4 h-4 text-[#caa161]" />
+                    <div className="w-10 h-10 rounded-2xl bg-white shadow-md flex items-center justify-center shrink-0 border border-primary/10 mt-1">
+                      <Sparkles className="w-5 h-5 text-primary" />
                     </div>
                   )}
                   
-                  <div className={`flex flex-col gap-2 max-w-[80%]`}>
+                  <div className={`flex flex-col gap-2 max-w-[85%]`}>
                     <div
-                      className={`p-3.5 rounded-2xl text-[15px] leading-relaxed shadow-sm ${
+                      className={`p-4 rounded-[1.5rem] text-[15px] leading-relaxed shadow-sm font-medium ${
                         msg.type === "user"
-                          ? "bg-gradient-to-br from-[#caa161] to-[#b08a50] text-white rounded-tr-sm"
-                          : "bg-white text-gray-700 rounded-tl-sm border border-gray-200"
+                          ? "bg-charcoal text-white rounded-tr-sm"
+                          : "bg-white text-charcoal rounded-tl-sm border border-gray-100"
                       }`}
                     >
                       {msg.text}
@@ -303,22 +306,22 @@ export default function Chatbot() {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-white border-t border-gray-200 relative z-10">
-              <form onSubmit={handleSend} className="flex gap-2">
+            <div className="p-6 bg-white/40 backdrop-blur-md border-t border-white/60 relative z-10">
+              <form onSubmit={handleSend} className="flex gap-3">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Type your answer..."
+                  placeholder="Ask Giftora anything..."
                   disabled={isTyping}
-                  className="flex-1 bg-gray-100 border border-gray-200 focus:border-[#caa161] rounded-2xl px-5 py-3 text-[15px] focus:outline-none transition-all text-gray-900 disabled:opacity-50"
+                  className="flex-1 bg-white border-2 border-primary/5 focus:border-primary/20 rounded-2xl px-6 py-4 text-[15px] focus:outline-none focus:ring-8 focus:ring-primary/5 transition-all text-charcoal font-bold disabled:opacity-50 placeholder:text-gray-300"
                 />
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isTyping}
-                  className="p-3 bg-gradient-to-r from-[#caa161] to-[#b08a50] hover:from-[#b08a50] hover:to-[#9a7638] text-white rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shrink-0 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                  className="w-14 h-14 bg-charcoal text-white rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shrink-0 shadow-xl hover:bg-primary group"
                 >
-                  <Send className="w-5 h-5 -ml-0.5" />
+                  <Send className="w-6 h-6 group-hover:rotate-12 transition-transform" />
                 </button>
               </form>
             </div>

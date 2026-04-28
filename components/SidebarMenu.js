@@ -25,7 +25,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
 
   const sections = [
     {
-      title: "My Aura",
+      title: "My Vault",
       icon: <User className="w-5 h-5 text-primary" />,
       items: [
         { label: "My Vault (Wishlist)", href: "/wishlist", icon: <Heart className="w-4 h-4" /> },
@@ -122,30 +122,33 @@ export default function SidebarMenu({ isOpen, onClose }) {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 h-full w-[85vw] sm:w-80 bg-white border-r border-gray-200 z-[70] flex flex-col shadow-2xl"
+            className="fixed top-0 left-0 h-full w-[85vw] sm:w-80 bg-ivory border-r border-white/20 z-[70] flex flex-col shadow-[20px_0_50px_rgba(0,0,0,0.1)] backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="bg-[#caa161] p-1.5 rounded-lg text-white">
+            <div className="flex items-center justify-between p-6 border-b border-gray-100 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="bg-primary p-2 rounded-xl text-white shadow-lg shadow-primary/20">
                   <Gift className="h-5 w-5" />
                 </div>
-                <span className="font-bold text-lg text-gray-900">Aura Menu</span>
+                <div>
+                  <span className="font-black text-xl tracking-tighter text-charcoal block leading-none">Giftora</span>
+                  <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-secondary">Menu</span>
+                </div>
               </div>
               <button 
                 onClick={onClose}
-                className="p-2 text-gray-400 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                className="p-2 text-gray-400 hover:text-charcoal bg-white rounded-full shadow-sm hover:shadow-md transition-all hover:rotate-90"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto no-scrollbar p-4 space-y-8">
+            <div className="flex-1 overflow-y-auto no-scrollbar p-6 space-y-10">
               {sections.map((section, idx) => (
-                <div key={idx} className="space-y-3">
-                  <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400">
-                    {section.icon}
+                <div key={idx} className="space-y-4">
+                  <h3 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+                    <span className="opacity-50">{section.icon}</span>
                     {section.title}
                   </h3>
                   <div className="grid grid-cols-1 gap-1">
@@ -153,9 +156,13 @@ export default function SidebarMenu({ isOpen, onClose }) {
                       <button
                         key={itemIdx}
                         onClick={() => handleNavigation(item)}
-                        className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors text-left"
+                        className={`flex items-center gap-3 px-4 py-3 text-sm font-bold transition-all rounded-2xl group ${
+                          pathname === item.href 
+                          ? 'bg-primary text-white shadow-lg shadow-primary/20' 
+                          : 'text-gray-500 hover:text-primary hover:bg-white hover:shadow-md'
+                        }`}
                       >
-                        {item.icon && <span className="opacity-70">{item.icon}</span>}
+                        {item.icon && <span className={`transition-transform group-hover:scale-110 ${pathname === item.href ? 'text-white' : 'text-primary/40'}`}>{item.icon}</span>}
                         {item.label}
                       </button>
                     ))}
@@ -167,7 +174,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
             {/* Footer */}
             <div className="p-4 border-t border-gray-200 shrink-0 bg-gray-50">
               <p className="text-xs text-center text-gray-400">
-                AuraGifts AI © 2026
+                Giftora AI © 2026
               </p>
             </div>
           </motion.div>

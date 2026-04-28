@@ -93,7 +93,7 @@ export default function SignupPage() {
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
             Create Account
           </h1>
-          <p className="text-gray-500 mt-2">Join AuraGifts and discover thoughtful gifts</p>
+          <p className="text-gray-500 mt-2">Join Giftora and discover thoughtful gifts</p>
         </div>
 
         <div className="space-y-4">

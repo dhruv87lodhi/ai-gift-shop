@@ -17,7 +17,7 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "AuraGifts - AI Gift Finder",
+  title: "Giftora - AI Gift Finder",
   description: "Find the perfect gift for any occasion with the help of AI.",
 };
 

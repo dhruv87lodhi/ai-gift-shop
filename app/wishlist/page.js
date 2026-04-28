@@ -107,11 +107,11 @@ export default function WishlistPage() {
               {/* Top Shortcut Cards (Matching Profile) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <Link 
-                  href="/#popular-picks"
+                  href="/#trending-gifts"
                   className="bg-white/60 backdrop-blur-md rounded-[2.5rem] p-10 border border-white/80 flex items-center justify-between group hover:shadow-2xl hover:shadow-secondary/10 transition-all cursor-pointer overflow-hidden relative border-b-4 border-b-secondary/20"
                 >
                   <div className="relative z-10 text-left">
-                    <h3 className="text-3xl font-black text-charcoal leading-none mb-3">Popular<br/><span className="text-secondary">Picks</span></h3>
+                    <h3 className="text-3xl font-black text-charcoal leading-none mb-3">Trending<br/><span className="text-secondary">Gifts</span></h3>
                     <p className="text-gray-400 text-sm font-bold uppercase tracking-wider">Top rated by community</p>
                   </div>
                   <div className="w-24 h-24 relative z-10 transition-transform duration-500 group-hover:scale-125 group-hover:-rotate-12">

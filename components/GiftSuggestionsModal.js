@@ -84,7 +84,7 @@ export default function GiftSuggestionsModal({ isOpen, onClose, event }) {
               <Gift className="w-8 h-8 text-[#c49b63]" />
             </div>
             <h2 className="text-3xl font-black text-gray-900 leading-tight">
-              Aura's Pick for <br />
+              Giftora's Pick for <br />
               <span className="text-[#c49b63]">{event.name || event.occasion}</span>
             </h2>
             <p className="text-gray-500 mt-4 text-sm leading-relaxed">
