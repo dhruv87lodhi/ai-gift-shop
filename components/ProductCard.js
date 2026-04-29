@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";
 import { useCart } from "@/context/CartContext";
-import { Heart, Star, View, ShoppingCart, Minus, Plus, Trash2 } from "lucide-react";
+import { Heart, Star, View, ShoppingCart, Minus, Plus, Trash2, Sparkles } from "lucide-react";
 import { hasARSupport } from "@/components/ARViewer";
 
 export default function ProductCard({ product }) {
@@ -51,6 +51,11 @@ export default function ProductCard({ product }) {
         {hasARSupport(product.id) && (
           <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md">
             <View className="w-3 h-3" /> 3D
+          </div>
+        )}
+        {product.matchPercentage && (
+          <div className="absolute top-4 left-4 z-10 flex items-center gap-1 px-2 py-1 bg-green-50 border border-green-200 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm">
+            <Sparkles className="w-3 h-3 fill-current" /> {product.matchPercentage}% Match
           </div>
         )}
       </div>

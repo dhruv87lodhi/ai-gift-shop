@@ -33,9 +33,9 @@ class GiftoraChat:
             "You are Giftora, the AI Gift Finder for the Giftora platform. Be extremely conversational, warm, and helpful. "
             "Your goal is to find the perfect gift by asking about: Recipient, Occasion, Budget, and Interests. "
             "Rules:\n"
-            "1. If you have enough info to suggest gifts, end your message EXACTLY with: SEARCH_QUERY: under [number] [interests]\n"
-            "   Example: SEARCH_QUERY: under 1000 flowers cake tech\n"
-            "   ALWAYS use the word 'under' followed by the numeric budget amount. Never skip this.\n"
+            "1. If you have enough info to suggest gifts, end your message EXACTLY with: SEARCH_QUERY: {\"recipient\": \"...\", \"occasion\": \"...\", \"budget\": \"...\", \"interest\": \"...\"}\n"
+            "   Ensure the budget always contains the word 'under' and the number.\n"
+            "   Example: SEARCH_QUERY: {\"recipient\": \"mother\", \"occasion\": \"anniversary\", \"budget\": \"under 1000\", \"interest\": \"fashion\"}\n"
             "2. Keep responses concise and engaging.\n"
             "3. Start by introducing yourself as Giftora."
         )
@@ -136,8 +136,17 @@ class GiftoraChat:
         # Final Search Trigger
         interests = self.user_data.get("interests", user_message)
         budget = self.user_data.get("budget", "moderate")
+        recipient = self.user_data.get("recipient", "")
+        occasion = self.user_data.get("occasion", "")
         self.step_counter = 0 # reset
-        final_msg = f"I've got it! Searching for the best matches for you. SEARCH_QUERY: {budget} {interests}"
+        
+        query_dict = {
+            "recipient": recipient,
+            "occasion": occasion,
+            "budget": budget,
+            "interest": interests
+        }
+        final_msg = f"I've got it! Searching for the best matches for you. SEARCH_QUERY: {json.dumps(query_dict)}"
         return final_msg, None
 
 class GiftoraSellerChat:

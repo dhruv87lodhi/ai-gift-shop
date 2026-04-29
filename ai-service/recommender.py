@@ -132,49 +132,154 @@ class Recommender:
         print(f"DEBUG stretch: {len(collected)} picks, prices: {[p['price'] for p in collected]}")
         return collected
 
+    def parse_query(self, query):
+        """Attempts to parse query as JSON, else extracts using regex."""
+        try:
+            data = json.loads(query)
+            # Extracted fields from JSON
+            recipient = data.get("recipient", "").lower()
+            occasion = data.get("occasion", "").lower()
+            budget_str = str(data.get("budget", ""))
+            interest = data.get("interest", "").lower()
+            max_price = self.extract_price(budget_str)
+            return recipient, occasion, interest, max_price
+        except:
+            # Fallback for plain text
+            query_lower = query.lower()
+            max_price = self.extract_price(query_lower)
+            return query_lower, query_lower, query_lower, max_price
+
+    def score_product(self, product, recipient, occasion, interest, max_price):
+        score = 0
+        tags = product.get("tags", {})
+        
+        # If tags are still a list (legacy), convert to dict format for scoring
+        if isinstance(tags, list):
+            tags_dict = {"recipient": tags, "occasion": tags, "interest": tags}
+        else:
+            tags_dict = {
+                "recipient": [t.lower() for t in tags.get("recipient", [])],
+                "occasion": [t.lower() for t in tags.get("occasion", [])],
+                "interest": [t.lower() for t in tags.get("interest", [])]
+            }
+
+        p_price = int(product.get("price", 0))
+        p_category = product.get("category", "").lower()
+
+        # Rules
+        # +50 exact recipient match
+        if recipient and (any(r in recipient for r in tags_dict["recipient"]) or any(recipient in r for r in tags_dict["recipient"])):
+            score += 50
+        elif not recipient:
+            score += 25 # partial credit if user didn't specify
+
+        # +30 occasion match
+        if occasion and (any(o in occasion for o in tags_dict["occasion"]) or any(occasion in o for o in tags_dict["occasion"])):
+            score += 30
+        elif not occasion:
+            score += 15
+
+        # +20 interest match
+        if interest and (any(i in interest for i in tags_dict["interest"]) or any(interest in i for i in tags_dict["interest"])):
+            score += 20
+        elif not interest:
+            score += 10
+
+        # +10 category similarity
+        # (if interest matches category directly)
+        if interest and p_category in interest:
+            score += 10
+
+        # +10 price within budget
+        if max_price and p_price <= max_price:
+            score += 10
+
+        # Strict Filtering & Penalties
+        # Avoid gaming/gadgets for mother/anniversary unless properly tagged
+        irrelevant = False
+        if "mother" in recipient and "anniversary" in occasion:
+            if p_category in ["gaming", "tech", "gadgets"] and "mother" not in tags_dict["recipient"]:
+                irrelevant = True
+                score -= 20
+                
+        # Calculate match percentage (Max score theoretically 120)
+        max_score = 120
+        match_percentage = min(100, max(0, int((score / max_score) * 100)))
+        
+        return score, match_percentage, irrelevant
+
+    def recommend_stretch(self, recipient, occasion, interest, max_price, already_shown_ids=None, limit=6):
+        if not max_price:
+            return []
+
+        seen_ids = set(already_shown_ids or [])
+        collected = []
+
+        above_budget = [p for p in self.products if int(p["price"]) > max_price and p["id"] not in seen_ids]
+        
+        # Score the above budget products
+        scored_above = []
+        for p in above_budget:
+            score, match_pct, irrelevant = self.score_product(p, recipient, occasion, interest, max_price)
+            if not irrelevant: # Don't show irrelevant stuff even as stretch
+                p_copy = p.copy()
+                p_copy["matchPercentage"] = match_pct
+                scored_above.append((score, p_copy))
+
+        # Sort by score, then popularity
+        scored_above.sort(key=lambda x: (x[0], x[1].get("popularity", 0)), reverse=True)
+        
+        # Take up to limit, ensuring they are within 2x budget for sanity
+        for score, p in scored_above:
+            if int(p["price"]) <= int(max_price * 2.0):
+                collected.append(p)
+                if len(collected) >= limit:
+                    break
+
+        return collected
+
     def recommend(self, query):
-        query_lower = query.lower()
-        max_price = self.extract_price(query_lower)
-        print(f"DEBUG recommend: query='{query}' → max_price={max_price}")
+        recipient, occasion, interest, max_price = self.parse_query(query)
+        print(f"DEBUG recommend: parsed JSON -> recipient='{recipient}', occasion='{occasion}', interest='{interest}', max_price={max_price}")
 
-        # Simple tag extraction: check which product tags appear in the query
-        all_tags = set()
+        scored_products = []
         for p in self.products:
-            all_tags.update(p["tags"])
+            score, match_pct, irrelevant = self.score_product(p, recipient, occasion, interest, max_price)
+            
+            # Enforce price within budget for main recommendations (if budget provided)
+            # If no price match, it won't be in the main recommendations
+            if max_price and int(p["price"]) > max_price:
+                continue
+                
+            if irrelevant and score < 30:
+                continue
 
-        target_tags = [tag for tag in all_tags if tag in query_lower]
+            p_copy = p.copy()
+            p_copy["matchPercentage"] = match_pct
+            scored_products.append((score, p_copy))
 
-        # 1. Exact match (price + tags)
-        results = []
-        if max_price and target_tags:
-            results = [p for p in self.products if int(p["price"]) <= max_price and any(t in target_tags for t in p["tags"])]
-
-        # 2. Tags found but no exact price match → widen budget by 20%
-        if not results and max_price and target_tags:
-            results = [p for p in self.products if int(p["price"]) <= int(max_price * 1.5) and any(t in target_tags for t in p["tags"])]
-
-        # 3. Price only (no matching tags) — price is ALWAYS enforced
-        if not results and max_price:
-            results = [p for p in self.products if int(p["price"]) <= max_price]
-
-        # 4. Tags only when no price given at all
-        if not results and target_tags and not max_price:
-            results = [p for p in self.products if any(t in target_tags for t in p["tags"])]
-
-        # 5. Final fallback → trending products (still price-filtered if we have a price)
-        if not results:
+        # Sort by: 1. Highest score, 2. Price (optional tie-breaker / popularity)
+        scored_products.sort(key=lambda x: (x[0], x[1].get("popularity", 0)), reverse=True)
+        
+        # Extract top products
+        final_results = [p for score, p in scored_products][:12]
+        # If absolutely no results, fallback to general popular under budget (or just popular if no budget)
+        if not final_results:
             if max_price:
-                results = [p for p in self.products if int(p["price"]) <= max_price]
-            if not results:
-                results = sorted(self.products, key=lambda x: x.get("popularity", 0), reverse=True)[:12]
+                fallback = [p for p in self.products if int(p["price"]) <= max_price]
+            else:
+                fallback = self.products[:]
+                
+            fallback.sort(key=lambda x: x.get("popularity", 0), reverse=True)
+            for p in fallback[:12]:
+                p_copy = p.copy()
+                # Only add a match percentage if we actually scored it against some criteria
+                if max_price:
+                    p_copy["matchPercentage"] = 50 # Budget match at least
+                final_results.append(p_copy)
 
-        # Sort all results by popularity and return top 12
-        final_results = sorted(results, key=lambda x: x.get("popularity", 0), reverse=True)[:12]
-        print(f"DEBUG recommend: returning {len(final_results)} results, prices: {[p['price'] for p in final_results]}")
-
-        # Stretch picks: popular products just above budget (never duplicate main results)
         already_shown = [p["id"] for p in final_results]
-        stretch = self.recommend_stretch(query_lower, max_price, target_tags, already_shown_ids=already_shown)
+        stretch = self.recommend_stretch(recipient, occasion, interest, max_price, already_shown_ids=already_shown)
 
         return final_results, stretch
 
