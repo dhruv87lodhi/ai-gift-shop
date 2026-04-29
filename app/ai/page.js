@@ -18,22 +18,42 @@ function AIResultsContent() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
 
-  // The full query from the chatbot (e.g. "under 1000 tech gaming")
+  // The full query from the chatbot (which is now a JSON string or plain text fallback)
   const query = searchParams.get("q") || searchParams.get("interests") || "gifts";
+
+  // Parse query JSON if possible
+  const parsedQuery = useMemo(() => {
+    try {
+      return JSON.parse(query);
+    } catch {
+      return null;
+    }
+  }, [query]);
 
   // Extract numeric budget from query for the price slider default
   const extractBudget = (q) => {
-    const match = q.match(/(?:under|below|budget|max|up to)\s*(\d+)/i) || q.match(/\b(\d{3,5})\b/);
+    const qStr = typeof q === 'object' && q !== null ? q.budget : q;
+    if (!qStr) return 100000;
+    const match = String(qStr).match(/(?:under|below|budget|max|up to)\s*(\d+)/i) || String(qStr).match(/\b(\d{3,5})\b/);
     return match ? Number(match[1]) : 100000;
   };
-  const [priceRange, setPriceRange] = useState(() => extractBudget(query));
+  const [priceRange, setPriceRange] = useState(() => extractBudget(parsedQuery || query));
 
-  // Display-friendly label (hide the "under 1000 tech" raw query)
-  const displayQuery = query.replace(/under\s+\d+\s*/i, "").trim() || query;
+  // Display-friendly label
+  const displayQuery = useMemo(() => {
+    if (parsedQuery) {
+      const parts = [];
+      if (parsedQuery.recipient) parts.push(`for ${parsedQuery.recipient}`);
+      if (parsedQuery.occasion) parts.push(`(${parsedQuery.occasion})`);
+      if (parsedQuery.interest) parts.push(`- ${parsedQuery.interest}`);
+      return parts.join(' ') || "gifts";
+    }
+    return query.replace(/under\s+\d+\s*/i, "").trim() || query;
+  }, [query, parsedQuery]);
 
   useEffect(() => {
     // Update price range if query changes
-    setPriceRange(extractBudget(query));
+    setPriceRange(extractBudget(parsedQuery || query));
 
     const fetchRecommendations = async () => {
       setIsAnalyzing(true);
@@ -246,9 +266,8 @@ function AIResultsContent() {
                         <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 font-outfit tracking-tight">{item.name}</h3>
                         <div className="flex items-center gap-2">
                           <div className="flex gap-0.5">
-                            {[1,2,3,4,5].map(s => <Sparkles key={s} className="w-3 h-3 text-[#caa161] fill-[#caa161]" />)}
+                            <span className="text-sm font-bold text-white bg-green-600 px-3 py-1 rounded-full flex items-center gap-1 shadow-sm"><Sparkles className="w-3 h-3 fill-current" /> {item.matchPercentage || 85}% Match for your needs</span>
                           </div>
-                          <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">Highly Compatible</span>
                         </div>
                       </div>
                       <div className="text-3xl font-bold text-gray-900 font-outfit">₹{Number(item.price).toLocaleString('en-IN')}</div>
@@ -321,6 +340,13 @@ function AIResultsContent() {
                         {item.category}
                       </span>
                     </div>
+                    {item.matchPercentage && (
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-xs font-bold text-green-600 shadow-sm border border-green-100">
+                          {item.matchPercentage}% Match
+                        </span>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="p-6">
@@ -394,11 +420,16 @@ function AIResultsContent() {
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.onerror = null; }}
                         />
-                        {/* Over-budget badge */}
-                        {overBy !== null && (
+                        {overBy !== null ? (
                           <div className="absolute top-4 left-4 px-3 py-1 bg-amber-400 text-white text-xs font-bold rounded-full shadow">
                             +₹{overBy.toLocaleString('en-IN')} over budget
                           </div>
+                        ) : (
+                          item.matchPercentage && (
+                            <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-xs font-bold text-amber-600 shadow border border-amber-100">
+                              {item.matchPercentage}% Match
+                            </div>
+                          )
                         )}
                         <button
                           onClick={(e) => { e.preventDefault(); toggleWishlist(item); }}
