@@ -543,13 +543,22 @@
     "price": "2800",
     "category": "Fashion",
     "tags": {
-      "recipient": [],
-      "occasion": [],
+      "recipient": [
+        "mother",
+        "woman",
+        "wife"
+      ],
+      "occasion": [
+        "festival",
+        "anniversary",
+        "mother's day"
+      ],
       "interest": [
         "fashion",
         "clothing",
         "saree",
-        "ethnic"
+        "ethnic",
+        "traditional"
       ]
     },
     "popularity": 93,
@@ -653,8 +662,13 @@
     "price": "899",
     "category": "Personalized",
     "tags": {
-      "recipient": [],
-      "occasion": [],
+      "recipient": [
+        "friend",
+        "general"
+      ],
+      "occasion": [
+        "casual"
+      ],
       "interest": [
         "music",
         "spotify",

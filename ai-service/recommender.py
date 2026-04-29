@@ -166,41 +166,48 @@ class Recommender:
         p_price = int(product.get("price", 0))
         p_category = product.get("category", "").lower()
 
-        # Rules
-        # +50 exact recipient match
-        if recipient and (any(r in recipient for r in tags_dict["recipient"]) or any(recipient in r for r in tags_dict["recipient"])):
+        # Match checks
+        rec_match = recipient and (any(r in recipient for r in tags_dict["recipient"]) or any(recipient in r for r in tags_dict["recipient"]))
+        occ_match = occasion and (any(o in occasion for o in tags_dict["occasion"]) or any(occasion in o for o in tags_dict["occasion"]))
+        int_match = interest and (any(i in interest for i in tags_dict["interest"]) or any(interest in i for i in tags_dict["interest"]))
+
+        # Basic Scoring
+        if rec_match:
             score += 50
         elif not recipient:
-            score += 25 # partial credit if user didn't specify
+            score += 25
 
-        # +30 occasion match
-        if occasion and (any(o in occasion for o in tags_dict["occasion"]) or any(occasion in o for o in tags_dict["occasion"])):
+        if occ_match:
             score += 30
         elif not occasion:
             score += 15
 
-        # +20 interest match
-        if interest and (any(i in interest for i in tags_dict["interest"]) or any(interest in i for i in tags_dict["interest"])):
+        if int_match:
             score += 20
         elif not interest:
             score += 10
 
-        # +10 category similarity
-        # (if interest matches category directly)
         if interest and p_category in interest:
             score += 10
 
-        # +10 price within budget
         if max_price and p_price <= max_price:
             score += 10
 
-        # Strict Filtering & Penalties
-        # Avoid gaming/gadgets for mother/anniversary unless properly tagged
+        # Strict Relevance Penalties
         irrelevant = False
-        if "mother" in recipient and "anniversary" in occasion:
-            if p_category in ["gaming", "tech", "gadgets"] and "mother" not in tags_dict["recipient"]:
+        mother_related_cats = ["jewelry", "fashion", "flowers", "personalized", "home decor", "cakes", "plants", "decor"]
+
+        if "mother" in recipient or "mother's day" in occasion:
+            # EXCLUDE products that do not match recipient, do not match occasion, AND belong to unrelated categories
+            if not rec_match and not occ_match and p_category not in mother_related_cats:
+                score -= 40
                 irrelevant = True
-                score -= 20
+
+        # Penalty for no recipient match when recipient is critical
+        if recipient and not rec_match:
+            if "mother" in recipient:
+                if not occ_match:
+                    score -= 30
                 
         # Calculate match percentage (Max score theoretically 120)
         max_score = 120

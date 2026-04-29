@@ -21,7 +21,7 @@ export async function POST(req) {
     const user = await User.findByIdAndUpdate(
       payload.userId,
       updateData,
-      { new: true }
+      { returnDocument: 'after' }
     );
 
     return NextResponse.json({ message: 'Cart synced', cart: user.cart, giftNote: user.giftNote });

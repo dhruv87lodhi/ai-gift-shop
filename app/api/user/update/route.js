@@ -16,7 +16,7 @@ export async function PUT(req) {
     const user = await User.findByIdAndUpdate(
       payload.userId,
       { name, phone },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).select('-password');
 
     return NextResponse.json({ message: 'Profile updated', user });
