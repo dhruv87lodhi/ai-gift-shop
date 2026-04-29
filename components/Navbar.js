@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, Store, MapPin, LogOut } from "lucide-react";
+import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, Store, MapPin, LogOut, Navigation } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -16,9 +16,13 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [navVisible, setNavVisible] = useState(true);
   const [showModeDropdown, setShowModeDropdown] = useState(false);
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [pincodeInput, setPincodeInput] = useState("");
+  const [savedPincode, setSavedPincode] = useState("");
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
   const dropdownRef = useRef(null);
+  const locationDropdownRef = useRef(null);
   const router = useRouter();
   const { cartCount } = useCart();
   const { user, isSeller, toggleSellerMode, sellerProfile, logout } = useAuth();
@@ -68,16 +72,58 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobileMenuOpen]);
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowModeDropdown(false);
       }
+      if (locationDropdownRef.current && !locationDropdownRef.current.contains(e.target)) {
+        setShowLocationDropdown(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("userPincode");
+    if (saved) {
+      setSavedPincode(saved);
+      setPincodeInput(saved);
+    }
+  }, []);
+
+  const handleSaveLocation = () => {
+    if (pincodeInput.trim()) {
+      localStorage.setItem("userPincode", pincodeInput.trim());
+      setSavedPincode(pincodeInput.trim());
+      setShowLocationDropdown(false);
+      router.push("/discover");
+    }
+  };
+
+  const handleUseCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Mock geolocation to pincode conversion
+          const mockPincodes = ["110001", "400001", "560001", "600001"];
+          const randomPincode = mockPincodes[Math.floor(Math.random() * mockPincodes.length)];
+          localStorage.setItem("userPincode", randomPincode);
+          setSavedPincode(randomPincode);
+          setPincodeInput(randomPincode);
+          setShowLocationDropdown(false);
+          router.push("/discover");
+        },
+        (error) => {
+          console.error("Error getting location", error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -168,14 +214,74 @@ export default function Navbar() {
                 <Search className="h-5 w-5" />
               </button>
 
-              {/* Discover Link */}
-              <Link 
-                href="/discover"
-                className="p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition hidden sm:flex" 
-                title="Discover Nearby"
-              >
-                <MapPin className="h-5 w-5" />
-              </Link>
+              {/* Discover Location Dropdown */}
+              <div className="relative" ref={locationDropdownRef}>
+                <button 
+                  onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+                  className="p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition hidden sm:flex relative" 
+                  title="Discover Nearby"
+                >
+                  <MapPin className="h-5 w-5" />
+                  {savedPincode && (
+                    <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+                  )}
+                </button>
+
+                <AnimatePresence>
+                  {showLocationDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-full mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-[100] p-5"
+                    >
+                      <h3 className="text-sm font-black text-charcoal mb-4 flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        Choose your location
+                      </h3>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Enter Pincode</p>
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              value={pincodeInput}
+                              onChange={(e) => setPincodeInput(e.target.value)}
+                              placeholder="e.g. 110001"
+                              className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 text-sm font-bold text-charcoal focus:outline-none focus:border-primary/30 focus:ring-4 focus:ring-primary/10 transition-all"
+                            />
+                            <button
+                              onClick={handleSaveLocation}
+                              className="bg-charcoal text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-primary transition-colors"
+                            >
+                              Go
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="relative py-2">
+                          <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-100"></div>
+                          </div>
+                          <div className="relative flex justify-center">
+                            <span className="bg-white px-2 text-[10px] font-bold text-gray-400 uppercase">Or</span>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={handleUseCurrentLocation}
+                          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-200 text-sm font-bold text-charcoal hover:bg-gray-50 transition-colors"
+                        >
+                          <Navigation className="w-4 h-4 text-primary" />
+                          Use Current Location
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               {/* Reminders Link */}
               <Link 

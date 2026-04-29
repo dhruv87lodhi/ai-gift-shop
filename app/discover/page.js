@@ -6,14 +6,14 @@ import { MapPin, Clock, Truck, Filter, ChevronLeft, Star, Heart, Flame, Navigati
 import { motion, AnimatePresence } from 'framer-motion';
 
 const mockNearbyProducts = [
-  { id: 'n1', name: 'Handmade Chocolate Gift Box', price: 599, image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400', seller: 'Sweet Surprise', distance: '1.2 km', deliveryTime: 'Same Day', rating: 4.8, reviews: 124, trending: true, category: 'Chocolates' },
-  { id: 'n2', name: 'Personalized Photo Frame', price: 449, image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=400', seller: 'Frame It Up', distance: '2.5 km', deliveryTime: 'Same Day', rating: 4.6, reviews: 89, trending: false, category: 'Personalized' },
-  { id: 'n3', name: 'Rose Bouquet with Teddy', price: 899, image: 'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400', seller: 'Bloom & Gift', distance: '0.8 km', deliveryTime: 'Same Day', rating: 4.9, reviews: 256, trending: true, category: 'Flowers' },
-  { id: 'n4', name: 'Custom Name Mug Set', price: 349, image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', seller: 'MugCraft', distance: '3.1 km', deliveryTime: 'Next Day', rating: 4.5, reviews: 67, trending: false, category: 'Personalized' },
-  { id: 'n5', name: 'Premium Gift Hamper', price: 1299, image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=400', seller: 'Gift Galaxy', distance: '1.8 km', deliveryTime: 'Same Day', rating: 4.7, reviews: 198, trending: true, category: 'Hampers' },
-  { id: 'n6', name: 'Scented Candle Set', price: 699, image: 'https://images.unsplash.com/photo-1602607715218-996f84e204c9?w=400', seller: 'Aroma World', distance: '4.2 km', deliveryTime: 'Next Day', rating: 4.4, reviews: 45, trending: false, category: 'Home Decor' },
-  { id: 'n7', name: 'Rakhi Gift Combo', price: 799, image: 'https://images.unsplash.com/photo-1549465220-1a8b9238f0e1?w=400', seller: 'Festive Treats', distance: '2.0 km', deliveryTime: 'Same Day', rating: 4.8, reviews: 312, trending: true, category: 'Festival' },
-  { id: 'n8', name: 'Customized Jewelry Box', price: 549, image: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6c4?w=400', seller: 'Jewel Box Co', distance: '5.0 km', deliveryTime: 'Standard', rating: 4.3, reviews: 34, trending: false, category: 'Fashion' },
+  { id: 'n1', name: 'Handmade Chocolate Gift Box', price: 599, image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400', seller: 'Sweet Surprise', distance: '1.2 km', deliveryTime: 'Same Day', rating: 4.8, reviews: 124, trending: true, category: 'Chocolates', pincode: '110001' },
+  { id: 'n2', name: 'Personalized Photo Frame', price: 449, image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=400', seller: 'Frame It Up', distance: '2.5 km', deliveryTime: 'Same Day', rating: 4.6, reviews: 89, trending: false, category: 'Personalized', pincode: '400001' },
+  { id: 'n3', name: 'Rose Bouquet with Teddy', price: 899, image: 'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400', seller: 'Bloom & Gift', distance: '0.8 km', deliveryTime: 'Same Day', rating: 4.9, reviews: 256, trending: true, category: 'Flowers', pincode: '110001' },
+  { id: 'n4', name: 'Custom Name Mug Set', price: 349, image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', seller: 'MugCraft', distance: '3.1 km', deliveryTime: 'Next Day', rating: 4.5, reviews: 67, trending: false, category: 'Personalized', pincode: '560001' },
+  { id: 'n5', name: 'Premium Gift Hamper', price: 1299, image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=400', seller: 'Gift Galaxy', distance: '1.8 km', deliveryTime: 'Same Day', rating: 4.7, reviews: 198, trending: true, category: 'Hampers', pincode: '600001' },
+  { id: 'n6', name: 'Scented Candle Set', price: 699, image: 'https://images.unsplash.com/photo-1602607715218-996f84e204c9?w=400', seller: 'Aroma World', distance: '4.2 km', deliveryTime: 'Next Day', rating: 4.4, reviews: 45, trending: false, category: 'Home Decor', pincode: '110001' },
+  { id: 'n7', name: 'Rakhi Gift Combo', price: 799, image: 'https://images.unsplash.com/photo-1549465220-1a8b9238f0e1?w=400', seller: 'Festive Treats', distance: '2.0 km', deliveryTime: 'Same Day', rating: 4.8, reviews: 312, trending: true, category: 'Festival', pincode: '400001' },
+  { id: 'n8', name: 'Customized Jewelry Box', price: 549, image: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6c4?w=400', seller: 'Jewel Box Co', distance: '5.0 km', deliveryTime: 'Standard', rating: 4.3, reviews: 34, trending: false, category: 'Fashion', pincode: '560001' },
 ];
 
 const distanceOptions = ['All', '< 2 km', '< 5 km', '< 10 km'];
@@ -29,6 +29,12 @@ export default function DiscoverPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [wishlist, setWishlist] = useState([]);
+  const [userPincode, setUserPincode] = useState(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("userPincode");
+    if (saved) setUserPincode(saved);
+  }, []);
 
   const toggleWish = (id) => {
     setWishlist(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -47,8 +53,17 @@ export default function DiscoverPage() {
     return true;
   });
 
-  const trendingProducts = mockNearbyProducts.filter(p => p.trending);
-  const sameDayProducts = mockNearbyProducts.filter(p => p.deliveryTime === 'Same Day');
+  // Sort logic: Match pincode first, then sort by distance
+  const sortedAndFiltered = [...filtered].sort((a, b) => {
+    if (userPincode) {
+      if (a.pincode === userPincode && b.pincode !== userPincode) return -1;
+      if (b.pincode === userPincode && a.pincode !== userPincode) return 1;
+    }
+    return parseFloat(a.distance) - parseFloat(b.distance);
+  });
+
+  const trendingProducts = sortedAndFiltered.filter(p => p.trending);
+  const sameDayProducts = sortedAndFiltered.filter(p => p.deliveryTime === 'Same Day');
 
   return (
     <div className="min-h-screen bg-ivory pt-24 pb-24">
@@ -139,8 +154,11 @@ export default function DiscoverPage() {
               <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="min-w-[280px] bg-white rounded-[2rem] border border-gray-100 overflow-hidden group hover:shadow-xl hover:shadow-primary/10 transition-all">
                 <div className="relative h-44 bg-gray-100 overflow-hidden">
                   <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <span className="bg-orange-500 text-white text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1"><Flame className="w-3 h-3" /> Trending</span>
+                  <div className="absolute top-3 left-3 flex flex-col gap-2">
+                    <span className="bg-orange-500 text-white text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1 w-fit"><Flame className="w-3 h-3" /> Trending</span>
+                    {userPincode && product.pincode === userPincode && (
+                      <span className="bg-primary text-white text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1 w-fit"><MapPin className="w-3 h-3" /> In Your Area</span>
+                    )}
                   </div>
                   <div className="absolute top-3 right-3 flex gap-2">
                     <span className="bg-white/90 backdrop-blur text-[10px] font-bold text-charcoal px-2.5 py-1 rounded-full flex items-center gap-1"><MapPin className="w-3 h-3 text-primary" /> {product.distance}</span>
@@ -211,8 +229,11 @@ export default function DiscoverPage() {
                 <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="bg-white rounded-[2rem] border border-gray-100 overflow-hidden group hover:shadow-xl hover:shadow-primary/10 transition-all">
                   <div className="relative h-48 bg-gray-100 overflow-hidden">
                     <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-white/90 backdrop-blur text-[10px] font-bold text-charcoal px-2.5 py-1 rounded-full flex items-center gap-1"><MapPin className="w-3 h-3 text-primary" /> {product.distance}</span>
+                    <div className="absolute top-3 left-3 flex flex-col gap-2">
+                      <span className="bg-white/90 backdrop-blur text-[10px] font-bold text-charcoal px-2.5 py-1 rounded-full flex items-center gap-1 w-fit"><MapPin className="w-3 h-3 text-primary" /> {product.distance}</span>
+                      {userPincode && product.pincode === userPincode && (
+                        <span className="bg-primary text-white text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1 w-fit"><MapPin className="w-3 h-3" /> In Your Area</span>
+                      )}
                     </div>
                     {product.deliveryTime === 'Same Day' && (
                       <div className="absolute top-3 right-3">
