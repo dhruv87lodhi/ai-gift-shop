@@ -7,7 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 export default function OccasionCard({ occasion }) {
   return (
     <Link
-      href={`/occasion/${occasion.id}`}
+      href={`/category?q=${encodeURIComponent(occasion.name)}`}
       className="group relative flex flex-col overflow-hidden rounded-[2rem] aspect-[3/4] w-full bg-white isolation-auto border border-gray-200 hover:border-[#caa161]/50 transition-all duration-500 shadow-sm hover:shadow-xl"
     >
       {/* Top Image Section */}

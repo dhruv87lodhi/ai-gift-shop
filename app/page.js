@@ -179,12 +179,13 @@ export default async function Home() {
           </div>
 
           <div className="mt-16 text-center">
-            <Link href="/occasion" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
+            <Link href="/category" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
               View All Occasions <ArrowRight className="w-6 h-6 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
       </section>
+
 
 
       {/* Trending Gifts */}
