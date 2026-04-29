@@ -75,7 +75,7 @@ async function fetchRecommendations(occasionName) {
   try {
     const query = encodeURIComponent(occasionName);
     const res = await fetch(
-      `http://127.0.0.1:8000/recommend?query=${query}`,
+      `${process.env.NEXT_PUBLIC_PYTHON_API}/recommend?query=${query}`,
       { next: { revalidate: 120 } }
     );
     if (res.ok) {

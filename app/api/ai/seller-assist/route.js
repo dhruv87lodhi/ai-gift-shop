@@ -4,7 +4,7 @@ export async function POST(request) {
   try {
     const { query, context } = await request.json();
 
-    const res = await fetch('http://127.0.0.1:8000/seller-chat', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/seller-chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: query, context: context || 'Gift shop seller on Giftora platform' }),

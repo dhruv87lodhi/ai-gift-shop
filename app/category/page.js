@@ -26,7 +26,7 @@ function CategoryContent() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/recommend?query=${encodeURIComponent(categoryName)}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/recommend?query=${encodeURIComponent(categoryName)}`);
       if (res.ok) {
         const data = await res.json();
         setProducts(data.recommendations || []);

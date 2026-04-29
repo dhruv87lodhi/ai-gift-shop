@@ -26,8 +26,8 @@ export default function ProductPage({ params }) {
     const fetchProductData = async () => {
       try {
         const [productRes, similarRes] = await Promise.all([
-          fetch(`http://localhost:8000/product/${id}`),
-          fetch(`http://localhost:8000/product/${id}/similar`)
+          fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/product/${id}`),
+          fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/product/${id}/similar`)
         ]);
 
         if (productRes.ok) {

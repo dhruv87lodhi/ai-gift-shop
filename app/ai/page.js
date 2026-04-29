@@ -59,7 +59,7 @@ function AIResultsContent() {
       setIsAnalyzing(true);
       try {
         // Send the FULL query string (with budget) so the backend can filter by price
-        const response = await fetch(`http://localhost:8000/recommend?query=${encodeURIComponent(query)}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/recommend?query=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error("Failed to fetch");
         
         const data = await response.json();
