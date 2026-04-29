@@ -32,8 +32,14 @@ import { useWishlist } from '@/context/WishlistContext';
 import Link from 'next/link';
 
 export default function ProfilePage() {
-  const { user, loading, logout } = useAuth();
+  const { user, loading, logout, refreshUser } = useAuth();
   const [activeTab, setActiveTab] = useState('personal');
+
+  useEffect(() => {
+    if (refreshUser) {
+      refreshUser();
+    }
+  }, []);
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-ivory">

@@ -38,8 +38,8 @@ function getDeliveryEstimate(pincode) {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cartItems, cartTotal } = useCart();
-  const { user, loading } = useAuth();
+  const { cartItems, cartTotal, clearCart } = useCart();
+  const { user, loading, refreshUser } = useAuth();
   
   const [form, setForm] = useState({
     fullName: "",
@@ -197,6 +197,8 @@ export default function CheckoutPage() {
                 shippingAddress: `${form.address1}${form.address2 ? ', ' + form.address2 : ''}, ${form.city}, ${form.state} - ${form.pincode}`,
               }),
             });
+            clearCart();
+            if (refreshUser) await refreshUser();
           } catch (err) {
             console.error("Failed to record order:", err);
           }
