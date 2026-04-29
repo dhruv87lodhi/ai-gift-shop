@@ -14,6 +14,7 @@ function AIResultsContent() {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [allRecommendations, setAllRecommendations] = useState([]);
+  const [stretchPicks, setStretchPicks] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -43,6 +44,7 @@ function AIResultsContent() {
         
         const data = await response.json();
         setAllRecommendations(data.recommendations || []);
+        setStretchPicks(data.stretch_picks || []);
       } catch (error) {
         console.error("AI Page Error:", error);
         setAllRecommendations([]);
@@ -339,6 +341,98 @@ function AIResultsContent() {
             </div>
           </section>
         )}
+
+        {/* ✨ Worth the Stretch — products just above budget */}
+        {stretchPicks.length > 0 && (() => {
+          const budget = extractBudget(query);
+          const minOver = budget < 100000 ? Math.min(...stretchPicks.map(p => Number(p.price))) - budget : null;
+          const maxOver = budget < 100000 ? Math.max(...stretchPicks.map(p => Number(p.price))) - budget : null;
+          return (
+            <section>
+              {/* Divider */}
+              <div className="flex items-center gap-4 my-4">
+                <div className="flex-1 h-px bg-amber-100" />
+                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest px-3">A Little More</span>
+                <div className="flex-1 h-px bg-amber-100" />
+              </div>
+
+              <div className="flex items-start justify-between gap-4 mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="h-10 w-1.5 bg-amber-400 rounded-full shrink-0" />
+                  <div>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h2 className="text-3xl font-bold text-gray-900 font-outfit">Worth the Stretch 💛</h2>
+                      <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
+                        {stretchPicks.length} picks
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-400 mt-1 font-medium max-w-xl">
+                      {minOver !== null
+                        ? `These go ₹${minOver.toLocaleString('en-IN')}–₹${maxOver.toLocaleString('en-IN')} over your budget — but are highly rated and closely match your interests.`
+                        : "Highly popular products closely matching your interests, just a little above your budget."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {stretchPicks.map((item, index) => {
+                  const overBy = budget < 100000 ? Number(item.price) - budget : null;
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.06 }}
+                      className="group rounded-3xl border border-amber-100 bg-gradient-to-b from-amber-50/60 to-white hover:border-amber-300 hover:shadow-xl hover:shadow-amber-100 transition-all duration-500 overflow-hidden"
+                    >
+                      <div className="aspect-[5/4] relative overflow-hidden bg-amber-50">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.onerror = null; }}
+                        />
+                        {/* Over-budget badge */}
+                        {overBy !== null && (
+                          <div className="absolute top-4 left-4 px-3 py-1 bg-amber-400 text-white text-xs font-bold rounded-full shadow">
+                            +₹{overBy.toLocaleString('en-IN')} over budget
+                          </div>
+                        )}
+                        <button
+                          onClick={(e) => { e.preventDefault(); toggleWishlist(item); }}
+                          className="absolute top-4 right-4 p-2.5 bg-white/90 backdrop-blur-md rounded-full shadow-sm hover:bg-white transition-all transform hover:scale-110"
+                        >
+                          <Heart className={`w-5 h-5 transition-colors ${isInWishlist(item.id) ? "fill-red-500 text-red-500" : "text-gray-900"}`} />
+                        </button>
+                        <div className="absolute bottom-4 left-4">
+                          <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-lg text-xs font-bold text-amber-600 uppercase tracking-wider">
+                            {item.category}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-3 gap-2">
+                          <h3 className="font-bold text-xl text-gray-900 leading-tight group-hover:text-amber-600 transition-colors">{item.name}</h3>
+                          <span className="font-bold text-lg text-amber-600 shrink-0">₹{Number(item.price).toLocaleString('en-IN')}</span>
+                        </div>
+                        <Link
+                          href={`/product/${item.id}`}
+                          className="flex items-center justify-center w-full py-3 bg-amber-50 text-amber-700 font-bold rounded-xl group-hover:bg-amber-400 group-hover:text-white transition-all"
+                        >
+                          Explore Piece
+                        </Link>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })()}
+
 
         {/* Empty State */}
         {filteredMatches.length === 0 && (

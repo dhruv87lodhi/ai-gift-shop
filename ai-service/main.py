@@ -25,6 +25,7 @@ class ChatResponse(BaseModel):
     recommendations: Optional[List[Any]] = None
     finished: bool = False
     search_query: Optional[str] = None
+    stretch_picks: Optional[List[Any]] = None
 
 @app.get("/")
 async def root():
@@ -48,15 +49,16 @@ async def chat(msg: ChatMessage):
             display_text = response_text.split("SEARCH_QUERY:")[0].strip()
             if not display_text:
                 display_text = "I've found some great matches for you!"
-            
-            recommendations = engine.recommend(query)
-            
+
+            recommendations, stretch_picks = engine.recommend(query)
+
         return {
             "response": display_text,
             "suggestions": suggestions if not is_finished else None,
             "recommendations": recommendations,
             "finished": is_finished,
-            "search_query": query if is_finished else None
+            "search_query": query if is_finished else None,
+            "stretch_picks": stretch_picks if is_finished else None
         }
     except Exception as e:
         print(f"Chat error: {e}")
@@ -65,8 +67,8 @@ async def chat(msg: ChatMessage):
 @app.get("/recommend")
 async def recommend(query: str):
     try:
-        recommendations = engine.recommend(query)
-        return {"query": query, "recommendations": recommendations}
+        recommendations, stretch_picks = engine.recommend(query)
+        return {"query": query, "recommendations": recommendations, "stretch_picks": stretch_picks}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
