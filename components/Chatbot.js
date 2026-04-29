@@ -18,8 +18,8 @@ export default function Chatbot() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  
-  // Conversation state is now handled by the backend
+  // Tracks the budget the user mentioned (e.g. "Under 1000") to include in redirect URL
+  const budgetRef = useRef(null);
 
   const messagesEndRef = useRef(null);
 
@@ -39,6 +39,10 @@ export default function Chatbot() {
 
   const processInput = async (text) => {
     if (!text.trim()) return;
+
+    // Capture budget if user typed/clicked something like "Under 1000" or "under 500"
+    const budgetMatch = text.match(/(?:under|below|budget|max|up to)\s*(\d+)/i);
+    if (budgetMatch) budgetRef.current = `under ${budgetMatch[1]}`;
 
     const userMsg = { id: Date.now(), type: "user", text };
     
@@ -78,21 +82,27 @@ export default function Chatbot() {
         type: "bot", 
         text: data.response,
         suggestions: data.suggestions || null,
-        recommendations: data.recommendations || null
+        recommendations: data.recommendations || null,
+        search_query: data.search_query || null
       };
 
       setMessages((prev) => [...prev, botMsg]);
 
       // If recommendations are returned, redirect after a longer delay
       if (data.finished && data.recommendations) {
+        // Best source: backend's search_query (has full "under 1000 tech" string)
+        // Fallback: prepend tracked budget to the last user text
+        let searchQuery = data.search_query;
+        if (!searchQuery) {
+          searchQuery = budgetRef.current
+            ? `${budgetRef.current} ${text}`
+            : text;
+        }
         setTimeout(() => {
           setIsOpen(false);
-          const params = new URLSearchParams({
-            q: text,
-            isAI: "true"
-          });
+          const params = new URLSearchParams({ q: searchQuery, isAI: "true" });
           router.push(`/ai?${params.toString()}`);
-        }, 2000); // Give user 2 seconds to see the "close options" in chat
+        }, 2000);
       }
     } catch (error) {
       console.error("Chatbot Error:", error);
@@ -241,7 +251,7 @@ export default function Chatbot() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           onClick={() => {
-                            const params = new URLSearchParams({ q: msg.text.split("SEARCH_QUERY:")[1] || "gifts", isAI: "true" });
+                            const params = new URLSearchParams({ q: msg.search_query || msg.text, isAI: "true" });
                             router.push(`/ai?${params.toString()}`);
                           }}
                           className="w-full py-2.5 bg-[#caa161]/10 hover:bg-[#caa161]/20 text-[#9a7638] border border-[#caa161]/30 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 group"

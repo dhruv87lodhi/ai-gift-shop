@@ -6,6 +6,7 @@ import { categories, occasions } from "@/data/mockData";
 import OccasionCard from "@/components/OccasionCard";
 import Image from "next/image";
 import HeroButtons from "@/components/HeroButtons";
+import FestivalBanner from "@/components/FestivalBanner";
 
 export default async function Home() {
   let featuredProducts = [];
@@ -120,6 +121,9 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Festival Banner – Dynamic Upcoming Occasion (above categories) */}
+      <FestivalBanner />
+
       {/* Shop By Category */}
       <section id="categories" className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -182,67 +186,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Festival Banner Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto rounded-[3.5rem] overflow-hidden bg-charcoal relative shadow-2xl group">
-          {/* Animated Background Elements */}
-          <div className="absolute top-0 right-0 w-full h-full opacity-30">
-            <div className="absolute top-10 right-20 w-32 h-32 bg-primary rounded-full blur-[80px] animate-pulse" />
-            <div className="absolute bottom-10 left-20 w-48 h-48 bg-secondary rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
-          </div>
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center">
-            {/* Image side with overlay */}
-            <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] relative overflow-hidden">
-              <Image 
-                src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&q=80&w=800" 
-                alt="Festive Celebrations" 
-                fill 
-                className="object-cover transition-transform duration-1000 group-hover:scale-110" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/40 to-transparent lg:block hidden" />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent lg:hidden block" />
-            </div>
-
-            {/* Content side */}
-            <div className="w-full lg:w-1/2 p-10 lg:p-20 space-y-8 text-left">
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest">
-                <Sparkles className="w-4 h-4" />
-                Seasonal Highlights
-              </div>
-              
-              <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tighter">
-                Celebrate the <br/>
-                <span className="text-primary italic">Festival</span> of Giving
-              </h2>
-              
-              <p className="text-gray-400 text-lg max-w-md font-medium leading-relaxed">
-                Discover our curated collection of festive treasures designed to bring light and joy to your loved ones this season.
-              </p>
-              
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Link href="/category?q=festival" className="px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg hover:bg-white hover:text-charcoal transition-all shadow-xl shadow-primary/20 flex items-center gap-3 group">
-                  Explore Collection
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </Link>
-                <div className="flex -space-x-3 items-center">
-                  {[
-                    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
-                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
-                    "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100",
-                    "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100"
-                  ].map((url, i) => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-charcoal overflow-hidden bg-gray-800 relative">
-                      <Image src={url} alt="User" fill className="object-cover" />
-                    </div>
-                  ))}
-                  <span className="ml-4 text-gray-400 text-xs font-bold uppercase tracking-wider">Join 10k+ Gifters</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Trending Gifts */}
       <section id="trending-gifts" className="py-24 px-6 max-w-7xl mx-auto w-full">

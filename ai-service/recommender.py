@@ -16,10 +16,15 @@ class Recommender:
             return []
 
     def extract_price(self, query):
-        """Extracts max price from queries like 'under 1000' or 'below 500'"""
+        """Extracts max price from queries like 'under 1000', 'below 500', or bare '1000'"""
+        # Primary: keyword-based match
         price_match = re.search(r'(?:under|below|budget|max|up to)\s*(\d+)', query.lower())
         if price_match:
             return int(price_match.group(1))
+        # Fallback: any standalone number (e.g., '1000 flowers')
+        bare_match = re.search(r'\b(\d{3,5})\b', query)
+        if bare_match:
+            return int(bare_match.group(1))
         return None
 
     def get_product(self, product_id):
@@ -52,7 +57,7 @@ class Recommender:
             score += len(common_tags)
             
             # Price match (within 500)
-            if abs(p.get("price", 0) - target.get("price", 0)) <= 500:
+            if abs(int(p.get("price", 0)) - int(target.get("price", 0))) <= 500:
                 score += 1
                 
             scored_products.append({"product": p, "score": score})
@@ -69,36 +74,108 @@ class Recommender:
         # Extract products from the scored list
         return [item["product"] for item in scored_products[:limit]]
 
+    def recommend_stretch(self, query, max_price, target_tags, already_shown_ids=None, limit=6):
+        """
+        Returns products just above budget using 3 progressive tiers:
+          Tier 1: Tag match, price within 50% over budget
+          Tier 2: Category match, price within 70% over budget
+          Tier 3: Most popular products anywhere above budget (up to 2x)
+        Always tries to return `limit` products.
+        """
+        if not max_price:
+            return []
+
+        seen_ids = set(already_shown_ids or [])
+        collected = []
+
+        def add(candidates):
+            for p in candidates:
+                if p["id"] not in seen_ids and len(collected) < limit:
+                    seen_ids.add(p["id"])
+                    collected.append(p)
+
+        above_budget = [p for p in self.products if int(p["price"]) > max_price]
+
+        # Tier 1 — tag match within 50% over budget
+        tier1_limit = int(max_price * 1.50)
+        tier1 = sorted(
+            [p for p in above_budget if int(p["price"]) <= tier1_limit
+             and target_tags and any(t in target_tags for t in p["tags"])],
+            key=lambda x: x.get("popularity", 0), reverse=True
+        )
+        add(tier1)
+
+        # Tier 2 — detect categories from tags, match by category within 70% over budget
+        if len(collected) < limit:
+            tier2_limit = int(max_price * 1.70)
+            # Infer relevant categories from target_tags
+            relevant_cats = set(
+                p["category"] for p in self.products
+                if target_tags and any(t in target_tags for t in p.get("tags", []))
+            )
+            tier2 = sorted(
+                [p for p in above_budget if int(p["price"]) <= tier2_limit
+                 and p["category"] in relevant_cats],
+                key=lambda x: x.get("popularity", 0), reverse=True
+            )
+            add(tier2)
+
+        # Tier 3 — most popular above budget up to 2x (ignore tags/category)
+        if len(collected) < limit:
+            tier3_limit = int(max_price * 2.0)
+            tier3 = sorted(
+                [p for p in above_budget if int(p["price"]) <= tier3_limit],
+                key=lambda x: x.get("popularity", 0), reverse=True
+            )
+            add(tier3)
+
+        print(f"DEBUG stretch: {len(collected)} picks, prices: {[p['price'] for p in collected]}")
+        return collected
+
     def recommend(self, query):
         query_lower = query.lower()
         max_price = self.extract_price(query_lower)
-        
+        print(f"DEBUG recommend: query='{query}' → max_price={max_price}")
+
         # Simple tag extraction: check which product tags appear in the query
         all_tags = set()
         for p in self.products:
             all_tags.update(p["tags"])
-        
+
         target_tags = [tag for tag in all_tags if tag in query_lower]
-        
+
         # 1. Exact match (price + tags)
         results = []
         if max_price and target_tags:
-            results = [p for p in self.products if p["price"] <= max_price and any(t in target_tags for t in p["tags"])]
-        
-        # 2. If no result -> close price (+500 range)
+            results = [p for p in self.products if int(p["price"]) <= max_price and any(t in target_tags for t in p["tags"])]
+
+        # 2. Tags found but no exact price match → widen budget by 20%
         if not results and max_price and target_tags:
-            results = [p for p in self.products if p["price"] <= (max_price + 500) and any(t in target_tags for t in p["tags"])]
-            
-        # 3. If still no result -> ignore price, match tags
-        if not results and target_tags:
+            results = [p for p in self.products if int(p["price"]) <= int(max_price * 1.5) and any(t in target_tags for t in p["tags"])]
+
+        # 3. Price only (no matching tags) — price is ALWAYS enforced
+        if not results and max_price:
+            results = [p for p in self.products if int(p["price"]) <= max_price]
+
+        # 4. Tags only when no price given at all
+        if not results and target_tags and not max_price:
             results = [p for p in self.products if any(t in target_tags for t in p["tags"])]
-            
-        # 4. Final fallback -> trending (based on popularity)
+
+        # 5. Final fallback → trending products (still price-filtered if we have a price)
         if not results:
-            results = sorted(self.products, key=lambda x: x.get("popularity", 0), reverse=True)[:5]
+            if max_price:
+                results = [p for p in self.products if int(p["price"]) <= max_price]
+            if not results:
+                results = sorted(self.products, key=lambda x: x.get("popularity", 0), reverse=True)[:12]
 
         # Sort all results by popularity and return top 12
         final_results = sorted(results, key=lambda x: x.get("popularity", 0), reverse=True)[:12]
-        return final_results
+        print(f"DEBUG recommend: returning {len(final_results)} results, prices: {[p['price'] for p in final_results]}")
+
+        # Stretch picks: popular products just above budget (never duplicate main results)
+        already_shown = [p["id"] for p in final_results]
+        stretch = self.recommend_stretch(query_lower, max_price, target_tags, already_shown_ids=already_shown)
+
+        return final_results, stretch
 
 engine = Recommender()
