@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, Trash2, ChevronRight, Sparkles, Clock, CalendarDays } from "lucide-react";
+import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, Store, MapPin, LogOut } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -15,11 +15,13 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [navVisible, setNavVisible] = useState(true);
+  const [showModeDropdown, setShowModeDropdown] = useState(false);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+  const dropdownRef = useRef(null);
   const router = useRouter();
   const { cartCount } = useCart();
-  const { user } = useAuth();
+  const { user, isSeller, toggleSellerMode, sellerProfile, logout } = useAuth();
   const { wishlist, toggleWishlist } = useWishlist();
 
   // Process reminders for dropdown
@@ -66,6 +68,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobileMenuOpen]);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowModeDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -73,6 +86,26 @@ export default function Navbar() {
       setSearchQuery("");
       setIsMobileMenuOpen(false);
     }
+  };
+
+  const handleProfileClick = () => {
+    setShowModeDropdown(prev => !prev);
+  };
+
+  const handleModeSwitch = () => {
+    toggleSellerMode();
+    setShowModeDropdown(false);
+  };
+
+  const goToDestination = () => {
+    if (isSeller && sellerProfile) {
+      router.push("/seller");
+    } else if (user) {
+      router.push("/profile");
+    } else {
+      router.push("/login");
+    }
+    setShowModeDropdown(false);
   };
 
   return (
@@ -135,6 +168,15 @@ export default function Navbar() {
                 <Search className="h-5 w-5" />
               </button>
 
+              {/* Discover Link */}
+              <Link 
+                href="/discover"
+                className="p-2 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-full transition hidden sm:flex" 
+                title="Discover Nearby"
+              >
+                <MapPin className="h-5 w-5" />
+              </Link>
+
               {/* Reminders Link */}
               <Link 
                 href="/reminders"
@@ -170,13 +212,141 @@ export default function Navbar() {
                 )}
               </Link>
               
-              <Link
-                href={user ? "/profile" : "/login"}
-                className="ml-1 bg-charcoal text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-primary transition-all shadow-lg hover:shadow-primary/20 flex items-center gap-2"
-              >
-                <User className="w-4 h-4" />
-                <span className="hidden lg:inline">{user ? "Profile" : "Login"}</span>
-              </Link>
+              {/* Profile/Seller Toggle Button */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={handleProfileClick}
+                  className={`ml-1 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg flex items-center gap-2 ${
+                    isSeller 
+                      ? 'seller-gradient text-white hover:opacity-90 shadow-secondary/20' 
+                      : 'bg-charcoal text-white hover:bg-primary hover:shadow-primary/20'
+                  }`}
+                >
+                  {isSeller ? (
+                    <>
+                      <Store className="w-4 h-4" />
+                      <span className="hidden lg:inline">Seller</span>
+                    </>
+                  ) : (
+                    <>
+                      <User className="w-4 h-4" />
+                      <span className="hidden lg:inline">{user ? "Profile" : "Login"}</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Mode Dropdown */}
+                <AnimatePresence>
+                  {showModeDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-full mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-[100]"
+                    >
+                      {/* User Info */}
+                      {user ? (
+                        <div className="p-5 border-b border-gray-100 bg-gray-50/50">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                              <span className="text-sm font-black text-primary">
+                                {user.name?.charAt(0)?.toUpperCase()}
+                              </span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-bold text-charcoal text-sm truncate">{user.name}</p>
+                              <p className="text-[10px] text-gray-400 font-medium truncate">{user.email}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-5 border-b border-gray-100 bg-gray-50/50">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                              <User className="w-5 h-5 text-gray-500" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-bold text-charcoal text-sm truncate">Guest</p>
+                              <p className="text-[10px] text-gray-400 font-medium truncate">Sign in to sync your data</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Mode Toggle */}
+                      <div className="p-4">
+                        <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                              isSeller ? 'seller-gradient shadow-lg shadow-secondary/20' : 'bg-charcoal'
+                            }`}>
+                              {isSeller ? <Store className="w-4 h-4 text-white" /> : <User className="w-4 h-4 text-white" />}
+                            </div>
+                            <div>
+                              <p className="text-xs font-black text-charcoal">
+                                {isSeller ? 'Seller Mode' : 'Buyer Mode'}
+                              </p>
+                              <p className="text-[10px] text-gray-400 font-medium">
+                                {isSeller ? 'Manage your shop' : 'Shop for gifts'}
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={handleModeSwitch}
+                            className={`seller-toggle ${isSeller ? 'active' : ''}`}
+                            aria-label="Toggle seller mode"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Quick Links */}
+                      <div className="px-4 pb-4 space-y-1">
+                        <button
+                          onClick={goToDestination}
+                          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-primary/5 hover:text-primary transition-all"
+                        >
+                          {isSeller ? <Store className="w-4 h-4" /> : <User className="w-4 h-4" />}
+                          {isSeller ? 'Seller Dashboard' : (user ? 'My Profile' : 'Login')}
+                        </button>
+
+                        {isSeller && (
+                          <Link
+                            href="/seller"
+                            onClick={() => setShowModeDropdown(false)}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-secondary/5 hover:text-secondary transition-all"
+                          >
+                            <ShoppingBag className="w-4 h-4" />
+                            Manage Products
+                          </Link>
+                        )}
+
+                        <Link
+                          href="/discover"
+                          onClick={() => setShowModeDropdown(false)}
+                          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-primary/5 hover:text-primary transition-all"
+                        >
+                          <MapPin className="w-4 h-4" />
+                          Discover Nearby
+                        </Link>
+
+                        {user && (
+                          <button
+                            onClick={() => {
+                              setShowModeDropdown(false);
+                              logout();
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 hover:text-red-600 transition-all mt-2 border-t border-gray-100 pt-3"
+                          >
+                            <LogOut className="w-4 h-4" />
+                            Log Out
+                          </button>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>

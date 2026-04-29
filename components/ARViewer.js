@@ -134,23 +134,31 @@ export default function ARViewer({ productId, productName }) {
     container.appendChild(mv);
   }, [showAR, isLoaded, arModel, productName]);
 
-  if (!arModel) return null;
-
   return (
     <>
       {/* AR Button Trigger */}
-      <button
-        onClick={() => setShowAR(true)}
-        className="group relative w-full mt-3 py-4 border-2 border-[#caa161]/30 bg-[#caa161]/5 text-[#9a7638] rounded-xl font-bold text-lg transition-all hover:bg-[#caa161] hover:text-white hover:border-[#caa161] hover:shadow-lg hover:shadow-[#caa161]/20 hover:scale-[1.01] flex items-center justify-center gap-3 overflow-hidden"
-      >
-        {/* Animated shimmer */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-        <View className="w-5 h-5" />
-        <span>View in 3D / AR</span>
-        <span className="ml-2 px-2 py-0.5 bg-[#caa161]/15 group-hover:bg-white/20 rounded-full text-xs font-bold uppercase tracking-wider">
-          Beta
-        </span>
-      </button>
+      {arModel ? (
+        <button
+          onClick={() => setShowAR(true)}
+          className="group relative w-full mt-3 py-4 border-2 border-[#caa161]/30 bg-[#caa161]/5 text-[#9a7638] rounded-xl font-bold text-lg transition-all hover:bg-[#caa161] hover:text-white hover:border-[#caa161] hover:shadow-lg hover:shadow-[#caa161]/20 hover:scale-[1.01] flex items-center justify-center gap-3 overflow-hidden"
+        >
+          {/* Animated shimmer */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <View className="w-5 h-5" />
+          <span>View in 3D / AR</span>
+          <span className="ml-2 px-2 py-0.5 bg-[#caa161]/15 group-hover:bg-white/20 rounded-full text-xs font-bold uppercase tracking-wider">
+            Beta
+          </span>
+        </button>
+      ) : (
+        <button
+          disabled
+          className="w-full mt-3 py-4 border-2 border-gray-200 bg-gray-50 text-gray-400 rounded-xl font-bold text-lg flex items-center justify-center gap-3 cursor-not-allowed"
+        >
+          <View className="w-5 h-5" />
+          <span>3D Preview Not Available</span>
+        </button>
+      )}
 
       {/* AR Modal */}
       {showAR && (

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Any
 from fastapi.middleware.cors import CORSMiddleware
 from recommender import engine
-from chatbot import giftora
+from chatbot import giftora, seller_chat
 
 app = FastAPI(title="Giftora AI Service")
 
@@ -18,6 +18,13 @@ app.add_middleware(
 
 class ChatMessage(BaseModel):
     message: str
+
+class SellerChatMessage(BaseModel):
+    message: str
+    context: Optional[str] = "New seller on Giftora platform"
+
+class SellerChatResponse(BaseModel):
+    response: str
 
 class ChatResponse(BaseModel):
     response: str
@@ -58,6 +65,15 @@ async def chat(msg: ChatMessage):
         }
     except Exception as e:
         print(f"Chat error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/seller-chat", response_model=SellerChatResponse)
+async def seller_chat_endpoint(msg: SellerChatMessage):
+    try:
+        response_text = seller_chat.get_response(msg.message, msg.context)
+        return {"response": response_text}
+    except Exception as e:
+        print(f"Seller Chat error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/recommend")
