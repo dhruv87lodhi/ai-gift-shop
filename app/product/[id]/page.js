@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Check, Truck, ShieldCheck, ShoppingCart, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, Truck, ShieldCheck, ShoppingCart, Loader2, View, Minus, Plus, Trash2 } from "lucide-react";
 import Chatbot from "@/components/Chatbot";
+import ARViewer, { hasARSupport } from "@/components/ARViewer";
 import { useCart } from "@/context/CartContext";
 import { useState, useEffect, use } from "react";
 
@@ -13,8 +14,12 @@ export default function ProductPage({ params }) {
   const [product, setProduct] = useState(null);
   const [similarProducts, setSimilarProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { addToCart } = useCart();
+  const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
   const [added, setAdded] = useState(false);
+
+  // Get the current quantity of this product in the cart
+  const cartItem = cartItems.find((item) => String(item.id) === String(id));
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -95,6 +100,13 @@ export default function ProductPage({ params }) {
             className="object-cover"
             onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"; e.currentTarget.srcset = ""; }}
           />
+          {/* 3D AR Badge */}
+          {hasARSupport(product.id) && (
+            <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg animate-pulse">
+              <View className="w-4 h-4" />
+              3D / AR
+            </div>
+          )}
         </div>
 
         {/* Product Details */}
@@ -133,20 +145,56 @@ export default function ProductPage({ params }) {
             </div>
           </div>
 
-          <button
-            onClick={handleAddToCart}
-            className="w-full py-4 bg-gradient-to-r from-[#caa161] to-[#b08a50] hover:from-[#b08a50] hover:to-[#9a7638] text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-[#caa161]/20 flex items-center justify-center gap-2"
-          >
-            {added ? (
-              <>
-                <Check className="w-5 h-5" /> Added to Cart
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="w-5 h-5" /> Add to Cart
-              </>
-            )}
-          </button>
+          {quantityInCart > 0 ? (
+            <div className="w-full flex items-center gap-3">
+              {/* Quantity Controls */}
+              <div className="flex items-center bg-gray-100 rounded-xl overflow-hidden border border-gray-200">
+                <button
+                  onClick={() => {
+                    if (quantityInCart <= 1) {
+                      removeFromCart(product.id);
+                    } else {
+                      updateQuantity(product.id, quantityInCart - 1);
+                    }
+                  }}
+                  className="p-4 hover:bg-gray-200 transition-colors text-gray-700"
+                >
+                  {quantityInCart <= 1 ? <Trash2 className="w-5 h-5 text-red-500" /> : <Minus className="w-5 h-5" />}
+                </button>
+                <span className="px-6 py-4 font-bold text-lg text-gray-900 min-w-[60px] text-center">
+                  {quantityInCart}
+                </span>
+                <button
+                  onClick={() => updateQuantity(product.id, quantityInCart + 1)}
+                  className="p-4 hover:bg-gray-200 transition-colors text-gray-700"
+                >
+                  <Plus className="w-5 h-5" />
+                </button>
+              </div>
+              {/* Added indicator */}
+              <div className="flex-1 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg shadow-green-500/20">
+                <Check className="w-5 h-5" /> In Cart
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={handleAddToCart}
+              className="w-full py-4 bg-gradient-to-r from-[#caa161] to-[#b08a50] hover:from-[#b08a50] hover:to-[#9a7638] text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-[#caa161]/20 flex items-center justify-center gap-2"
+            >
+              {added ? (
+                <>
+                  <Check className="w-5 h-5" /> Added to Cart
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-5 h-5" /> Add to Cart
+                </>
+              )}
+            </button>
+          )}
+
+          {/* AR Preview Button */}
+          <ARViewer productId={product.id} productName={product.name} />
         </div>
       </div>
 

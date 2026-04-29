@@ -3,11 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";
-import { Heart, Star } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { Heart, Star, View, ShoppingCart, Minus, Plus, Trash2 } from "lucide-react";
+import { hasARSupport } from "@/components/ARViewer";
 
 export default function ProductCard({ product }) {
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
   const isWishlisted = isInWishlist(product.id);
+
+  // Get current quantity in cart
+  const cartItem = cartItems.find((item) => String(item.id) === String(product.id));
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
 
   // Mock rating if not present
   const rating = product.rating || 4.5;
@@ -41,6 +48,11 @@ export default function ProductCard({ product }) {
         >
           <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
         </button>
+        {hasARSupport(product.id) && (
+          <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md">
+            <View className="w-3 h-3" /> 3D
+          </div>
+        )}
       </div>
       
       <div className="p-5 flex flex-col flex-1">
@@ -64,12 +76,58 @@ export default function ProductCard({ product }) {
           <span className="text-[10px] font-bold text-gray-400">({reviews})</span>
         </div>
         
-        <Link
-          href={`/product/${product.id}`}
-          className="mt-4 w-full py-3 px-4 bg-gray-50 text-charcoal text-center font-bold text-sm rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300"
-        >
-          View Details
-        </Link>
+        <div className="flex gap-2 mt-4">
+          <Link
+            href={`/product/${product.id}`}
+            className="flex-1 py-3 px-4 bg-gray-50 text-charcoal text-center font-bold text-sm rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300"
+          >
+            View Details
+          </Link>
+
+          {quantityInCart > 0 ? (
+            <div className="flex items-center bg-gray-100 rounded-2xl overflow-hidden border border-gray-200">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (quantityInCart <= 1) {
+                    removeFromCart(product.id);
+                  } else {
+                    updateQuantity(product.id, quantityInCart - 1);
+                  }
+                }}
+                className="p-3 hover:bg-gray-200 transition-colors text-gray-700"
+              >
+                {quantityInCart <= 1 ? <Trash2 className="w-4 h-4 text-red-500" /> : <Minus className="w-4 h-4" />}
+              </button>
+              <span className="px-2 font-bold text-sm text-gray-900 min-w-[28px] text-center">
+                {quantityInCart}
+              </span>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  updateQuantity(product.id, quantityInCart + 1);
+                }}
+                className="p-3 hover:bg-gray-200 transition-colors text-gray-700"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                addToCart(product);
+              }}
+              className="p-3 bg-primary/10 text-primary rounded-2xl hover:bg-primary hover:text-white transition-all duration-300"
+              title="Add to Cart"
+            >
+              <ShoppingCart className="w-5 h-5" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

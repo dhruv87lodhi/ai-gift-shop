@@ -175,7 +175,7 @@ export default async function Home() {
           </div>
 
           <div className="mt-16 text-center">
-            <Link href="/occasion" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
+            <Link href="/category" className="inline-flex items-center gap-2 text-primary font-black hover:gap-4 transition-all group">
               View All Occasions <ArrowRight className="w-6 h-6 group-hover:translate-x-1" />
             </Link>
           </div>
@@ -221,7 +221,7 @@ export default async function Home() {
               </p>
               
               <div className="flex flex-wrap gap-4 pt-4">
-                <Link href="/products?q=festival" className="px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg hover:bg-white hover:text-charcoal transition-all shadow-xl shadow-primary/20 flex items-center gap-3 group">
+                <Link href="/category?q=festival" className="px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg hover:bg-white hover:text-charcoal transition-all shadow-xl shadow-primary/20 flex items-center gap-3 group">
                   Explore Collection
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                 </Link>
