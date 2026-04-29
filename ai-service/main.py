@@ -24,6 +24,7 @@ class ChatResponse(BaseModel):
     suggestions: Optional[List[str]] = None
     recommendations: Optional[List[Any]] = None
     finished: bool = False
+    search_query: Optional[str] = None
 
 @app.get("/")
 async def root():
@@ -54,7 +55,8 @@ async def chat(msg: ChatMessage):
             "response": display_text,
             "suggestions": suggestions if not is_finished else None,
             "recommendations": recommendations,
-            "finished": is_finished
+            "finished": is_finished,
+            "search_query": query if is_finished else None
         }
     except Exception as e:
         print(f"Chat error: {e}")

@@ -1,1262 +1,1612 @@
 [
-  {
-    "id": 1,
-    "name": "Classic Red Rose Bouquet",
-    "price": 499,
-    "category": "Flowers",
-    "tags": ["flowers", "romantic", "red", "roses", "valentines", "anniversary", "birthday", "wife", "girlfriend", "partner", "couple", "love", "luxury"],
-    "popularity": 95,
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
-  },
-  {
-    "id": 2,
-    "name": "Belgium Chocolate Truffle Cake",
-    "price": 850,
-    "category": "Cakes",
-    "tags": ["cake", "chocolate", "dessert", "food", "birthday", "anniversary", "celebration", "party", "family", "kids", "sweet", "gift"],
-    "popularity": 98,
-    "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 3,
-    "name": "Personalized LED Photo Frame",
-    "price": 1200,
-    "category": "Personalized",
-    "tags": ["photo", "frame", "led", "gift", "personalized", "custom", "memories", "mom", "dad", "parents", "anniversary", "wedding", "meaningful"],
-    "popularity": 92,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
-  },
-  {
-    "id": 4,
-    "name": "Minimalist Silver Promise Ring",
-    "price": 2500,
-    "category": "Jewelry",
-    "tags": ["jewelry", "ring", "silver", "romance", "valentines", "anniversary", "proposal", "wife", "girlfriend", "partner", "luxury", "minimalist"],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 5,
-    "name": "Jade Plant in Ceramic Pot",
-    "price": 350,
-    "category": "Plants",
-    "tags": ["plants", "home", "nature", "green", "lifestyle", "wellness", "office", "decor", "housewarming", "parents", "eco-friendly"],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 6,
-    "name": "Happy Birthday Balloon Bunch",
-    "price": 550,
-    "category": "Decor",
-    "tags": ["balloons", "birthday", "party", "decoration", "celebration", "kids", "surprise", "friends", "fun", "colorful"],
-    "popularity": 82,
-    "image": "https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 7,
-    "name": "Gaming Mechanical Keyboard",
-    "price": 2999,
-    "category": "Tech",
-    "tags": ["gaming", "tech", "pc", "keyboard", "brother", "friend", "son", "rgb", "gadget", "birthday", "graduation", "gaming gear"],
-    "popularity": 96,
-    "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 8,
-    "name": "Customized Wooden Name Plaque",
-    "price": 750,
-    "category": "Personalized",
-    "tags": ["wood", "name", "home", "custom", "personalized", "decor", "housewarming", "family", "office", "entryway", "handmade"],
-    "popularity": 78,
-    "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
-  },
-  {
-    "id": 9,
-    "name": "Orchid Elegance Bouquet",
-    "price": 1500,
-    "category": "Flowers",
-    "tags": ["flowers", "orchid", "luxury", "purple", "mom", "mother", "mother's day", "premium", "elegant", "office", "gratitude"],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
-  },
-  {
-    "id": 10,
-    "name": "Red Velvet Heart Cake",
-    "price": 950,
-    "category": "Cakes",
-    "tags": ["cake", "red velvet", "anniversary", "heart", "valentines", "romance", "wife", "girlfriend", "partner", "love", "sweet", "couple"],
-    "popularity": 94,
-    "image": "https://images.unsplash.com/photo-1616031037011-087000171abe?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 11,
-    "name": "Wireless Noise Cancelling Pods",
-    "price": 2800,
-    "category": "Tech",
-    "tags": ["tech", "music", "wireless", "audio", "travel", "gadget", "brother", "friend", "graduation", "birthday", "premium", "pods"],
-    "popularity": 97,
-    "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 12,
-    "name": "Engraved Couple Rings",
-    "price": 2100,
-    "category": "Jewelry",
-    "tags": ["jewelry", "rings", "couple", "engraved", "personalized", "anniversary", "wedding", "romance", "wife", "husband", "meaningful"],
-    "popularity": 91,
-    "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
-  },
-  {
-    "id": 13,
-    "name": "Snake Plant (Air Purifying)",
-    "price": 450,
-    "category": "Plants",
-    "tags": ["plants", "indoor", "air", "green", "office", "home", "lifestyle", "wellness", "healthy", "dad", "parents", "minimalist"],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
-  },
-  {
-    "id": 14,
-    "name": "Golden Anniversary Balloon Set",
-    "price": 650,
-    "category": "Decor",
-    "tags": ["balloons", "anniversary", "gold", "decor", "celebration", "party", "parents", "50th", "25th", "grandparents", "luxury"],
-    "popularity": 80,
-    "image": "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 15,
-    "name": "Personalized Magic Mug",
-    "price": 399,
-    "category": "Personalized",
-    "tags": ["mug", "coffee", "photo", "gift", "personalized", "custom", "fun", "friend", "colleague", "birthday", "affordable"],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 16,
-    "name": "RGB Gaming Mouse Pad",
-    "price": 850,
-    "category": "Tech",
-    "tags": [
-      "gaming",
-      "tech",
-      "mouse",
-      "rgb"
-    ],
-    "popularity": 90,
-    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 17,
-    "name": "Pink Lily & Rose Mix",
-    "price": 1200,
-    "category": "Flowers",
-    "tags": [
-      "flowers",
-      "lily",
-      "pink",
-      "mix"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 18,
-    "name": "Eggless Fruit Overload Cake",
-    "price": 1100,
-    "category": "Cakes",
-    "tags": [
-      "cake",
-      "fruit",
-      "eggless",
-      "healthy"
-    ],
-    "popularity": 83,
-    "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 19,
-    "name": "Boho Macrame Wall Hanging",
-    "price": 650,
-    "category": "Home Decor",
-    "tags": [
-      "home",
-      "decor",
-      "boho",
-      "handmade"
-    ],
-    "popularity": 79,
-    "image": "https://images.unsplash.com/photo-1522758971460-1d21eed7dc1d?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 20,
-    "name": "Aroma Diffuser with Oils",
-    "price": 1800,
-    "category": "Home Decor",
-    "tags": [
-      "home",
-      "spa",
-      "aroma",
-      "fragrance"
-    ],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 21,
-    "name": "Customized caricatures",
-    "price": 1400,
-    "category": "Personalized",
-    "tags": [
-      "art",
-      "funny",
-      "caricature",
-      "gift"
-    ],
-    "popularity": 76,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
-  },
-  {
-    "id": 22,
-    "name": "Bamboo Desktop Organizer",
-    "price": 950,
-    "category": "Office",
-    "tags": [
-      "office",
-      "desk",
-      "bamboo",
-      "organizer"
-    ],
-    "popularity": 82,
-    "image": "https://images.unsplash.com/photo-1591122947157-26bad3a117d2?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 23,
-    "name": "Luxury Silk Saree",
-    "price": 2800,
-    "category": "Fashion",
-    "tags": [
-      "fashion",
-      "clothing",
-      "saree",
-      "ethnic"
-    ],
-    "popularity": 93,
-    "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 24,
-    "name": "Men's Smart Casual Watch",
-    "price": 2500,
-    "category": "Fashion",
-    "tags": [
-      "fashion",
-      "watch",
-      "accessory",
-      "men"
-    ],
-    "popularity": 95,
-    "image": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 25,
-    "name": "Hanging Terrarium",
-    "price": 1250,
-    "category": "Plants",
-    "tags": [
-      "plants",
-      "glass",
-      "decor",
-      "green"
-    ],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 26,
-    "name": "Confetti Balloon Box",
-    "price": 450,
-    "category": "Decor",
-    "tags": [
-      "balloons",
-      "surprise",
-      "party",
-      "confetti"
-    ],
-    "popularity": 81,
-    "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
-  },
-  {
-    "id": 27,
-    "name": "Black Forest Gateau",
-    "price": 750,
-    "category": "Cakes",
-    "tags": [
-      "cake",
-      "cherry",
-      "chocolate",
-      "classic"
-    ],
-    "popularity": 90,
-    "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
-  },
-  {
-    "id": 28,
-    "name": "Tulip Garden Basket",
-    "price": 1800,
-    "category": "Flowers",
-    "tags": [
-      "flowers",
-      "tulip",
-      "basket",
-      "premium"
-    ],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
-  },
-  {
-    "id": 29,
-    "name": "Personalized Spotify Plaque",
-    "price": 899,
-    "category": "Personalized",
-    "tags": [
-      "music",
-      "spotify",
-      "acrylic",
-      "gift"
-    ],
-    "popularity": 94,
-    "image": "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 30,
-    "name": "Fitness Smart Band",
-    "price": 1999,
-    "category": "Tech",
-    "tags": [
-      "tech",
-      "fitness",
-      "watch",
-      "health"
-    ],
-    "popularity": 92,
-    "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 31,
-    "name": "Pearl Necklace Set",
-    "price": 2400,
-    "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "pearl",
-      "necklace",
-      "women"
-    ],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 32,
-    "name": "Money Plant in Glass Vase",
-    "price": 399,
-    "category": "Plants",
-    "tags": [
-      "plants",
-      "money",
-      "luck",
-      "green"
-    ],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
-  },
-  {
-    "id": 33,
-    "name": "Giant Teddy Bear (3ft)",
-    "price": 1500,
-    "category": "Toys",
-    "tags": [
-      "soft toy",
-      "teddy",
-      "kids",
-      "romance"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 34,
-    "name": "Leather Bifold Wallet",
-    "price": 999,
-    "category": "Fashion",
-    "tags": [
-      "fashion",
-      "wallet",
-      "leather",
-      "men"
-    ],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 35,
-    "name": "Succulent Trio Set",
-    "price": 600,
-    "category": "Plants",
-    "tags": [
-      "plants",
-      "succulent",
-      "easy",
-      "green"
-    ],
-    "popularity": 83,
-    "image": "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 36,
-    "name": "Lavender Scented Candle",
-    "price": 450,
-    "category": "Home Decor",
-    "tags": [
-      "decor",
-      "candle",
-      "aroma",
-      "relax"
-    ],
-    "popularity": 80,
-    "image": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 37,
-    "name": "Personalized Moon Lamp",
-    "price": 1650,
-    "category": "Personalized",
-    "tags": [
-      "lamp",
-      "moon",
-      "light",
-      "gift"
-    ],
-    "popularity": 91,
-    "image": "https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 38,
-    "name": "Stainless Steel Water Bottle",
-    "price": 850,
-    "category": "Lifestyle",
-    "tags": [
-      "bottle",
-      "gym",
-      "office",
-      "blue"
-    ],
-    "popularity": 82,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
-  },
-  {
-    "id": 39,
-    "name": "Rainbow Rose Bouquet",
-    "price": 2200,
-    "category": "Flowers",
-    "tags": [
-      "flowers",
-      "roses",
-      "rainbow",
-      "unique"
-    ],
-    "popularity": 90,
-    "image": "https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 40,
-    "name": "Tiramisu Cheesecake",
-    "price": 1350,
-    "category": "Cakes",
-    "tags": [
-      "cake",
-      "cheese",
-      "coffee",
-      "premium"
-    ],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 41,
-    "name": "Bluetooth Portable Speaker",
-    "price": 1499,
-    "category": "Tech",
-    "tags": [
-      "tech",
-      "music",
-      "bluetooth",
-      "travel"
-    ],
-    "popularity": 93,
-    "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
-  },
-  {
-    "id": 42,
-    "name": "Rose Gold Bangle",
-    "price": 2800,
-    "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "gold",
-      "bangle",
-      "women"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 43,
-    "name": "Pastel Balloon Arch Kit",
-    "price": 1100,
-    "category": "Decor",
-    "tags": [
-      "balloons",
-      "arch",
-      "party",
-      "diy"
-    ],
-    "popularity": 79,
-    "image": "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 44,
-    "name": "Personalized Keyring Set",
-    "price": 299,
-    "category": "Personalized",
-    "tags": [
-      "keyring",
-      "metal",
-      "couple",
-      "small"
-    ],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
-  },
-  {
-    "id": 45,
-    "name": "Gaming Controller Stand",
-    "price": 750,
-    "category": "Gaming",
-    "tags": [
-      "gaming",
-      "stand",
-      "setup",
-      "ps5"
-    ],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 46,
-    "name": "Yellow Sunflower Bunch",
-    "price": 850,
-    "category": "Flowers",
-    "tags": [
-      "flowers",
-      "sunflower",
-      "yellow",
-      "happy"
-    ],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 47,
-    "name": "Nutty Caramel Cake",
-    "price": 950,
-    "category": "Cakes",
-    "tags": [
-      "cake",
-      "nut",
-      "caramel",
-      "crunchy"
-    ],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 48,
-    "name": "Cotton Graphic Tee",
-    "price": 699,
-    "category": "Fashion",
-    "tags": [
-      "fashion",
-      "clothing",
-      "tshirt",
-      "casual"
-    ],
-    "popularity": 91,
-    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 49,
-    "name": "Peace Lily in White Pot",
-    "price": 550,
-    "category": "Plants",
-    "tags": [
-      "plants",
-      "lily",
-      "peace",
-      "green"
-    ],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
-  },
-  {
-    "id": 50,
-    "name": "Electric Hand Massager",
-    "price": 2600,
-    "category": "Lifestyle",
-    "tags": [
-      "health",
-      "relax",
-      "tech",
-      "massager"
-    ],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 51,
-    "name": "Vinyl Record Player",
-    "price": 2800,
-    "category": "Tech",
-    "tags": [
-      "music",
-      "vintage",
-      "retro",
-      "vinyl"
-    ],
-    "popularity": 94,
-    "image": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 52,
-    "name": "Polaroid Instant Camera",
-    "price": 2500,
-    "category": "Tech",
-    "tags": [
-      "photography",
-      "camera",
-      "vintage",
-      "memories"
-    ],
-    "popularity": 96,
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
-  },
-  {
-    "id": 53,
-    "name": "Scented Essential Oils Set",
-    "price": 1200,
-    "category": "Wellness",
-    "tags": [
-      "wellness",
-      "relax",
-      "aromatherapy",
-      "home"
-    ],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
-  },
-  {
-    "id": 54,
-    "name": "Silk Eye Mask & Pillowcase",
-    "price": 1800,
-    "category": "Wellness",
-    "tags": [
-      "sleep",
-      "silk",
-      "luxury",
-      "beauty"
-    ],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
-  },
-  {
-    "id": 55,
-    "name": "Gourmet Coffee Bean Box",
-    "price": 999,
-    "category": "Food",
-    "tags": [
-      "coffee",
-      "gourmet",
-      "beans",
-      "morning"
-    ],
-    "popularity": 92,
-    "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 56,
-    "name": "A5 Leather Bullet Journal",
-    "price": 650,
-    "category": "Office",
-    "tags": [
-      "stationery",
-      "journal",
-      "writing",
-      "office"
-    ],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 57,
-    "name": "Weighted Sleep Blanket",
-    "price": 2900,
-    "category": "Home",
-    "tags": [
-      "sleep",
-      "home",
-      "comfort",
-      "relax"
-    ],
-    "popularity": 91,
-    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 58,
-    "name": "Personalized Map Poster",
-    "price": 1100,
-    "category": "Personalized",
-    "tags": [
-      "map",
-      "travel",
-      "art",
-      "home"
-    ],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 59,
-    "name": "Glass Pour-Over Coffee Maker",
-    "price": 1500,
-    "category": "Lifestyle",
-    "tags": [
-      "coffee",
-      "kitchen",
-      "morning",
-      "glass"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
-  },
-  {
-    "id": 60,
-    "name": "Handmade Ceramic Mug",
-    "price": 550,
-    "category": "Home",
-    "tags": [
-      "home",
-      "coffee",
-      "ceramic",
-      "handmade"
-    ],
-    "popularity": 83,
-    "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 61,
-    "name": "Smartphone Gimbal Stabilizer",
-    "price": 2999,
-    "category": "Tech",
-    "tags": [
-      "tech",
-      "video",
-      "camera",
-      "travel"
-    ],
-    "popularity": 95,
-    "image": "https://images.unsplash.com/photo-1542393545-10f5cde2c810?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 62,
-    "name": "Smart LED Table Lamp",
-    "price": 1999,
-    "category": "Tech",
-    "tags": [
-      "tech",
-      "lamp",
-      "home",
-      "office"
-    ],
-    "popularity": 93,
-    "image": "https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 63,
-    "name": "Crystal Quartz Bookends",
-    "price": 2200,
-    "category": "Home Decor",
-    "tags": [
-      "home",
-      "decor",
-      "crystal",
-      "books"
-    ],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 64,
-    "name": "Set of 3 Abstract Prints",
-    "price": 1400,
-    "category": "Home Decor",
-    "tags": ["art", "wall", "decor", "home", "housewarming", "parents", "office", "meaningful", "abstract", "modern", "living room"],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
-  },
-  {
-    "id": 65,
-    "name": "Men's Leather Travel Bag",
-    "price": 2950,
-    "category": "Fashion",
-    "tags": ["fashion", "leather", "bag", "travel", "men", "husband", "father", "dad", "luxury", "graduation", "birthday", "business"],
-    "popularity": 92,
-    "image": "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 66,
-    "name": "Gold Hoop Earrings",
-    "price": 1200,
-    "category": "Jewelry",
-    "tags": ["jewelry", "gold", "earrings", "women", "wife", "girlfriend", "partner", "anniversary", "birthday", "classic", "elegant", "gold-plated"],
-    "popularity": 90,
-    "image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 67,
-    "name": "Men's Polarized Sunglasses",
-    "price": 1800,
-    "category": "Fashion",
-    "tags": ["fashion", "sunglasses", "men", "accessory", "brother", "friend", "son", "travel", "outdoor", "summer", "birthday", "graduation"],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
-  },
-  {
-    "id": 68,
-    "name": "Women's Floral Scarf",
-    "price": 450,
-    "category": "Fashion",
-    "tags": ["fashion", "clothing", "scarf", "floral", "women", "grandma", "mom", "aunt", "spring", "colorful", "gift", "affordable"],
-    "popularity": 82,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
-  },
-  {
-    "id": 69,
-    "name": "Bonsai Pine Tree",
-    "price": 2100,
-    "category": "Plants",
-    "tags": ["plants", "bonsai", "nature", "home", "office", "decor", "parents", "dad", "wellness", "meaningful", "zen", "lifestyle"],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 70,
-    "name": "Automatic Self-Watering Pot",
-    "price": 750,
-    "category": "Plants",
-    "tags": ["plants", "tech", "home", "garden", "gadget", "lifestyle", "parents", "housewarming", "office", "convenience"],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 71,
-    "name": "Matte Finish Chess Set",
-    "price": 1600,
-    "category": "Games",
-    "tags": ["games", "chess", "board", "fun", "brother", "friend", "son", "intellectual", "gift", "classic", "home", "educational"],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 72,
-    "name": "Retro Handheld Game Console",
-    "price": 2400,
-    "category": "Games",
-    "tags": ["gaming", "retro", "portable", "kids", "brother", "friend", "fun", "nostalgia", "birthday", "travel", "gift", "handheld"],
-    "popularity": 91,
-    "image": "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 73,
-    "name": "Tabletop Foosball Table",
-    "price": 2800,
-    "category": "Games",
-    "tags": ["games", "foosball", "party", "fun", "family", "kids", "brother", "home", "entertainment", "birthday", "competition"],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 74,
-    "name": "1000 Piece Jigsaw Puzzle",
-    "price": 850,
-    "category": "Games",
-    "tags": ["games", "puzzle", "relax", "hobby", "family", "home", "staycation", "patience", "meaningful", "quiet", "gift"],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 75,
-    "name": "Smart Fitness Jump Rope",
-    "price": 1100,
-    "category": "Tech",
-    "tags": ["tech", "fitness", "exercise", "sport", "health", "workout", "gadget", "brother", "friend", "active", "modern"],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 76,
-    "name": "Electric Milk Frother",
-    "price": 499,
-    "category": "Kitchen",
-    "tags": ["kitchen", "coffee", "latte", "home", "lifestyle", "affordable", "gift", "practical", "convenience", "office"],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
-  },
-  {
-    "id": 77,
-    "name": "Cast Iron Teapot Set",
-    "price": 2200,
-    "category": "Kitchen",
-    "tags": [
-      "tea",
-      "kitchen",
-      "luxury",
-      "home"
-    ],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 78,
-    "name": "Gourmet Hot Sauce Pack",
-    "price": 1350,
-    "category": "Food",
-    "tags": [
-      "food",
-      "spicy",
-      "gourmet",
-      "cooking"
-    ],
-    "popularity": 83,
-    "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
-  },
-  {
-    "id": 79,
-    "name": "Personalized Embossed Wallet",
-    "price": 1600,
-    "category": "Personalized",
-    "tags": [
-      "leather",
-      "wallet",
-      "name",
-      "fashion"
-    ],
-    "popularity": 92,
-    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 80,
-    "name": "Customized Star Map",
-    "price": 1900,
-    "category": "Personalized",
-    "tags": [
-      "stars",
-      "night",
-      "anniversary",
-      "art"
-    ],
-    "popularity": 94,
-    "image": "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500&q=80"
-  },
-  {
-    "id": 81,
-    "name": "Monogrammed Bathrobe",
-    "price": 2500,
-    "category": "Personalized",
-    "tags": [
-      "bath",
-      "monogram",
-      "luxury",
-      "wellness"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 82,
-    "name": "Engraved Metal Pen Set",
-    "price": 950,
-    "category": "Personalized",
-    "tags": [
-      "office",
-      "pen",
-      "engraved",
-      "business"
-    ],
-    "popularity": 81,
-    "image": "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 83,
-    "name": "Fleece Throw Blanket",
-    "price": 750,
-    "category": "Home",
-    "tags": [
-      "home",
-      "blanket",
-      "fleece",
-      "comfort"
-    ],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 84,
-    "name": "Memory Foam Pillow",
-    "price": 1800,
-    "category": "Home",
-    "tags": [
-      "sleep",
-      "comfort",
-      "home",
-      "bed"
-    ],
-    "popularity": 86,
-    "image": "https://images.unsplash.com/photo-1520006403909-838d6b92c22e?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 85,
-    "name": "Woven Picnic Basket",
-    "price": 2400,
-    "category": "Lifestyle",
-    "tags": [
-      "outdoor",
-      "picnic",
-      "summer",
-      "basket"
-    ],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1591035897819-f4bdf739f446?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 86,
-    "name": "Camping Hammock",
-    "price": 1500,
-    "category": "Lifestyle",
-    "tags": [
-      "outdoor",
-      "camping",
-      "travel",
-      "hammock"
-    ],
-    "popularity": 85,
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80"
-  },
-  {
-    "id": 87,
-    "name": "Silver Chain Bracelet",
-    "price": 1900,
-    "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "silver",
-      "bracelet",
-      "men"
-    ],
-    "popularity": 83,
-    "image": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 88,
-    "name": "Minimalist Gold Ring",
-    "price": 2800,
-    "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "gold",
-      "minimalist",
-      "women"
-    ],
-    "popularity": 92,
-    "image": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 89,
-    "name": "Personalized Name Necklace",
-    "price": 2100,
-    "category": "Personalized",
-    "tags": [
-      "jewelry",
-      "necklace",
-      "name",
-      "women"
-    ],
-    "popularity": 95,
-    "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 90,
-    "name": "Crystal Drop Earrings",
-    "price": 1400,
-    "category": "Jewelry",
-    "tags": [
-      "jewelry",
-      "crystal",
-      "earrings",
-      "women"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 91,
-    "name": "A5 Drawing Sketchbook",
-    "price": 350,
-    "category": "Hobby",
-    "tags": [
-      "art",
-      "sketching",
-      "hobby",
-      "creative"
-    ],
-    "popularity": 82,
-    "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80"
-  },
-  {
-    "id": 92,
-    "name": "Set of 24 Watercolor Paints",
-    "price": 1200,
-    "category": "Hobby",
-    "tags": [
-      "art",
-      "painting",
-      "hobby",
-      "creative"
-    ],
-    "popularity": 84,
-    "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 93,
-    "name": "Electric Guitar Tuner",
-    "price": 550,
-    "category": "Tech",
-    "tags": [
-      "music",
-      "guitar",
-      "tech",
-      "gadget"
-    ],
-    "popularity": 80,
-    "image": "https://images.unsplash.com/photo-1550985616-10810253b84d?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 94,
-    "name": "Telescope for Beginners",
-    "price": 2999,
-    "category": "Lifestyle",
-    "tags": [
-      "hobby",
-      "science",
-      "stars",
-      "kids"
-    ],
-    "popularity": 88,
-    "image": "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500&q=80"
-  },
-  {
-    "id": 95,
-    "name": "Yoga Starter Kit",
-    "price": 2200,
-    "category": "Wellness",
-    "tags": [
-      "wellness",
-      "yoga",
-      "fitness",
-      "relax"
-    ],
-    "popularity": 90,
-    "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 96,
-    "name": "Sandalwood Incense Sticks",
-    "price": 299,
-    "category": "Wellness",
-    "tags": [
-      "wellness",
-      "relax",
-      "scent",
-      "home"
-    ],
-    "popularity": 83,
-    "image": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 97,
-    "name": "Massage Therapy Ball",
-    "price": 450,
-    "category": "Wellness",
-    "tags": [
-      "health",
-      "relax",
-      "massage",
-      "wellness"
-    ],
-    "popularity": 81,
-    "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 98,
-    "name": "Moisturizing Skincare Set",
-    "price": 2600,
-    "category": "Wellness",
-    "tags": [
-      "beauty",
-      "skincare",
-      "wellness",
-      "luxury"
-    ],
-    "popularity": 89,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    "id": 99,
-    "name": "Chocolate Dipped Strawberries",
-    "price": 850,
-    "category": "Food",
-    "tags": [
-      "food",
-      "dessert",
-      "romantic",
-      "chocolate"
-    ],
-    "popularity": 94,
-    "image": "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500&q=80"
-  },
-  {
-    "id": 100,
-    "name": "Premium Tea Sampler",
-    "price": 1200,
-    "category": "Food",
-    "tags": [
-      "tea",
-      "gourmet",
-      "food",
-      "gift"
-    ],
-    "popularity": 87,
-    "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=400"
-  }
+    {
+        "id":  1,
+        "name":  "Classic Red Rose Bouquet",
+        "price":  "499",
+        "category":  "Flowers",
+        "tags":  [
+                     "flowers",
+                     "romantic",
+                     "red",
+                     "roses",
+                     "valentines",
+                     "anniversary",
+                     "birthday",
+                     "wife",
+                     "girlfriend",
+                     "partner",
+                     "couple",
+                     "love",
+                     "luxury"
+                 ],
+        "popularity":  95,
+        "image":  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500\u0026q=80"
+    },
+    {
+        "id":  2,
+        "name":  "Belgium Chocolate Truffle Cake",
+        "price":  "850",
+        "category":  "Cakes",
+        "tags":  [
+                     "cake",
+                     "chocolate",
+                     "dessert",
+                     "food",
+                     "birthday",
+                     "anniversary",
+                     "celebration",
+                     "party",
+                     "family",
+                     "kids",
+                     "sweet",
+                     "gift"
+                 ],
+        "popularity":  98,
+        "image":  "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  3,
+        "name":  "Personalized LED Photo Frame",
+        "price":  "1200",
+        "category":  "Personalized",
+        "tags":  [
+                     "photo",
+                     "frame",
+                     "led",
+                     "gift",
+                     "personalized",
+                     "custom",
+                     "memories",
+                     "mom",
+                     "dad",
+                     "parents",
+                     "anniversary",
+                     "wedding",
+                     "meaningful"
+                 ],
+        "popularity":  92,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500\u0026q=80"
+    },
+    {
+        "id":  4,
+        "name":  "Minimalist Silver Promise Ring",
+        "price":  "2500",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "ring",
+                     "silver",
+                     "romance",
+                     "valentines",
+                     "anniversary",
+                     "proposal",
+                     "wife",
+                     "girlfriend",
+                     "partner",
+                     "luxury",
+                     "minimalist"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  5,
+        "name":  "Jade Plant in Ceramic Pot",
+        "price":  "350",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "home",
+                     "nature",
+                     "green",
+                     "lifestyle",
+                     "wellness",
+                     "office",
+                     "decor",
+                     "housewarming",
+                     "parents",
+                     "eco-friendly"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  6,
+        "name":  "Happy Birthday Balloon Bunch",
+        "price":  "550",
+        "category":  "Decor",
+        "tags":  [
+                     "balloons",
+                     "birthday",
+                     "party",
+                     "decoration",
+                     "celebration",
+                     "kids",
+                     "surprise",
+                     "friends",
+                     "fun",
+                     "colorful"
+                 ],
+        "popularity":  82,
+        "image":  "https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  7,
+        "name":  "Gaming Mechanical Keyboard",
+        "price":  "2999",
+        "category":  "Tech",
+        "tags":  [
+                     "gaming",
+                     "tech",
+                     "pc",
+                     "keyboard",
+                     "brother",
+                     "friend",
+                     "son",
+                     "rgb",
+                     "gadget",
+                     "birthday",
+                     "graduation",
+                     "gaming gear"
+                 ],
+        "popularity":  96,
+        "image":  "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  8,
+        "name":  "Customized Wooden Name Plaque",
+        "price":  "750",
+        "category":  "Personalized",
+        "tags":  [
+                     "wood",
+                     "name",
+                     "home",
+                     "custom",
+                     "personalized",
+                     "decor",
+                     "housewarming",
+                     "family",
+                     "office",
+                     "entryway",
+                     "handmade"
+                 ],
+        "popularity":  78,
+        "image":  "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500\u0026q=80"
+    },
+    {
+        "id":  9,
+        "name":  "Orchid Elegance Bouquet",
+        "price":  "1500",
+        "category":  "Flowers",
+        "tags":  [
+                     "flowers",
+                     "orchid",
+                     "luxury",
+                     "purple",
+                     "mom",
+                     "mother",
+                     "mother\u0027s day",
+                     "premium",
+                     "elegant",
+                     "office",
+                     "gratitude"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500\u0026q=80"
+    },
+    {
+        "id":  10,
+        "name":  "Red Velvet Heart Cake",
+        "price":  "950",
+        "category":  "Cakes",
+        "tags":  [
+                     "cake",
+                     "red velvet",
+                     "anniversary",
+                     "heart",
+                     "valentines",
+                     "romance",
+                     "wife",
+                     "girlfriend",
+                     "partner",
+                     "love",
+                     "sweet",
+                     "couple"
+                 ],
+        "popularity":  94,
+        "image":  "https://images.unsplash.com/photo-1616031037011-087000171abe?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  11,
+        "name":  "Wireless Noise Cancelling Pods",
+        "price":  "2800",
+        "category":  "Tech",
+        "tags":  [
+                     "tech",
+                     "music",
+                     "wireless",
+                     "audio",
+                     "travel",
+                     "gadget",
+                     "brother",
+                     "friend",
+                     "graduation",
+                     "birthday",
+                     "premium",
+                     "pods"
+                 ],
+        "popularity":  97,
+        "image":  "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  12,
+        "name":  "Engraved Couple Rings",
+        "price":  "2100",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "rings",
+                     "couple",
+                     "engraved",
+                     "personalized",
+                     "anniversary",
+                     "wedding",
+                     "romance",
+                     "wife",
+                     "husband",
+                     "meaningful"
+                 ],
+        "popularity":  91,
+        "image":  "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500\u0026q=80"
+    },
+    {
+        "id":  13,
+        "name":  "Snake Plant (Air Purifying)",
+        "price":  "450",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "indoor",
+                     "air",
+                     "green",
+                     "office",
+                     "home",
+                     "lifestyle",
+                     "wellness",
+                     "healthy",
+                     "dad",
+                     "parents",
+                     "minimalist"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500\u0026q=80"
+    },
+    {
+        "id":  14,
+        "name":  "Golden Anniversary Balloon Set",
+        "price":  "650",
+        "category":  "Decor",
+        "tags":  [
+                     "balloons",
+                     "anniversary",
+                     "gold",
+                     "decor",
+                     "celebration",
+                     "party",
+                     "parents",
+                     "50th",
+                     "25th",
+                     "grandparents",
+                     "luxury"
+                 ],
+        "popularity":  80,
+        "image":  "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  15,
+        "name":  "Personalized Magic Mug",
+        "price":  "399",
+        "category":  "Personalized",
+        "tags":  [
+                     "mug",
+                     "coffee",
+                     "photo",
+                     "gift",
+                     "personalized",
+                     "custom",
+                     "fun",
+                     "friend",
+                     "colleague",
+                     "birthday",
+                     "affordable"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  16,
+        "name":  "RGB Gaming Mouse Pad",
+        "price":  "850",
+        "category":  "Tech",
+        "tags":  [
+                     "gaming",
+                     "tech",
+                     "mouse",
+                     "rgb"
+                 ],
+        "popularity":  90,
+        "image":  "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  17,
+        "name":  "Pink Lily \u0026 Rose Mix",
+        "price":  "1200",
+        "category":  "Flowers",
+        "tags":  [
+                     "flowers",
+                     "lily",
+                     "pink",
+                     "mix"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  18,
+        "name":  "Eggless Fruit Overload Cake",
+        "price":  "1100",
+        "category":  "Cakes",
+        "tags":  [
+                     "cake",
+                     "fruit",
+                     "eggless",
+                     "healthy"
+                 ],
+        "popularity":  83,
+        "image":  "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  19,
+        "name":  "Boho Macrame Wall Hanging",
+        "price":  "650",
+        "category":  "Home Decor",
+        "tags":  [
+                     "home",
+                     "decor",
+                     "boho",
+                     "handmade"
+                 ],
+        "popularity":  79,
+        "image":  "https://images.unsplash.com/photo-1522758971460-1d21eed7dc1d?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  20,
+        "name":  "Aroma Diffuser with Oils",
+        "price":  "1800",
+        "category":  "Home Decor",
+        "tags":  [
+                     "home",
+                     "spa",
+                     "aroma",
+                     "fragrance"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  21,
+        "name":  "Customized caricatures",
+        "price":  "1400",
+        "category":  "Personalized",
+        "tags":  [
+                     "art",
+                     "funny",
+                     "caricature",
+                     "gift"
+                 ],
+        "popularity":  76,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500\u0026q=80"
+    },
+    {
+        "id":  22,
+        "name":  "Bamboo Desktop Organizer",
+        "price":  "950",
+        "category":  "Office",
+        "tags":  [
+                     "office",
+                     "desk",
+                     "bamboo",
+                     "organizer"
+                 ],
+        "popularity":  82,
+        "image":  "https://images.unsplash.com/photo-1591122947157-26bad3a117d2?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  23,
+        "name":  "Luxury Silk Saree",
+        "price":  "2800",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "clothing",
+                     "saree",
+                     "ethnic"
+                 ],
+        "popularity":  93,
+        "image":  "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  24,
+        "name":  "Men\u0027s Smart Casual Watch",
+        "price":  "2500",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "watch",
+                     "accessory",
+                     "men"
+                 ],
+        "popularity":  95,
+        "image":  "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  25,
+        "name":  "Hanging Terrarium",
+        "price":  "1250",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "glass",
+                     "decor",
+                     "green"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  26,
+        "name":  "Confetti Balloon Box",
+        "price":  "450",
+        "category":  "Decor",
+        "tags":  [
+                     "balloons",
+                     "surprise",
+                     "party",
+                     "confetti"
+                 ],
+        "popularity":  81,
+        "image":  "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500\u0026q=80"
+    },
+    {
+        "id":  27,
+        "name":  "Black Forest Gateau",
+        "price":  "750",
+        "category":  "Cakes",
+        "tags":  [
+                     "cake",
+                     "cherry",
+                     "chocolate",
+                     "classic"
+                 ],
+        "popularity":  90,
+        "image":  "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500\u0026q=80"
+    },
+    {
+        "id":  28,
+        "name":  "Tulip Garden Basket",
+        "price":  "1800",
+        "category":  "Flowers",
+        "tags":  [
+                     "flowers",
+                     "tulip",
+                     "basket",
+                     "premium"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500\u0026q=80"
+    },
+    {
+        "id":  29,
+        "name":  "Personalized Spotify Plaque",
+        "price":  "899",
+        "category":  "Personalized",
+        "tags":  [
+                     "music",
+                     "spotify",
+                     "acrylic",
+                     "gift"
+                 ],
+        "popularity":  94,
+        "image":  "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  30,
+        "name":  "Fitness Smart Band",
+        "price":  "1999",
+        "category":  "Tech",
+        "tags":  [
+                     "tech",
+                     "fitness",
+                     "watch",
+                     "health"
+                 ],
+        "popularity":  92,
+        "image":  "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  31,
+        "name":  "Pearl Necklace Set",
+        "price":  "2400",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "pearl",
+                     "necklace",
+                     "women"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  32,
+        "name":  "Money Plant in Glass Vase",
+        "price":  "399",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "money",
+                     "luck",
+                     "green"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500\u0026q=80"
+    },
+    {
+        "id":  33,
+        "name":  "Giant Teddy Bear (3ft)",
+        "price":  "1500",
+        "category":  "Toys",
+        "tags":  [
+                     "soft toy",
+                     "teddy",
+                     "kids",
+                     "romance"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  34,
+        "name":  "Leather Bifold Wallet",
+        "price":  "999",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "wallet",
+                     "leather",
+                     "men"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  35,
+        "name":  "Succulent Trio Set",
+        "price":  "600",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "succulent",
+                     "easy",
+                     "green"
+                 ],
+        "popularity":  83,
+        "image":  "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  36,
+        "name":  "Lavender Scented Candle",
+        "price":  "450",
+        "category":  "Home Decor",
+        "tags":  [
+                     "decor",
+                     "candle",
+                     "aroma",
+                     "relax"
+                 ],
+        "popularity":  80,
+        "image":  "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  37,
+        "name":  "Personalized Moon Lamp",
+        "price":  "1650",
+        "category":  "Personalized",
+        "tags":  [
+                     "lamp",
+                     "moon",
+                     "light",
+                     "gift"
+                 ],
+        "popularity":  91,
+        "image":  "https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  38,
+        "name":  "Stainless Steel Water Bottle",
+        "price":  "850",
+        "category":  "Lifestyle",
+        "tags":  [
+                     "bottle",
+                     "gym",
+                     "office",
+                     "blue"
+                 ],
+        "popularity":  82,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500\u0026q=80"
+    },
+    {
+        "id":  39,
+        "name":  "Rainbow Rose Bouquet",
+        "price":  "2200",
+        "category":  "Flowers",
+        "tags":  [
+                     "flowers",
+                     "roses",
+                     "rainbow",
+                     "unique"
+                 ],
+        "popularity":  90,
+        "image":  "https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  40,
+        "name":  "Tiramisu Cheesecake",
+        "price":  "1350",
+        "category":  "Cakes",
+        "tags":  [
+                     "cake",
+                     "cheese",
+                     "coffee",
+                     "premium"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  41,
+        "name":  "Bluetooth Portable Speaker",
+        "price":  "1499",
+        "category":  "Tech",
+        "tags":  [
+                     "tech",
+                     "music",
+                     "bluetooth",
+                     "travel"
+                 ],
+        "popularity":  93,
+        "image":  "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500\u0026q=80"
+    },
+    {
+        "id":  42,
+        "name":  "Rose Gold Bangle",
+        "price":  "2800",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "gold",
+                     "bangle",
+                     "women"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  43,
+        "name":  "Pastel Balloon Arch Kit",
+        "price":  "1100",
+        "category":  "Decor",
+        "tags":  [
+                     "balloons",
+                     "arch",
+                     "party",
+                     "diy"
+                 ],
+        "popularity":  79,
+        "image":  "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  44,
+        "name":  "Personalized Keyring Set",
+        "price":  "299",
+        "category":  "Personalized",
+        "tags":  [
+                     "keyring",
+                     "metal",
+                     "couple",
+                     "small"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500\u0026q=80"
+    },
+    {
+        "id":  45,
+        "name":  "Gaming Controller Stand",
+        "price":  "750",
+        "category":  "Gaming",
+        "tags":  [
+                     "gaming",
+                     "stand",
+                     "setup",
+                     "ps5"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  46,
+        "name":  "Yellow Sunflower Bunch",
+        "price":  "850",
+        "category":  "Flowers",
+        "tags":  [
+                     "flowers",
+                     "sunflower",
+                     "yellow",
+                     "happy"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  47,
+        "name":  "Nutty Caramel Cake",
+        "price":  "950",
+        "category":  "Cakes",
+        "tags":  [
+                     "cake",
+                     "nut",
+                     "caramel",
+                     "crunchy"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  48,
+        "name":  "Cotton Graphic Tee",
+        "price":  "699",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "clothing",
+                     "tshirt",
+                     "casual"
+                 ],
+        "popularity":  91,
+        "image":  "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  49,
+        "name":  "Peace Lily in White Pot",
+        "price":  "550",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "lily",
+                     "peace",
+                     "green"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500\u0026q=80"
+    },
+    {
+        "id":  50,
+        "name":  "Electric Hand Massager",
+        "price":  "2600",
+        "category":  "Lifestyle",
+        "tags":  [
+                     "health",
+                     "relax",
+                     "tech",
+                     "massager"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  51,
+        "name":  "Vinyl Record Player",
+        "price":  "2800",
+        "category":  "Tech",
+        "tags":  [
+                     "music",
+                     "vintage",
+                     "retro",
+                     "vinyl"
+                 ],
+        "popularity":  94,
+        "image":  "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  52,
+        "name":  "Polaroid Instant Camera",
+        "price":  "2500",
+        "category":  "Tech",
+        "tags":  [
+                     "photography",
+                     "camera",
+                     "vintage",
+                     "memories"
+                 ],
+        "popularity":  96,
+        "image":  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500\u0026q=80"
+    },
+    {
+        "id":  53,
+        "name":  "Scented Essential Oils Set",
+        "price":  "1200",
+        "category":  "Wellness",
+        "tags":  [
+                     "wellness",
+                     "relax",
+                     "aromatherapy",
+                     "home"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500\u0026q=80"
+    },
+    {
+        "id":  54,
+        "name":  "Silk Eye Mask \u0026 Pillowcase",
+        "price":  "1800",
+        "category":  "Wellness",
+        "tags":  [
+                     "sleep",
+                     "silk",
+                     "luxury",
+                     "beauty"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500\u0026q=80"
+    },
+    {
+        "id":  55,
+        "name":  "Gourmet Coffee Bean Box",
+        "price":  "999",
+        "category":  "Food",
+        "tags":  [
+                     "coffee",
+                     "gourmet",
+                     "beans",
+                     "morning"
+                 ],
+        "popularity":  92,
+        "image":  "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  56,
+        "name":  "A5 Leather Bullet Journal",
+        "price":  "650",
+        "category":  "Office",
+        "tags":  [
+                     "stationery",
+                     "journal",
+                     "writing",
+                     "office"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  57,
+        "name":  "Weighted Sleep Blanket",
+        "price":  "2900",
+        "category":  "Home",
+        "tags":  [
+                     "sleep",
+                     "home",
+                     "comfort",
+                     "relax"
+                 ],
+        "popularity":  91,
+        "image":  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  58,
+        "name":  "Personalized Map Poster",
+        "price":  "1100",
+        "category":  "Personalized",
+        "tags":  [
+                     "map",
+                     "travel",
+                     "art",
+                     "home"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  59,
+        "name":  "Glass Pour-Over Coffee Maker",
+        "price":  "1500",
+        "category":  "Lifestyle",
+        "tags":  [
+                     "coffee",
+                     "kitchen",
+                     "morning",
+                     "glass"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500\u0026q=80"
+    },
+    {
+        "id":  60,
+        "name":  "Handmade Ceramic Mug",
+        "price":  "550",
+        "category":  "Home",
+        "tags":  [
+                     "home",
+                     "coffee",
+                     "ceramic",
+                     "handmade"
+                 ],
+        "popularity":  83,
+        "image":  "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  61,
+        "name":  "Smartphone Gimbal Stabilizer",
+        "price":  "2999",
+        "category":  "Tech",
+        "tags":  [
+                     "tech",
+                     "video",
+                     "camera",
+                     "travel"
+                 ],
+        "popularity":  95,
+        "image":  "https://images.unsplash.com/photo-1542393545-10f5cde2c810?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  62,
+        "name":  "Smart LED Table Lamp",
+        "price":  "1999",
+        "category":  "Tech",
+        "tags":  [
+                     "tech",
+                     "lamp",
+                     "home",
+                     "office"
+                 ],
+        "popularity":  93,
+        "image":  "https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  63,
+        "name":  "Crystal Quartz Bookends",
+        "price":  "2200",
+        "category":  "Home Decor",
+        "tags":  [
+                     "home",
+                     "decor",
+                     "crystal",
+                     "books"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  64,
+        "name":  "Set of 3 Abstract Prints",
+        "price":  "1400",
+        "category":  "Home Decor",
+        "tags":  [
+                     "art",
+                     "wall",
+                     "decor",
+                     "home",
+                     "housewarming",
+                     "parents",
+                     "office",
+                     "meaningful",
+                     "abstract",
+                     "modern",
+                     "living room"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500\u0026q=80"
+    },
+    {
+        "id":  65,
+        "name":  "Men\u0027s Leather Travel Bag",
+        "price":  "2950",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "leather",
+                     "bag",
+                     "travel",
+                     "men",
+                     "husband",
+                     "father",
+                     "dad",
+                     "luxury",
+                     "graduation",
+                     "birthday",
+                     "business"
+                 ],
+        "popularity":  92,
+        "image":  "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  66,
+        "name":  "Gold Hoop Earrings",
+        "price":  "1200",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "gold",
+                     "earrings",
+                     "women",
+                     "wife",
+                     "girlfriend",
+                     "partner",
+                     "anniversary",
+                     "birthday",
+                     "classic",
+                     "elegant",
+                     "gold-plated"
+                 ],
+        "popularity":  90,
+        "image":  "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  67,
+        "name":  "Men\u0027s Polarized Sunglasses",
+        "price":  "1800",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "sunglasses",
+                     "men",
+                     "accessory",
+                     "brother",
+                     "friend",
+                     "son",
+                     "travel",
+                     "outdoor",
+                     "summer",
+                     "birthday",
+                     "graduation"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500\u0026q=80"
+    },
+    {
+        "id":  68,
+        "name":  "Women\u0027s Floral Scarf",
+        "price":  "450",
+        "category":  "Fashion",
+        "tags":  [
+                     "fashion",
+                     "clothing",
+                     "scarf",
+                     "floral",
+                     "women",
+                     "grandma",
+                     "mom",
+                     "aunt",
+                     "spring",
+                     "colorful",
+                     "gift",
+                     "affordable"
+                 ],
+        "popularity":  82,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500\u0026q=80"
+    },
+    {
+        "id":  69,
+        "name":  "Bonsai Pine Tree",
+        "price":  "2100",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "bonsai",
+                     "nature",
+                     "home",
+                     "office",
+                     "decor",
+                     "parents",
+                     "dad",
+                     "wellness",
+                     "meaningful",
+                     "zen",
+                     "lifestyle"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  70,
+        "name":  "Automatic Self-Watering Pot",
+        "price":  "750",
+        "category":  "Plants",
+        "tags":  [
+                     "plants",
+                     "tech",
+                     "home",
+                     "garden",
+                     "gadget",
+                     "lifestyle",
+                     "parents",
+                     "housewarming",
+                     "office",
+                     "convenience"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  71,
+        "name":  "Matte Finish Chess Set",
+        "price":  "1600",
+        "category":  "Games",
+        "tags":  [
+                     "games",
+                     "chess",
+                     "board",
+                     "fun",
+                     "brother",
+                     "friend",
+                     "son",
+                     "intellectual",
+                     "gift",
+                     "classic",
+                     "home",
+                     "educational"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  72,
+        "name":  "Retro Handheld Game Console",
+        "price":  "2400",
+        "category":  "Games",
+        "tags":  [
+                     "gaming",
+                     "retro",
+                     "portable",
+                     "kids",
+                     "brother",
+                     "friend",
+                     "fun",
+                     "nostalgia",
+                     "birthday",
+                     "travel",
+                     "gift",
+                     "handheld"
+                 ],
+        "popularity":  91,
+        "image":  "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  73,
+        "name":  "Tabletop Foosball Table",
+        "price":  "2800",
+        "category":  "Games",
+        "tags":  [
+                     "games",
+                     "foosball",
+                     "party",
+                     "fun",
+                     "family",
+                     "kids",
+                     "brother",
+                     "home",
+                     "entertainment",
+                     "birthday",
+                     "competition"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  74,
+        "name":  "1000 Piece Jigsaw Puzzle",
+        "price":  "850",
+        "category":  "Games",
+        "tags":  [
+                     "games",
+                     "puzzle",
+                     "relax",
+                     "hobby",
+                     "family",
+                     "home",
+                     "staycation",
+                     "patience",
+                     "meaningful",
+                     "quiet",
+                     "gift"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  75,
+        "name":  "Smart Fitness Jump Rope",
+        "price":  "1100",
+        "category":  "Tech",
+        "tags":  [
+                     "tech",
+                     "fitness",
+                     "exercise",
+                     "sport",
+                     "health",
+                     "workout",
+                     "gadget",
+                     "brother",
+                     "friend",
+                     "active",
+                     "modern"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  76,
+        "name":  "Electric Milk Frother",
+        "price":  "499",
+        "category":  "Kitchen",
+        "tags":  [
+                     "kitchen",
+                     "coffee",
+                     "latte",
+                     "home",
+                     "lifestyle",
+                     "affordable",
+                     "gift",
+                     "practical",
+                     "convenience",
+                     "office"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500\u0026q=80"
+    },
+    {
+        "id":  77,
+        "name":  "Cast Iron Teapot Set",
+        "price":  "2200",
+        "category":  "Kitchen",
+        "tags":  [
+                     "tea",
+                     "kitchen",
+                     "luxury",
+                     "home"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  78,
+        "name":  "Gourmet Hot Sauce Pack",
+        "price":  "1350",
+        "category":  "Food",
+        "tags":  [
+                     "food",
+                     "spicy",
+                     "gourmet",
+                     "cooking"
+                 ],
+        "popularity":  83,
+        "image":  "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500\u0026q=80"
+    },
+    {
+        "id":  79,
+        "name":  "Personalized Embossed Wallet",
+        "price":  "1600",
+        "category":  "Personalized",
+        "tags":  [
+                     "leather",
+                     "wallet",
+                     "name",
+                     "fashion"
+                 ],
+        "popularity":  92,
+        "image":  "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  80,
+        "name":  "Customized Star Map",
+        "price":  "1900",
+        "category":  "Personalized",
+        "tags":  [
+                     "stars",
+                     "night",
+                     "anniversary",
+                     "art"
+                 ],
+        "popularity":  94,
+        "image":  "https://images.unsplash.com/photo-1577046848358-4501cb0d7b29?w=500\u0026q=80"
+    },
+    {
+        "id":  81,
+        "name":  "Monogrammed Bathrobe",
+        "price":  "2500",
+        "category":  "Personalized",
+        "tags":  [
+                     "bath",
+                     "monogram",
+                     "luxury",
+                     "wellness"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  82,
+        "name":  "Engraved Metal Pen Set",
+        "price":  "950",
+        "category":  "Personalized",
+        "tags":  [
+                     "office",
+                     "pen",
+                     "engraved",
+                     "business"
+                 ],
+        "popularity":  81,
+        "image":  "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  83,
+        "name":  "Fleece Throw Blanket",
+        "price":  "750",
+        "category":  "Home",
+        "tags":  [
+                     "home",
+                     "blanket",
+                     "fleece",
+                     "comfort"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  84,
+        "name":  "Memory Foam Pillow",
+        "price":  "1800",
+        "category":  "Home",
+        "tags":  [
+                     "sleep",
+                     "comfort",
+                     "home",
+                     "bed"
+                 ],
+        "popularity":  86,
+        "image":  "https://images.unsplash.com/photo-1520006403909-838d6b92c22e?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  85,
+        "name":  "Woven Picnic Basket",
+        "price":  "2400",
+        "category":  "Lifestyle",
+        "tags":  [
+                     "outdoor",
+                     "picnic",
+                     "summer",
+                     "basket"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1591035897819-f4bdf739f446?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  86,
+        "name":  "Camping Hammock",
+        "price":  "1500",
+        "category":  "Lifestyle",
+        "tags":  [
+                     "outdoor",
+                     "camping",
+                     "travel",
+                     "hammock"
+                 ],
+        "popularity":  85,
+        "image":  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500\u0026q=80"
+    },
+    {
+        "id":  87,
+        "name":  "Silver Chain Bracelet",
+        "price":  "1900",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "silver",
+                     "bracelet",
+                     "men"
+                 ],
+        "popularity":  83,
+        "image":  "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  88,
+        "name":  "Minimalist Gold Ring",
+        "price":  "2800",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "gold",
+                     "minimalist",
+                     "women"
+                 ],
+        "popularity":  92,
+        "image":  "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  89,
+        "name":  "Personalized Name Necklace",
+        "price":  "2100",
+        "category":  "Personalized",
+        "tags":  [
+                     "jewelry",
+                     "necklace",
+                     "name",
+                     "women"
+                 ],
+        "popularity":  95,
+        "image":  "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  90,
+        "name":  "Crystal Drop Earrings",
+        "price":  "1400",
+        "category":  "Jewelry",
+        "tags":  [
+                     "jewelry",
+                     "crystal",
+                     "earrings",
+                     "women"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  91,
+        "name":  "A5 Drawing Sketchbook",
+        "price":  "350",
+        "category":  "Hobby",
+        "tags":  [
+                     "art",
+                     "sketching",
+                     "hobby",
+                     "creative"
+                 ],
+        "popularity":  82,
+        "image":  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500\u0026q=80"
+    },
+    {
+        "id":  92,
+        "name":  "Set of 24 Watercolor Paints",
+        "price":  "1200",
+        "category":  "Hobby",
+        "tags":  [
+                     "art",
+                     "painting",
+                     "hobby",
+                     "creative"
+                 ],
+        "popularity":  84,
+        "image":  "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  93,
+        "name":  "Electric Guitar Tuner",
+        "price":  "550",
+        "category":  "Tech",
+        "tags":  [
+                     "music",
+                     "guitar",
+                     "tech",
+                     "gadget"
+                 ],
+        "popularity":  80,
+        "image":  "https://images.unsplash.com/photo-1550985616-10810253b84d?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  94,
+        "name":  "Telescope for Beginners",
+        "price":  "2999",
+        "category":  "Lifestyle",
+        "tags":  [
+                     "hobby",
+                     "science",
+                     "stars",
+                     "kids"
+                 ],
+        "popularity":  88,
+        "image":  "https://images.unsplash.com/photo-1511398248880-928d3f11467a?w=500\u0026q=80"
+    },
+    {
+        "id":  95,
+        "name":  "Yoga Starter Kit",
+        "price":  "2200",
+        "category":  "Wellness",
+        "tags":  [
+                     "wellness",
+                     "yoga",
+                     "fitness",
+                     "relax"
+                 ],
+        "popularity":  90,
+        "image":  "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  96,
+        "name":  "Sandalwood Incense Sticks",
+        "price":  "299",
+        "category":  "Wellness",
+        "tags":  [
+                     "wellness",
+                     "relax",
+                     "scent",
+                     "home"
+                 ],
+        "popularity":  83,
+        "image":  "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  97,
+        "name":  "Massage Therapy Ball",
+        "price":  "450",
+        "category":  "Wellness",
+        "tags":  [
+                     "health",
+                     "relax",
+                     "massage",
+                     "wellness"
+                 ],
+        "popularity":  81,
+        "image":  "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  98,
+        "name":  "Moisturizing Skincare Set",
+        "price":  "2600",
+        "category":  "Wellness",
+        "tags":  [
+                     "beauty",
+                     "skincare",
+                     "wellness",
+                     "luxury"
+                 ],
+        "popularity":  89,
+        "image":  "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    },
+    {
+        "id":  99,
+        "name":  "Chocolate Dipped Strawberries",
+        "price":  "850",
+        "category":  "Food",
+        "tags":  [
+                     "food",
+                     "dessert",
+                     "romantic",
+                     "chocolate"
+                 ],
+        "popularity":  94,
+        "image":  "https://images.unsplash.com/photo-1608755728617-aefab37d2edd?w=500\u0026q=80"
+    },
+    {
+        "id":  100,
+        "name":  "Premium Tea Sampler",
+        "price":  "1200",
+        "category":  "Food",
+        "tags":  [
+                     "tea",
+                     "gourmet",
+                     "food",
+                     "gift"
+                 ],
+        "popularity":  87,
+        "image":  "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format\u0026fit=crop\u0026q=80\u0026w=400"
+    }
 ]

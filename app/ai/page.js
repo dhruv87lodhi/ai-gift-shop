@@ -15,15 +15,29 @@ function AIResultsContent() {
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [allRecommendations, setAllRecommendations] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
-  const [priceRange, setPriceRange] = useState(100000); // Default high max
   const [showFilters, setShowFilters] = useState(false);
 
+  // The full query from the chatbot (e.g. "under 1000 tech gaming")
   const query = searchParams.get("q") || searchParams.get("interests") || "gifts";
 
+  // Extract numeric budget from query for the price slider default
+  const extractBudget = (q) => {
+    const match = q.match(/(?:under|below|budget|max|up to)\s*(\d+)/i) || q.match(/\b(\d{3,5})\b/);
+    return match ? Number(match[1]) : 100000;
+  };
+  const [priceRange, setPriceRange] = useState(() => extractBudget(query));
+
+  // Display-friendly label (hide the "under 1000 tech" raw query)
+  const displayQuery = query.replace(/under\s+\d+\s*/i, "").trim() || query;
+
   useEffect(() => {
+    // Update price range if query changes
+    setPriceRange(extractBudget(query));
+
     const fetchRecommendations = async () => {
       setIsAnalyzing(true);
       try {
+        // Send the FULL query string (with budget) so the backend can filter by price
         const response = await fetch(`http://localhost:8000/recommend?query=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error("Failed to fetch");
         
@@ -81,7 +95,7 @@ function AIResultsContent() {
           Curating Your Perfect Matches
         </h2>
         <p className="text-gray-500 max-w-md text-center font-inter">
-          Our AI is scanning the collection to find gifts that resonate with "{query}".
+          Our AI is scanning the collection to find gifts that resonate with "{displayQuery}".
         </p>
       </div>
     );
@@ -106,7 +120,7 @@ function AIResultsContent() {
             </h1>
             <p className="mt-4 text-xl text-gray-600 font-inter max-w-2xl">
               Handpicked selections based on your unique profile and search: 
-              <span className="text-[#caa161] font-semibold ml-2 text-2xl">"{query}"</span>.
+              <span className="text-[#caa161] font-semibold ml-2 text-2xl">"{displayQuery}"</span>.
             </p>
           </div>
 

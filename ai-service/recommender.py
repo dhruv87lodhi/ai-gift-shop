@@ -16,10 +16,15 @@ class Recommender:
             return []
 
     def extract_price(self, query):
-        """Extracts max price from queries like 'under 1000' or 'below 500'"""
+        """Extracts max price from queries like 'under 1000', 'below 500', or bare '1000'"""
+        # Primary: keyword-based match
         price_match = re.search(r'(?:under|below|budget|max|up to)\s*(\d+)', query.lower())
         if price_match:
             return int(price_match.group(1))
+        # Fallback: any standalone number (e.g., '1000 flowers')
+        bare_match = re.search(r'\b(\d{3,5})\b', query)
+        if bare_match:
+            return int(bare_match.group(1))
         return None
 
     def get_product(self, product_id):
@@ -52,7 +57,7 @@ class Recommender:
             score += len(common_tags)
             
             # Price match (within 500)
-            if abs(p.get("price", 0) - target.get("price", 0)) <= 500:
+            if abs(int(p.get("price", 0)) - int(target.get("price", 0))) <= 500:
                 score += 1
                 
             scored_products.append({"product": p, "score": score})
@@ -72,33 +77,42 @@ class Recommender:
     def recommend(self, query):
         query_lower = query.lower()
         max_price = self.extract_price(query_lower)
-        
+        print(f"DEBUG recommend: query='{query}' → max_price={max_price}")
+
         # Simple tag extraction: check which product tags appear in the query
         all_tags = set()
         for p in self.products:
             all_tags.update(p["tags"])
-        
+
         target_tags = [tag for tag in all_tags if tag in query_lower]
-        
+
         # 1. Exact match (price + tags)
         results = []
         if max_price and target_tags:
-            results = [p for p in self.products if p["price"] <= max_price and any(t in target_tags for t in p["tags"])]
-        
-        # 2. If no result -> close price (+500 range)
+            results = [p for p in self.products if int(p["price"]) <= max_price and any(t in target_tags for t in p["tags"])]
+
+        # 2. Tags found but no exact price match → widen budget by 20%
         if not results and max_price and target_tags:
-            results = [p for p in self.products if p["price"] <= (max_price + 500) and any(t in target_tags for t in p["tags"])]
-            
-        # 3. If still no result -> ignore price, match tags
-        if not results and target_tags:
+            results = [p for p in self.products if int(p["price"]) <= int(max_price * 1.2) and any(t in target_tags for t in p["tags"])]
+
+        # 3. Price only (no matching tags) — price is ALWAYS enforced
+        if not results and max_price:
+            results = [p for p in self.products if int(p["price"]) <= max_price]
+
+        # 4. Tags only when no price given at all
+        if not results and target_tags and not max_price:
             results = [p for p in self.products if any(t in target_tags for t in p["tags"])]
-            
-        # 4. Final fallback -> trending (based on popularity)
+
+        # 5. Final fallback → trending products (still price-filtered if we have a price)
         if not results:
-            results = sorted(self.products, key=lambda x: x.get("popularity", 0), reverse=True)[:5]
+            if max_price:
+                results = [p for p in self.products if int(p["price"]) <= max_price]
+            if not results:
+                results = sorted(self.products, key=lambda x: x.get("popularity", 0), reverse=True)[:12]
 
         # Sort all results by popularity and return top 12
         final_results = sorted(results, key=lambda x: x.get("popularity", 0), reverse=True)[:12]
+        print(f"DEBUG recommend: returning {len(final_results)} results, prices: {[p['price'] for p in final_results]}")
         return final_results
 
 engine = Recommender()
