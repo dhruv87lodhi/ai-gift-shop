@@ -45,6 +45,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
         { label: "Gifts for Friends", query: "Friends" },
         { label: "Gifts Under $500", query: "Under 500" },
         { label: "Gifts Under $1000", query: "Under 1000" },
+        { label: "Dhruv", href: "/dhruv", icon: <User className="w-4 h-4" /> },
       ]
     },
     {
@@ -57,6 +58,7 @@ export default function SidebarMenu({ isOpen, onClose }) {
         { label: "Accessories", query: "Accessories", icon: <Diamond className="w-4 h-4" /> },
         { label: "Gaming", query: "Gaming", icon: <Gamepad2 className="w-4 h-4" /> },
         { label: "Handmade", query: "Handmade", icon: <Wrench className="w-4 h-4" /> },
+        { label: "Dhruv", href: "/dhruv", icon: <User className="w-4 h-4" /> },
       ]
     },
     {
