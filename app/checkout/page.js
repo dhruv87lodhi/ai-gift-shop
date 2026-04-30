@@ -177,7 +177,7 @@ export default function CheckoutPage() {
 
       // 3. Open Razorpay checkout
       const options = {
-        key: "rzp_test_SiDxFKWZ89b1iB",
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
         name: "Giftora",

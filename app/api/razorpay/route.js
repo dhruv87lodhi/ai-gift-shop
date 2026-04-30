@@ -5,9 +5,10 @@ export async function POST(request) {
     const { amount, currency = "INR", receipt } = await request.json();
 
     // Create order via Razorpay Orders API
-    const auth = Buffer.from(
-      `rzp_test_SiDxFKWZ89b1iB:aUSAH2NjxYMJo1bobzchRbkT`
-    ).toString("base64");
+    const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_SiDxFKWZ89b1iB";
+    const keySecret = process.env.RAZORPAY_KEY_SECRET || "aUSAH2NjxYMJo1bobzchRbkT";
+
+    const auth = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
 
     const response = await fetch("https://api.razorpay.com/v1/orders", {
       method: "POST",

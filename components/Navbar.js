@@ -318,30 +318,17 @@ export default function Navbar() {
                 )}
               </Link>
               
-              {/* Profile/Seller Toggle Button */}
+              {/* Profile Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={handleProfileClick}
-                  className={`ml-1 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg flex items-center gap-2 ${
-                    isSeller 
-                      ? 'seller-gradient text-white hover:opacity-90 shadow-secondary/20' 
-                      : 'bg-charcoal text-white hover:bg-primary hover:shadow-primary/20'
-                  }`}
+                  className="ml-1 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg flex items-center gap-2 bg-charcoal text-white hover:bg-primary hover:shadow-primary/20"
                 >
-                  {isSeller ? (
-                    <>
-                      <Store className="w-4 h-4" />
-                      <span className="hidden lg:inline">Seller</span>
-                    </>
-                  ) : (
-                    <>
-                      <User className="w-4 h-4" />
-                      <span className="hidden lg:inline">{user ? "Profile" : "Login"}</span>
-                    </>
-                  )}
+                  <User className="w-4 h-4" />
+                  <span className="hidden lg:inline">{user ? "Profile" : "Login"}</span>
                 </button>
-
-                {/* Mode Dropdown */}
+ 
+                {/* Profile Dropdown Menu */}
                 <AnimatePresence>
                   {showModeDropdown && (
                     <motion.div
@@ -379,53 +366,16 @@ export default function Navbar() {
                           </div>
                         </div>
                       )}
-
-                      {/* Mode Toggle */}
-                      <div className="p-4">
-                        <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
-                          <div className="flex items-center gap-3">
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
-                              isSeller ? 'seller-gradient shadow-lg shadow-secondary/20' : 'bg-charcoal'
-                            }`}>
-                              {isSeller ? <Store className="w-4 h-4 text-white" /> : <User className="w-4 h-4 text-white" />}
-                            </div>
-                            <div>
-                              <p className="text-xs font-black text-charcoal">
-                                {isSeller ? 'Seller Mode' : 'Buyer Mode'}
-                              </p>
-                              <p className="text-[10px] text-gray-400 font-medium">
-                                {isSeller ? 'Manage your shop' : 'Shop for gifts'}
-                              </p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={handleModeSwitch}
-                            className={`seller-toggle ${isSeller ? 'active' : ''}`}
-                            aria-label="Toggle seller mode"
-                          />
-                        </div>
-                      </div>
-
+ 
                       {/* Quick Links */}
-                      <div className="px-4 pb-4 space-y-1">
+                      <div className="px-4 py-4 space-y-1">
                         <button
                           onClick={goToDestination}
                           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-primary/5 hover:text-primary transition-all"
                         >
-                          {isSeller ? <Store className="w-4 h-4" /> : <User className="w-4 h-4" />}
-                          {isSeller ? 'Seller Dashboard' : (user ? 'My Profile' : 'Login')}
+                          <User className="w-4 h-4" />
+                          {user ? 'My Profile' : 'Login'}
                         </button>
-
-                        {isSeller && (
-                          <Link
-                            href="/seller"
-                            onClick={() => setShowModeDropdown(false)}
-                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-secondary/5 hover:text-secondary transition-all"
-                          >
-                            <ShoppingBag className="w-4 h-4" />
-                            Manage Products
-                          </Link>
-                        )}
 
                         <Link
                           href="/discover"
