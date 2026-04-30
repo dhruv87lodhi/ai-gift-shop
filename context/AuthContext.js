@@ -43,6 +43,80 @@ export function AuthProvider({ children }) {
     localStorage.setItem('giftora_seller_products', JSON.stringify(sellerProducts));
   }, [sellerProducts]);
 
+  // Special seed for JantaMart
+  useEffect(() => {
+    if (sellerProfile?.shopName === 'JantaMart' && sellerProducts.length === 0) {
+      const initialProducts = [
+        {
+          id: 'prod_janta_1',
+          name: "Classic Red Rose Bouquet",
+          price: 499,
+          category: "Flowers",
+          description: "A beautiful arrangement of fresh red roses, perfect for expressing love and affection.",
+          image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80",
+          stock: 25,
+          status: 'active',
+          views: 124,
+          sales: 18,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'prod_janta_2',
+          name: "Belgium Chocolate Truffle Cake",
+          price: 850,
+          category: "Cakes",
+          description: "Rich and decadent Belgian chocolate truffle cake, a delight for chocolate lovers.",
+          image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=400",
+          stock: 10,
+          status: 'active',
+          views: 312,
+          sales: 45,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'prod_janta_3',
+          name: "Personalized LED Photo Frame",
+          price: 1200,
+          category: "Personalized",
+          description: "Beautiful LED photo frame that can be customized with your favorite memories.",
+          image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&q=80",
+          stock: 15,
+          status: 'active',
+          views: 256,
+          sales: 32,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'prod_janta_4',
+          name: "Minimalist Silver Promise Ring",
+          price: 2500,
+          category: "Jewelry",
+          description: "Elegant silver promise ring with a minimalist design, symbolic of commitment.",
+          image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=500&q=80",
+          stock: 5,
+          status: 'active',
+          views: 189,
+          sales: 12,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'prod_janta_5',
+          name: "Handmade Ceramic Vase",
+          price: 1599,
+          category: "Home Decor",
+          description: "Unique handmade ceramic vase, perfect for adding a touch of elegance to any room.",
+          image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=500&q=80",
+          stock: 8,
+          status: 'active',
+          views: 167,
+          sales: 9,
+          createdAt: new Date().toISOString()
+        }
+      ];
+      setSellerProducts(initialProducts);
+    }
+  }, [sellerProfile, sellerProducts]);
+
   const fetchUser = async () => {
     try {
       const res = await fetch('/api/auth/me');

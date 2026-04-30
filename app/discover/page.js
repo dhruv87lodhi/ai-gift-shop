@@ -4,23 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MapPin, Clock, Truck, Filter, ChevronLeft, Star, Heart, Flame, Navigation, Search, X, Gift, Sparkles, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
 
 import productsData from '@/ai-service/products.json';
-
-const mockNearbyProducts = productsData.map((p, i) => ({
-  id: p.id.toString(),
-  name: p.name,
-  price: parseInt(p.price, 10),
-  image: p.image,
-  category: p.category,
-  seller: ['Gift Galaxy', 'Bloom & Gift', 'Sweet Surprise', 'Frame It Up', 'Jewel Box Co', 'Tech Store', 'Aroma World'][i % 7],
-  distance: `${(i * 0.4 + 0.8).toFixed(1)} km`,
-  deliveryTime: i % 3 === 0 ? 'Next Day' : 'Same Day',
-  rating: (4.2 + (i % 8) * 0.1).toFixed(1),
-  reviews: 30 + (i * 27) % 300,
-  trending: p.popularity >= 90,
-  pincode: ['110001', '400001', '560001', '600001'][i % 4],
-}));
 
 const distanceOptions = ['All', '< 2 km', '< 5 km', '< 10 km'];
 const deliveryOptions = ['All', 'Same Day', 'Next Day', 'Standard'];
@@ -30,6 +16,7 @@ const uniqueCategories = Array.from(new Set(productsData.map(p => p.category)));
 const categories = ['All', ...uniqueCategories];
 
 export default function DiscoverPage() {
+  const { sellerProducts } = useAuth();
   const [distanceFilter, setDistanceFilter] = useState('All');
   const [deliveryFilter, setDeliveryFilter] = useState('All');
   const [priceFilter, setPriceFilter] = useState('All');
@@ -47,6 +34,40 @@ export default function DiscoverPage() {
   const toggleWish = (id) => {
     setWishlist(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
+
+  const baseNearbyProducts = productsData.map((p, i) => ({
+    id: p.id.toString(),
+    name: p.name,
+    price: parseInt(p.price, 10),
+    image: p.image,
+    category: p.category,
+    seller: ['Gift Galaxy', 'Bloom & Gift', 'Sweet Surprise', 'Frame It Up', 'Jewel Box Co', 'Tech Store', 'Aroma World'][i % 7],
+    distance: `${(i * 0.4 + 0.8).toFixed(1)} km`,
+    deliveryTime: i % 3 === 0 ? 'Next Day' : 'Same Day',
+    rating: (4.2 + (i % 8) * 0.1).toFixed(1),
+    reviews: 30 + (i * 27) % 300,
+    trending: p.popularity >= 90,
+    pincode: ['110001', '400001', '560001', '600001'][i % 4],
+  }));
+
+  // Map seller products to the same format
+  const mappedSellerProducts = sellerProducts.map((p, i) => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    image: p.image,
+    category: p.category,
+    seller: 'JantaMart', 
+    distance: '0.5 km',
+    deliveryTime: 'Same Day',
+    rating: '5.0',
+    reviews: 0,
+    trending: true,
+    pincode: '400001',
+    isSellerProduct: true
+  }));
+
+  const mockNearbyProducts = [...mappedSellerProducts, ...baseNearbyProducts];
 
   const filtered = mockNearbyProducts.filter(p => {
     if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase()) && !p.seller.toLowerCase().includes(searchQuery.toLowerCase())) return false;
