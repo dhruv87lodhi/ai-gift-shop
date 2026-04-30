@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowLeft, User, Gift, Search, Loader2, Bot, Send, Star } from "lucide-react";
+import { Sparkles, ArrowLeft, User, Gift, Search, Loader2, Bot, Send, Star, Mic, MicOff } from "lucide-react";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 
@@ -12,10 +12,61 @@ export default function DhruvPage() {
   const [recommendations, setRecommendations] = useState([]);
   const [aiResponse, setAiResponse] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+   
+  // Initialize speech recognition
+  const startListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) {
+      alert("Your browser does not support speech recognition. Please try Chrome or Edge.");
+      return;
+    }
 
-  const handleAISearch = async (e) => {
-    if (e) e.preventDefault();
-    if (!prompt.trim()) return;
+    // If already listening, stop it (toggle behavior)
+    if (isListening) {
+      setIsListening(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.continuous = false; // Stop after one result
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setPrompt(transcript);
+      setIsListening(false);
+      performSearch(transcript);
+    };
+
+    recognition.onerror = (event) => {
+      // Don't show error if it was just aborted manually
+      if (event.error !== 'aborted') {
+        console.error("Speech Recognition Error:", event.error);
+      }
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error("Failed to start recognition:", e);
+      setIsListening(false);
+    }
+  };
+
+  const performSearch = async (searchPrompt) => {
+    if (!searchPrompt.trim()) return;
 
     setIsThinking(true);
     setHasSearched(true);
@@ -25,7 +76,7 @@ export default function DhruvPage() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: prompt }),
+        body: JSON.stringify({ message: searchPrompt }),
       });
 
       if (!response.ok) throw new Error("Failed to fetch recommendations");
@@ -41,14 +92,19 @@ export default function DhruvPage() {
     }
   };
 
+  const handleAISearch = async (e) => {
+    if (e) e.preventDefault();
+    performSearch(prompt);
+  };
+
   return (
     <div className="min-h-screen bg-[#fdfbf7] pb-24">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-white border-b border-gray-100">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#caa161]/5 via-transparent to-transparent"></div>
-        
+
         <div className="max-w-7xl mx-auto px-6 pt-12 pb-24 relative z-10">
-          <Link 
+          <Link
             href="/"
             className="inline-flex items-center gap-2 text-gray-400 hover:text-[#caa161] mb-12 transition-colors text-sm font-bold uppercase tracking-widest"
           >
@@ -56,7 +112,7 @@ export default function DhruvPage() {
           </Link>
 
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            <motion.p 
+            <motion.p
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -79,17 +135,28 @@ export default function DhruvPage() {
                   type="text"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  placeholder="e.g. A unique gift for my sister who loves space and gardening under 2000"
-                  className="w-full bg-white border-2 border-gray-100 rounded-[2rem] py-6 pl-16 pr-20 text-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-8 focus:ring-[#caa161]/5 focus:border-[#caa161]/30 transition-all shadow-2xl shadow-primary/5"
+                  placeholder={isListening ? "Listening..." : "e.g. A unique gift for my sister who loves space and gardening under 2000"}
+                  className={`w-full bg-white border-2 border-gray-100 rounded-[2rem] py-6 pl-16 pr-32 text-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-8 focus:ring-[#caa161]/5 focus:border-[#caa161]/30 transition-all shadow-2xl shadow-primary/5 ${isListening ? "border-primary/50 ring-8 ring-primary/5" : ""}`}
                   disabled={isThinking}
                 />
-                <button
-                  type="submit"
-                  disabled={!prompt.trim() || isThinking}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-charcoal text-white p-4 rounded-[1.5rem] hover:bg-primary transition-all disabled:opacity-50 shadow-lg"
-                >
-                  {isThinking ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6" />}
-                </button>
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={startListening}
+                    disabled={isThinking}
+                    className={`p-4 rounded-[1.5rem] transition-all flex items-center justify-center ${isListening ? "bg-red-500 text-white animate-pulse shadow-lg shadow-red-200" : "bg-gray-50 text-gray-400 hover:bg-gray-100"}`}
+                    title="Search by voice"
+                  >
+                    {isListening ? <Mic className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!prompt.trim() || isThinking || isListening}
+                    className="bg-charcoal text-white p-4 rounded-[1.5rem] hover:bg-primary transition-all disabled:opacity-50 shadow-lg"
+                  >
+                    {isThinking ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6" />}
+                  </button>
+                </div>
               </form>
             </motion.div>
           </div>
@@ -189,7 +256,7 @@ export default function DhruvPage() {
 
               {/* Reset Search */}
               <div className="flex justify-center">
-                <button 
+                <button
                   onClick={() => { setHasSearched(false); setPrompt(""); setRecommendations([]); }}
                   className="px-8 py-4 bg-white border border-gray-200 text-gray-500 font-bold rounded-2xl hover:border-primary hover:text-primary transition-all flex items-center gap-2"
                 >

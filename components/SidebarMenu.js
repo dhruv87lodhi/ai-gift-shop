@@ -58,7 +58,6 @@ export default function SidebarMenu({ isOpen, onClose }) {
         { label: "Accessories", query: "Accessories", icon: <Diamond className="w-4 h-4" /> },
         { label: "Gaming", query: "Gaming", icon: <Gamepad2 className="w-4 h-4" /> },
         { label: "Handmade", query: "Handmade", icon: <Wrench className="w-4 h-4" /> },
-        { label: "Dhruv", href: "/dhruv", icon: <User className="w-4 h-4" /> },
       ]
     },
     {

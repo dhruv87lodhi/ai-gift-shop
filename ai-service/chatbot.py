@@ -107,6 +107,32 @@ class GiftoraChat:
         # --- OPTION 3: Fallback Logic ---
         return self._get_fallback_response(user_message)
 
+    def generate_search_summary(self, query, products):
+        """Generates a quick AI summary for search results (The Scout's Note)."""
+        if not self.gemini_client or not products:
+            return "I've handpicked these items that match your search criteria. Each one offers something special!"
+
+        product_names = ", ".join([p['name'] for p in products[:3]])
+        prompt = (
+            f"User searched for: '{query}'.\n"
+            f"I found these top products: {product_names}.\n"
+            "Write a very short (2-3 sentences), warm, and expert 'Gift Scout Note' to the user. "
+            "Explain why these types of gifts are perfect for their search. Be enthusiastic but concise. "
+            "Address the user as a helpful gift expert."
+        )
+
+        try:
+            response = self.gemini_client.models.generate_content(
+                model=self.model_name,
+                contents=prompt
+            )
+            if response.text:
+                return response.text.strip()
+        except Exception as e:
+            print(f"DEBUG: Search Summary Error: {e}")
+        
+        return f"I've analyzed your search for '{query}' and found some high-quality matches that fit perfectly!"
+
     def _get_dynamic_suggestions(self, text):
         text = text.lower()
         if any(k in text for k in ["budget", "price", "how much"]):
