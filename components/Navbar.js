@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, Store, MapPin, LogOut, Navigation } from "lucide-react";
+import { Gift, Menu, X, ShoppingBag, User, Search, Heart, Bell, MapPin, LogOut, Navigation } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -25,8 +25,8 @@ export default function Navbar() {
   const locationDropdownRef = useRef(null);
   const router = useRouter();
   const { cartCount } = useCart();
-  const { user, isSeller, toggleSellerMode, sellerProfile, logout } = useAuth();
-  const { wishlist, toggleWishlist } = useWishlist();
+  const { user, logout } = useAuth();
+  const { wishlist } = useWishlist();
 
   // Process reminders for dropdown
   const upcomingReminders = (user?.giftReminders || [])
@@ -107,7 +107,6 @@ export default function Navbar() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // Mock geolocation to pincode conversion
           const mockPincodes = ["110001", "400001", "560001", "600001"];
           const randomPincode = mockPincodes[Math.floor(Math.random() * mockPincodes.length)];
           localStorage.setItem("userPincode", randomPincode);
@@ -138,15 +137,8 @@ export default function Navbar() {
     setShowModeDropdown(prev => !prev);
   };
 
-  const handleModeSwitch = () => {
-    toggleSellerMode();
-    setShowModeDropdown(false);
-  };
-
   const goToDestination = () => {
-    if (isSeller && sellerProfile) {
-      router.push("/seller");
-    } else if (user) {
+    if (user) {
       router.push("/profile");
     } else {
       router.push("/login");
