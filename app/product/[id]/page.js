@@ -24,10 +24,11 @@ export default function ProductPage({ params }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchProductData = async () => {
+      const pythonApi = process.env.NEXT_PUBLIC_PYTHON_API || "http://localhost:8000";
       try {
         const [productRes, similarRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/product/${id}`),
-          fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/product/${id}/similar`)
+          fetch(`${pythonApi}/product/${id}`),
+          fetch(`${pythonApi}/product/${id}/similar`)
         ]);
 
         if (productRes.ok) {

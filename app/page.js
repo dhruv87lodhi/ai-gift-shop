@@ -10,8 +10,9 @@ import FestivalBanner from "@/components/FestivalBanner";
 
 export default async function Home() {
   let featuredProducts = [];
+  const pythonApi = process.env.NEXT_PUBLIC_PYTHON_API || "http://localhost:8000";
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_PYTHON_API}/recommend?query=trending`, { next: { revalidate: 60 } });
+    const res = await fetch(`${pythonApi}/recommend?query=trending`, { next: { revalidate: 60 } });
     if (res.ok) {
       const data = await res.json();
       featuredProducts = data.recommendations.slice(0, 4);
