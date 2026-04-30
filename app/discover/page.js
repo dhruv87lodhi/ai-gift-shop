@@ -16,7 +16,6 @@ const uniqueCategories = Array.from(new Set(productsData.map(p => p.category)));
 const categories = ['All', ...uniqueCategories];
 
 export default function DiscoverPage() {
-  const { sellerProducts } = useAuth();
   const [distanceFilter, setDistanceFilter] = useState('All');
   const [deliveryFilter, setDeliveryFilter] = useState('All');
   const [priceFilter, setPriceFilter] = useState('All');
@@ -35,7 +34,7 @@ export default function DiscoverPage() {
     setWishlist(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
-  const baseNearbyProducts = productsData.map((p, i) => ({
+  const mockNearbyProducts = productsData.map((p, i) => ({
     id: p.id.toString(),
     name: p.name,
     price: parseInt(p.price, 10),
@@ -50,25 +49,6 @@ export default function DiscoverPage() {
     pincode: ['110001', '400001', '560001', '600001'][i % 4],
   }));
 
-  // Map seller products to the same format
-  const mappedSellerProducts = sellerProducts.map((p, i) => ({
-    id: p.id,
-    name: p.name,
-    price: p.price,
-    image: p.image,
-    category: p.category,
-    seller: 'JantaMart', 
-    distance: '0.5 km',
-    deliveryTime: 'Same Day',
-    rating: '5.0',
-    reviews: 0,
-    trending: true,
-    pincode: '400001',
-    isSellerProduct: true
-  }));
-
-  const mockNearbyProducts = [...mappedSellerProducts, ...baseNearbyProducts];
-
   const filtered = mockNearbyProducts.filter(p => {
     if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase()) && !p.seller.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     if (categoryFilter !== 'All' && p.category !== categoryFilter) return false;
@@ -82,7 +62,6 @@ export default function DiscoverPage() {
     return true;
   });
 
-  // Sort logic: Match pincode first, then sort by distance
   const sortedAndFiltered = [...filtered].sort((a, b) => {
     if (userPincode) {
       if (a.pincode === userPincode && b.pincode !== userPincode) return -1;
