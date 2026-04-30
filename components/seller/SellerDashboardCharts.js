@@ -4,19 +4,21 @@ import { useState } from 'react';
 
 const generateDailySales = () => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  return days.map(day => ({
+  const fixedSales = [4500, 3200, 5800, 4100, 6200, 8500, 7200];
+  const fixedOrders = [12, 8, 15, 11, 14, 22, 18];
+  return days.map((day, i) => ({
     day,
-    sales: Math.floor(Math.random() * 8000) + 1000,
-    orders: Math.floor(Math.random() * 15) + 2,
+    sales: fixedSales[i],
+    orders: fixedOrders[i],
   }));
 };
 
 const generateTopProducts = () => [
-  { name: 'Handmade Gift Box', views: 342, sales: 48, conversion: 14 },
-  { name: 'Personalized Mug', views: 289, sales: 35, conversion: 12 },
-  { name: 'Rose Bouquet Set', views: 256, sales: 42, conversion: 16 },
-  { name: 'Custom Photo Frame', views: 198, sales: 22, conversion: 11 },
-  { name: 'Chocolate Hamper', views: 167, sales: 19, conversion: 11 },
+  { name: 'Classic Red Rose Bouquet', views: 542, sales: 88, conversion: 16 },
+  { name: 'Belgium Chocolate Truffle Cake', views: 489, sales: 75, conversion: 15 },
+  { name: 'Personalized LED Photo Frame', views: 426, sales: 62, conversion: 14 },
+  { name: 'Wireless Noise Cancelling Pods', views: 398, sales: 52, conversion: 13 },
+  { name: 'Customized Wooden Name Plaque', views: 367, sales: 49, conversion: 13 },
 ];
 
 function BarChart({ data, height = 200 }) {

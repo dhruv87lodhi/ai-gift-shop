@@ -36,7 +36,7 @@ export async function POST(req) {
     const user = await User.findByIdAndUpdate(
       payload.userId,
       { wishlist },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     if (!user) {

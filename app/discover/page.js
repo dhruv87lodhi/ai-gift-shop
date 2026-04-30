@@ -4,24 +4,19 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MapPin, Clock, Truck, Filter, ChevronLeft, Star, Heart, Flame, Navigation, Search, X, Gift, Sparkles, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
 
-const mockNearbyProducts = [
-  { id: 'n1', name: 'Handmade Chocolate Gift Box', price: 599, image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400', seller: 'Sweet Surprise', distance: '1.2 km', deliveryTime: 'Same Day', rating: 4.8, reviews: 124, trending: true, category: 'Chocolates', pincode: '110001' },
-  { id: 'n2', name: 'Personalized Photo Frame', price: 449, image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=400', seller: 'Frame It Up', distance: '2.5 km', deliveryTime: 'Same Day', rating: 4.6, reviews: 89, trending: false, category: 'Personalized', pincode: '400001' },
-  { id: 'n3', name: 'Rose Bouquet with Teddy', price: 899, image: 'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400', seller: 'Bloom & Gift', distance: '0.8 km', deliveryTime: 'Same Day', rating: 4.9, reviews: 256, trending: true, category: 'Flowers', pincode: '110001' },
-  { id: 'n4', name: 'Custom Name Mug Set', price: 349, image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', seller: 'MugCraft', distance: '3.1 km', deliveryTime: 'Next Day', rating: 4.5, reviews: 67, trending: false, category: 'Personalized', pincode: '560001' },
-  { id: 'n5', name: 'Premium Gift Hamper', price: 1299, image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=400', seller: 'Gift Galaxy', distance: '1.8 km', deliveryTime: 'Same Day', rating: 4.7, reviews: 198, trending: true, category: 'Hampers', pincode: '600001' },
-  { id: 'n6', name: 'Scented Candle Set', price: 699, image: 'https://images.unsplash.com/photo-1602607715218-996f84e204c9?w=400', seller: 'Aroma World', distance: '4.2 km', deliveryTime: 'Next Day', rating: 4.4, reviews: 45, trending: false, category: 'Home Decor', pincode: '110001' },
-  { id: 'n7', name: 'Rakhi Gift Combo', price: 799, image: 'https://images.unsplash.com/photo-1549465220-1a8b9238f0e1?w=400', seller: 'Festive Treats', distance: '2.0 km', deliveryTime: 'Same Day', rating: 4.8, reviews: 312, trending: true, category: 'Festival', pincode: '400001' },
-  { id: 'n8', name: 'Customized Jewelry Box', price: 549, image: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6c4?w=400', seller: 'Jewel Box Co', distance: '5.0 km', deliveryTime: 'Standard', rating: 4.3, reviews: 34, trending: false, category: 'Fashion', pincode: '560001' },
-];
+import productsData from '@/ai-service/products.json';
 
 const distanceOptions = ['All', '< 2 km', '< 5 km', '< 10 km'];
 const deliveryOptions = ['All', 'Same Day', 'Next Day', 'Standard'];
-const priceOptions = ['All', 'Under ₹500', '₹500-₹1000', 'Above ₹1000'];
-const categories = ['All', 'Chocolates', 'Flowers', 'Personalized', 'Hampers', 'Home Decor', 'Fashion', 'Festival'];
+const priceOptions = ['All', 'Under ₹500', '₹500-₹1500', 'Above ₹1500'];
+
+const uniqueCategories = Array.from(new Set(productsData.map(p => p.category)));
+const categories = ['All', ...uniqueCategories];
 
 export default function DiscoverPage() {
+  const { sellerProducts } = useAuth();
   const [distanceFilter, setDistanceFilter] = useState('All');
   const [deliveryFilter, setDeliveryFilter] = useState('All');
   const [priceFilter, setPriceFilter] = useState('All');
@@ -40,6 +35,40 @@ export default function DiscoverPage() {
     setWishlist(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
+  const baseNearbyProducts = productsData.map((p, i) => ({
+    id: p.id.toString(),
+    name: p.name,
+    price: parseInt(p.price, 10),
+    image: p.image,
+    category: p.category,
+    seller: ['Gift Galaxy', 'Bloom & Gift', 'Sweet Surprise', 'Frame It Up', 'Jewel Box Co', 'Tech Store', 'Aroma World'][i % 7],
+    distance: `${(i * 0.4 + 0.8).toFixed(1)} km`,
+    deliveryTime: i % 3 === 0 ? 'Next Day' : 'Same Day',
+    rating: (4.2 + (i % 8) * 0.1).toFixed(1),
+    reviews: 30 + (i * 27) % 300,
+    trending: p.popularity >= 90,
+    pincode: ['110001', '400001', '560001', '600001'][i % 4],
+  }));
+
+  // Map seller products to the same format
+  const mappedSellerProducts = sellerProducts.map((p, i) => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    image: p.image,
+    category: p.category,
+    seller: 'JantaMart', 
+    distance: '0.5 km',
+    deliveryTime: 'Same Day',
+    rating: '5.0',
+    reviews: 0,
+    trending: true,
+    pincode: '400001',
+    isSellerProduct: true
+  }));
+
+  const mockNearbyProducts = [...mappedSellerProducts, ...baseNearbyProducts];
+
   const filtered = mockNearbyProducts.filter(p => {
     if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase()) && !p.seller.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     if (categoryFilter !== 'All' && p.category !== categoryFilter) return false;
@@ -48,8 +77,8 @@ export default function DiscoverPage() {
     if (distanceFilter === '< 10 km' && parseFloat(p.distance) >= 10) return false;
     if (deliveryFilter !== 'All' && p.deliveryTime !== deliveryFilter) return false;
     if (priceFilter === 'Under ₹500' && p.price >= 500) return false;
-    if (priceFilter === '₹500-₹1000' && (p.price < 500 || p.price > 1000)) return false;
-    if (priceFilter === 'Above ₹1000' && p.price <= 1000) return false;
+    if (priceFilter === '₹500-₹1500' && (p.price < 500 || p.price > 1500)) return false;
+    if (priceFilter === 'Above ₹1500' && p.price <= 1500) return false;
     return true;
   });
 
@@ -152,7 +181,7 @@ export default function DiscoverPage() {
           <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4">
             {trendingProducts.map((product, i) => (
               <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="min-w-[280px] bg-white rounded-[2rem] border border-gray-100 overflow-hidden group hover:shadow-xl hover:shadow-primary/10 transition-all">
-                <div className="relative h-44 bg-gray-100 overflow-hidden">
+                <Link href={`/product/${product.id}`} className="block relative h-44 bg-gray-100 overflow-hidden">
                   <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute top-3 left-3 flex flex-col gap-2">
                     <span className="bg-orange-500 text-white text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1 w-fit"><Flame className="w-3 h-3" /> Trending</span>
@@ -163,13 +192,15 @@ export default function DiscoverPage() {
                   <div className="absolute top-3 right-3 flex gap-2">
                     <span className="bg-white/90 backdrop-blur text-[10px] font-bold text-charcoal px-2.5 py-1 rounded-full flex items-center gap-1"><MapPin className="w-3 h-3 text-primary" /> {product.distance}</span>
                   </div>
-                  <button onClick={() => toggleWish(product.id)} className="absolute bottom-3 right-3 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                  <button onClick={(e) => { e.preventDefault(); toggleWish(product.id); }} className="absolute bottom-3 right-3 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-10">
                     <Heart className={`w-4 h-4 ${wishlist.includes(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
                   </button>
-                </div>
+                </Link>
                 <div className="p-5">
                   <p className="text-[10px] font-bold text-primary uppercase tracking-wider">{product.seller}</p>
-                  <h3 className="font-bold text-charcoal text-sm mt-1 line-clamp-1">{product.name}</h3>
+                  <Link href={`/product/${product.id}`}>
+                    <h3 className="font-bold text-charcoal text-sm mt-1 line-clamp-1 hover:text-primary transition-colors">{product.name}</h3>
+                  </Link>
                   <div className="flex items-center justify-between mt-3">
                     <span className="text-lg font-black text-secondary">₹{product.price}</span>
                     <div className="flex items-center gap-1 text-xs font-bold text-gray-400">
@@ -227,7 +258,7 @@ export default function DiscoverPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {filtered.map((product, i) => (
                 <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="bg-white rounded-[2rem] border border-gray-100 overflow-hidden group hover:shadow-xl hover:shadow-primary/10 transition-all">
-                  <div className="relative h-48 bg-gray-100 overflow-hidden">
+                  <Link href={`/product/${product.id}`} className="block relative h-48 bg-gray-100 overflow-hidden">
                     <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     <div className="absolute top-3 left-3 flex flex-col gap-2">
                       <span className="bg-white/90 backdrop-blur text-[10px] font-bold text-charcoal px-2.5 py-1 rounded-full flex items-center gap-1 w-fit"><MapPin className="w-3 h-3 text-primary" /> {product.distance}</span>
@@ -240,10 +271,10 @@ export default function DiscoverPage() {
                         <span className="bg-green-500 text-white text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1"><Clock className="w-3 h-3" /> Today</span>
                       </div>
                     )}
-                    <button onClick={() => toggleWish(product.id)} className="absolute bottom-3 right-3 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                    <button onClick={(e) => { e.preventDefault(); toggleWish(product.id); }} className="absolute bottom-3 right-3 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-10">
                       <Heart className={`w-4 h-4 ${wishlist.includes(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
                     </button>
-                  </div>
+                  </Link>
                   <div className="p-5">
                     <div className="flex items-center justify-between">
                       <p className="text-[10px] font-bold text-primary uppercase tracking-wider">{product.seller}</p>
@@ -252,10 +283,12 @@ export default function DiscoverPage() {
                         <span className="text-gray-300">({product.reviews})</span>
                       </div>
                     </div>
-                    <h3 className="font-bold text-charcoal text-sm mt-1.5 line-clamp-1 group-hover:text-primary transition-colors">{product.name}</h3>
+                    <Link href={`/product/${product.id}`}>
+                      <h3 className="font-bold text-charcoal text-sm mt-1.5 line-clamp-1 group-hover:text-primary transition-colors">{product.name}</h3>
+                    </Link>
                     <div className="flex items-center justify-between mt-3">
                       <span className="text-lg font-black text-secondary">₹{product.price}</span>
-                      <button className="px-4 py-2 bg-primary/10 text-primary rounded-lg text-xs font-black hover:bg-primary hover:text-white transition-all">
+                      <button onClick={(e) => { e.preventDefault(); /* Add to cart logic if needed */ }} className="px-4 py-2 bg-primary/10 text-primary rounded-lg text-xs font-black hover:bg-primary hover:text-white transition-all">
                         <ShoppingBag className="w-3.5 h-3.5" />
                       </button>
                     </div>

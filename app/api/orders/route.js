@@ -25,7 +25,7 @@ export async function POST(req) {
         },
         $set: { cart: [] } // Clear cart in DB
       },
-      { new: true }
+      { returnDocument: 'after' }
     );
 
     return NextResponse.json({ message: 'Order recorded', orders: user.orders });

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Chatbot from "@/components/Chatbot";
 import { useWishlist } from "@/context/WishlistContext";
+import SearchBar from "@/components/SearchBar";
 
 function AIResultsContent() {
   const searchParams = useSearchParams();
@@ -146,13 +147,18 @@ function AIResultsContent() {
             </p>
           </div>
 
-          <button 
-            onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center gap-2 px-6 py-3 rounded-full border transition-all font-bold ${showFilters ? 'bg-[#caa161] text-white border-[#caa161]' : 'bg-white text-gray-900 border-gray-200 hover:border-[#caa161]'}`}
-          >
-            <SlidersHorizontal className="w-5 h-5" />
-            {showFilters ? 'Hide Filters' : 'Fine-tune Results'}
-          </button>
+          <div className="flex flex-col gap-8">
+            <SearchBar placeholder="Refine your AI search..." className="max-w-none" />
+            <div className="flex justify-end">
+              <button 
+                onClick={() => setShowFilters(!showFilters)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full border transition-all font-bold ${showFilters ? 'bg-[#caa161] text-white border-[#caa161]' : 'bg-white text-gray-900 border-gray-200 hover:border-[#caa161]'}`}
+              >
+                <SlidersHorizontal className="w-5 h-5" />
+                {showFilters ? 'Hide Filters' : 'Fine-tune Results'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
